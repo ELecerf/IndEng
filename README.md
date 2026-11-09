@@ -62,9 +62,11 @@ pdflatex -interaction=nonstopmode docs/rapport_v_minimal.tex   # x2
 ## Vocabulaire TOC couvert
 
 - **Archétypes d'usine** : V (un flux amont diverge vers plusieurs lignes
-  produit), A (plusieurs composants convergent vers peu de produits),
-  T (sous-assemblages convergents puis divergence finale). Seul **V** est
-  implémenté ; A et T sont scaffoldés.
+  produit), A (des composants produits en amont sont assemblés selon une
+  nomenclature BOM pour donner peu de produits finis), T (sous-assemblages
+  convergents puis divergence finale). **V et A sont implémentés** ; T est
+  scaffoldé. Exemple A : `config/scenarios/a_demo.yaml` (P1 = 2x comp_a +
+  1x comp_b, P2 = 1x comp_b + 2x comp_c, assemblage commun).
 - **Goulot / CCR** (Capacity-Constrained Resource) : poste de plus forte
   utilisation, rapporté comme `bottleneck` dans les KPIs.
 - **DBR** (Drum-Buffer-Rope) : règle d'ordonnancement scaffoldée
@@ -79,10 +81,11 @@ config/scenarios/*.yaml   scénarios déclaratifs (topologie, gammes, capacités
                           setups, demande, règle d'ordonnancement)
 indeng/
   config/     chargement + validation des scénarios (YAML -> Scenario)
-  domain/     entités : Product, Operation, Workstation, Plant, Job, Scenario
+  domain/     entités : Product (avec BOM optionnelle), composant, Operation,
+              Workstation, Plant, Job, Scenario
   demand/     générateurs de demande : once, constant, random (Poisson)
   scheduling/ règles d'ordonnancement interchangeables : fifo, spt, edd, dbr*
-  archetypes/ archétypes V / A / T (* scaffoldés) -> Plant
+  archetypes/ archétypes V / A implémentés, T scaffoldé -> Plant
   engine/     moteur SimPy : boucle d'événements, files d'attente par poste,
               serveurs = capacity, collecte des événements
   metrics/    KPIs TOC : throughput, WIP moyen (loi de Little), lead time,
@@ -103,6 +106,10 @@ tests/        tests unitaires et scénarios déterministes (graine fixée)
    `indeng/demand/generators.py`, l'enregistrer dans `GENERATORS`.
 3. **Nouvel archétype** : créer `indeng/archetypes/x_plant.py` avec
    `@register("X")` renvoyant un `Plant`, l'importer dans `archetypes/__init__.py`.
+   Pour un assemblage (A) : définir une section `components:` (chaque composant
+   a sa gamme) et une nomenclature `components:` par produit ; le moteur
+   attend que tous les composants d'une commande soient prêts avant de
+   lancer l'assemblage.
 4. **Nouveau scénario** : copier `config/scenarios/v_minimal.yaml`, ajuster la
    topologie ; la validation du loader attrape les incohérences (station
    inconnue, produit inconnu, etc.).

@@ -143,19 +143,24 @@ inutile).
 
 \section{Limites et perspectives}
 
-Ce premier modèle reste volontairement simple : une seule famille de produits
-par ligne, pas de pannes ni de maintenance, des setups symétriques. Les
-prochaines étapes du dépôt sont le scaffold des archétypes \textbf{A} et
-\textbf{T} (figures~\ref{fig:topo-a} et~\ref{fig:topo-t}), la règle
-d'ordonnancement \textbf{DBR} (scaffoldée dans \texttt{indeng/scheduling}), et
-des buffers de temps configurables devant le goulot pour comparer les
-politiques de protection.
+Ce premier modèle reste volontairement simple : pas de pannes ni de
+maintenance, des setups symétriques. L'archétype \textbf{A} est implémenté :
+des composants sont produits sur des lignes dédiées puis assemblés (nomenclature
+BOM) en deux produits finis P1 et P2 (figure~\ref{fig:topo-a}) ; dans ce
+scénario, le poste partagé \texttt{decoupe\_b} (présent dans les deux
+nomenclatures) devient la contrainte. Les prochaines étapes sont l'archétype
+\textbf{T} (scaffoldé, figure~\ref{fig:topo-t}), la règle d'ordonnancement
+\textbf{DBR} (scaffoldée dans \texttt{indeng/scheduling}), et des buffers de
+temps configurables devant le goulot pour comparer les politiques de
+protection.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.8\textwidth]{topology_a.pdf}
-  \caption{Archétype A (démonstration) : plusieurs composants convergent vers
-  un assemblage.}
+  \caption{Archétype A : les composants (arêtes en pointillés, quantités sur
+  les arêtes de nomenclature) convergent vers \texttt{assemblage}, qui produit
+  deux produits finis P1 et P2. Le goulot \texttt{decoupe\_b} est surligné en
+  rouge.}
   \label{fig:topo-a}
 \end{figure}
 

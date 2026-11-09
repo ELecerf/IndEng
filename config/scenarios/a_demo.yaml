@@ -1,8 +1,10 @@
 name: a_demo
 archetype: A
 seed: 1
-horizon: 1000
+horizon: 2000
 scheduling: fifo
+
+setup_default: 1.0
 
 stations:
   - {name: decoupe_a, capacity: 1}
@@ -10,21 +12,25 @@ stations:
   - {name: decoupe_c, capacity: 1}
   - {name: assemblage, capacity: 2}
 
+components:
+  comp_a: {routing: [{station: decoupe_a, time: 2.0}]}
+  comp_b: {routing: [{station: decoupe_b, time: 3.0}]}
+  comp_c: {routing: [{station: decoupe_c, time: 1.5}]}
+
 products:
   P1:
+    components: {comp_a: 2, comp_b: 1}
     routing:
-      - {station: decoupe_a, time: 2.0}
       - {station: assemblage, time: 4.0}
   P2:
+    components: {comp_b: 1, comp_c: 2}
     routing:
-      - {station: decoupe_b, time: 3.0}
-      - {station: assemblage, time: 4.0}
-  P3:
-    routing:
-      - {station: decoupe_c, time: 1.5}
-      - {station: assemblage, time: 4.0}
+      - {station: assemblage, time: 5.0}
 
 demand:
-  kind: once
-  products: [P1, P2, P3]
-  qty: 10
+  kind: random
+  products: [P1, P2]
+  rate: 0.03
+  qty_min: 5
+  qty_max: 15
+  due_slack: 3.0

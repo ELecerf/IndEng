@@ -64,6 +64,28 @@ def test_single_capacity_serializes():
     assert sorted(result.completions["completed_at"]) == [1.0, 2.0]
 
 
+def test_archetype_a_assembly_waits_for_components():
+    data = {
+        "name": "a",
+        "archetype": "A",
+        "horizon": 50.0,
+        "stations": [{"name": "cut", "capacity": 1}, {"name": "asm", "capacity": 1}],
+        "components": {"comp": {"routing": [{"station": "cut", "time": 2.0}]}},
+        "products": {
+            "P": {"components": {"comp": 1}, "routing": [{"station": "asm", "time": 3.0}]}
+        },
+        "demand": {"kind": "once", "products": ["P"], "qty": 2},
+    }
+    result = SimEngine(scenario_from_dict(data), seed=0).run()
+    assert len(result.completions) == 1
+    row = result.completions.iloc[0]
+    assert row["product"] == "P"
+    assert row["completed_at"] == 4.0 + 6.0
+    assert set(result.events["product"]) == {"comp", "P"}
+    comp_events = result.events[result.events["product"] == "comp"]
+    assert (comp_events["end"] - comp_events["start"]).iloc[0] == 4.0
+
+
 def test_setup_time_applied_on_product_change():
     data = _two_product_data(1)
     data["setup_default"] = 2.0

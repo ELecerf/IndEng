@@ -10,4 +10,9 @@ def build_v(scenario: Scenario) -> Plant:
             "archetype V expects all products to share the same first station "
             "(single upstream flow diverging into product lines)"
         )
-    return Plant(name=scenario.name, stations=scenario.stations, products=scenario.products)
+    return Plant(
+        name=scenario.name,
+        stations=scenario.stations,
+        products=scenario.products,
+        components=scenario.components,
+    )

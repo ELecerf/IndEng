@@ -66,3 +66,41 @@ def test_v_requires_shared_first_station():
     scenario = scenario_from_dict(data)
     with pytest.raises(ValueError, match="archetype V"):
         build_plant(scenario)
+
+
+def a_dict():
+    return {
+        "name": "a",
+        "archetype": "A",
+        "stations": [{"name": "cut"}, {"name": "asm"}],
+        "components": {"comp": {"routing": [{"station": "cut", "time": 2.0}]}},
+        "products": {
+            "P1": {"components": {"comp": 2}, "routing": [{"station": "asm", "time": 3.0}]},
+            "P2": {"components": {"comp": 1}, "routing": [{"station": "asm", "time": 4.0}]},
+        },
+        "demand": {"kind": "once", "products": ["P1", "P2"], "qty": 1},
+    }
+
+
+def test_unknown_bom_component_rejected():
+    data = a_dict()
+    data["products"]["P1"]["components"] = {"nope": 1}
+    with pytest.raises(ValueError, match="unknown component"):
+        scenario_from_dict(data)
+
+
+def test_archetype_a_requires_bom():
+    data = a_dict()
+    for product in data["products"].values():
+        product.pop("components")
+    scenario = scenario_from_dict(data)
+    with pytest.raises(ValueError, match="archetype A"):
+        build_plant(scenario)
+
+
+def test_archetype_a_builds_with_two_products():
+    scenario = scenario_from_dict(a_dict())
+    plant = build_plant(scenario)
+    assert set(plant.products) == {"P1", "P2"}
+    assert plant.products["P1"].bom == (("comp", 2.0),)
+    assert scenario.nominal_flow_time("P1", 1) == (2.0 * 2) + 3.0

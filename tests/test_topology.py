@@ -24,11 +24,16 @@ def test_highlight_marks_bottleneck():
     assert "#FF6B6B" in dot
 
 
-def test_a_demo_shows_convergence():
+def test_a_demo_shows_component_assembly():
     scenario = load_scenario(ROOT / "config" / "scenarios" / "a_demo.yaml")
     dot = topology_dot(scenario)
-    for upstream in ("decoupe_a", "decoupe_b", "decoupe_c"):
-        assert f'"{upstream}" -> "assemblage"' in dot
+    assert '"decoupe_a" -> "assemblage"' in dot
+    assert '"decoupe_b" -> "assemblage"' in dot
+    assert '"decoupe_c" -> "assemblage"' in dot
+    assert 'label="comp_a x2.0"' in dot
+    assert 'label="comp_c x2.0"' in dot
+    assert '"assemblage" -> "P1"' in dot
+    assert '"assemblage" -> "P2"' in dot
 
 
 def test_t_demo_shows_convergence_then_divergence():

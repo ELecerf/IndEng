@@ -71,19 +71,42 @@ class SimEngine:
             if state.wakeup is not None and not state.wakeup.triggered:
                 state.wakeup.succeed()
 
+        def component_done(assembly: Job) -> None:
+            assembly.pending -= 1
+            if assembly.pending <= 0:
+                release(assembly)
+
         def emit(product: str, qty: float) -> None:
             nonlocal seq
             due = env.now + scenario.nominal_flow_time(product, qty) * scenario.demand.due_slack
+            prod = plant.products[product]
             job = Job(
                 seq=seq,
                 product=product,
                 qty=qty,
                 due=due,
                 released_at=env.now,
-                routing=plant.products[product].routing,
+                routing=prod.routing,
             )
             seq += 1
-            release(job)
+            if prod.bom:
+                job.pending = len(prod.bom)
+                for comp_name, per_unit in prod.bom:
+                    comp = plant.components[comp_name]
+                    component_job = Job(
+                        seq=seq,
+                        product=comp_name,
+                        qty=per_unit * qty,
+                        due=due,
+                        released_at=env.now,
+                        routing=comp.routing,
+                        kind="component",
+                        on_complete=lambda done=job: component_done(done),
+                    )
+                    seq += 1
+                    release(component_job)
+            else:
+                release(job)
 
         def server_loop(state: _StationState) -> Iterator:
             last_product: str | None = None
@@ -119,16 +142,19 @@ class SimEngine:
                 )
                 job.advance()
                 if job.done:
-                    completions.append(
-                        {
-                            "job_id": job.seq,
-                            "product": job.product,
-                            "qty": job.qty,
-                            "released_at": job.released_at,
-                            "completed_at": end,
-                            "due": job.due,
-                        }
-                    )
+                    if job.kind == "product":
+                        completions.append(
+                            {
+                                "job_id": job.seq,
+                                "product": job.product,
+                                "qty": job.qty,
+                                "released_at": job.released_at,
+                                "completed_at": end,
+                                "due": job.due,
+                            }
+                        )
+                    elif job.on_complete is not None:
+                        job.on_complete()
                 else:
                     release(job)
 

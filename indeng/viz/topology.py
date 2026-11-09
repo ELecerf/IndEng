@@ -39,12 +39,29 @@ def topology_dot(scenario: Scenario, highlight: str | None = None) -> str:
         lines.append(
             f'  "{product_name}" [shape=box, style="rounded,filled", fillcolor="#BDD7EE"];'
         )
+    offset = len(scenario.products)
+    for i, (comp_name, component) in enumerate(scenario.components.items()):
+        color = PALETTE[(offset + i) % len(PALETTE)]
+        ops = component.routing
+        lines.append(
+            f'  "demande" -> "{ops[0].station}" [color="{color}", style=dashed, label="{comp_name}"];'
+        )
+        for j in range(len(ops) - 1):
+            lines.append(
+                f'  "{ops[j].station}" -> "{ops[j + 1].station}" [color="{color}", style=dashed, label="t={ops[j].time}"];'
+            )
     for i, (product_name, product) in enumerate(scenario.products.items()):
         color = PALETTE[i % len(PALETTE)]
         ops = product.routing
-        lines.append(
-            f'  "demande" -> "{ops[0].station}" [color="{color}", penwidth=2, label="{product_name}"];'
-        )
+        if not product.bom:
+            lines.append(
+                f'  "demande" -> "{ops[0].station}" [color="{color}", penwidth=2, label="{product_name}"];'
+            )
+        for comp_name, per_unit in product.bom:
+            comp_last = scenario.components[comp_name].routing[-1].station
+            lines.append(
+                f'  "{comp_last}" -> "{ops[0].station}" [color="{color}", penwidth=2, label="{comp_name} x{per_unit}"];'
+            )
         for j, op in enumerate(ops):
             target = ops[j + 1].station if j + 1 < len(ops) else product_name
             lines.append(

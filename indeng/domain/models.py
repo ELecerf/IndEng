@@ -13,6 +13,7 @@ class Operation:
 class Product:
     name: str
     routing: tuple[Operation, ...]
+    bom: tuple[tuple[str, float], ...] = ()
 
 
 @dataclass(frozen=True)
@@ -38,6 +39,7 @@ class Plant:
     name: str
     stations: dict[str, Workstation]
     products: dict[str, Product]
+    components: dict[str, Product]
 
 
 @dataclass
@@ -49,6 +51,9 @@ class Job:
     released_at: float
     routing: tuple[Operation, ...]
     next_op: int = 0
+    kind: str = "product"
+    pending: int = 0
+    on_complete: object = None
 
     @property
     def id(self) -> int:
@@ -72,6 +77,7 @@ class Scenario:
     stations: dict[str, Workstation]
     products: dict[str, Product]
     demand: DemandSpec
+    components: dict[str, Product] = field(default_factory=dict)
     scheduling: str = "fifo"
     seed: int = 0
     horizon: float = 1000.0
@@ -88,4 +94,9 @@ class Scenario:
         )
 
     def nominal_flow_time(self, product: str, qty: float) -> float:
-        return sum(op.time for op in self.products[product].routing) * qty
+        prod = self.products[product]
+        total = sum(op.time for op in prod.routing) * qty
+        for comp_name, per_unit in prod.bom:
+            comp = self.components[comp_name]
+            total += sum(op.time for op in comp.routing) * per_unit * qty
+        return total

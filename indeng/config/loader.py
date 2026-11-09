@@ -30,7 +30,8 @@ def scenario_from_dict(data: dict) -> Scenario:
             f"unknown scheduling rule {scheduling!r}; expected one of {sorted(RULES)}"
         )
     stations = _parse_stations(data.get("stations"))
-    products = _parse_products(data.get("products"), stations)
+    components = _parse_components(data.get("components"), stations)
+    products = _parse_products(data.get("products"), stations, components)
     demand = _parse_demand(data.get("demand"), products)
     return Scenario(
         name=str(data.get("name", "unnamed")),
@@ -38,6 +39,7 @@ def scenario_from_dict(data: dict) -> Scenario:
         stations=stations,
         products=products,
         demand=demand,
+        components=components,
         scheduling=scheduling,
         seed=int(data.get("seed", 0)),
         horizon=float(data.get("horizon", 1000.0)),
@@ -61,26 +63,51 @@ def _parse_stations(raw) -> dict[str, Workstation]:
     return stations
 
 
-def _parse_products(raw, stations: dict[str, Workstation]) -> dict[str, Product]:
+def _parse_components(raw, stations: dict[str, Workstation]) -> dict[str, Product]:
+    components: dict[str, Product] = {}
+    for name, spec in (raw or {}).items():
+        ops = _parse_routing(str(name), spec.get("routing"), stations)
+        components[str(name)] = Product(name=str(name), routing=tuple(ops))
+    return components
+
+
+def _parse_routing(owner: str, routing_raw, stations: dict[str, Workstation]) -> list[Operation]:
+    if not routing_raw:
+        raise ValueError(f"{owner} must define a non-empty 'routing'")
+    ops = []
+    for op in routing_raw:
+        station = str(op["station"])
+        if station not in stations:
+            raise ValueError(f"{owner}: unknown station {station!r} in routing")
+        time = float(op["time"])
+        if time <= 0:
+            raise ValueError(f"{owner}: operation time must be > 0")
+        ops.append(Operation(station=station, time=time))
+    return ops
+
+
+def _parse_products(
+    raw, stations: dict[str, Workstation], components: dict[str, Product]
+) -> dict[str, Product]:
     if not raw:
         raise ValueError("scenario must define 'products'")
     products: dict[str, Product] = {}
     for name, spec in raw.items():
-        routing_raw = spec.get("routing")
-        if not routing_raw:
-            raise ValueError(f"product {name!r} must define a non-empty 'routing'")
-        ops = []
-        for op in routing_raw:
-            station = str(op["station"])
-            if station not in stations:
+        ops = _parse_routing(f"product {name!r}", spec.get("routing"), stations)
+        bom_raw = spec.get("components") or {}
+        bom = []
+        for comp_name, per_unit in bom_raw.items():
+            comp_name = str(comp_name)
+            if comp_name not in components:
                 raise ValueError(
-                    f"product {name!r}: unknown station {station!r} in routing"
+                    f"product {name!r}: unknown component {comp_name!r} in BOM"
                 )
-            time = float(op["time"])
-            if time <= 0:
-                raise ValueError(f"product {name!r}: operation time must be > 0")
-            ops.append(Operation(station=station, time=time))
-        products[str(name)] = Product(name=str(name), routing=tuple(ops))
+            if float(per_unit) <= 0:
+                raise ValueError(f"product {name!r}: BOM qty for {comp_name!r} must be > 0")
+            bom.append((comp_name, float(per_unit)))
+        products[str(name)] = Product(
+            name=str(name), routing=tuple(ops), bom=tuple(bom)
+        )
     return products
 
 
