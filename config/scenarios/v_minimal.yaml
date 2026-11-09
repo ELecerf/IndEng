@@ -1,0 +1,34 @@
+name: v_minimal
+archetype: V
+seed: 42
+horizon: 2000
+scheduling: fifo
+
+setup_default: 1.0
+setup_matrix:
+  prep:
+    P1: {P2: 3.0}
+    P2: {P1: 3.0}
+
+stations:
+  - {name: prep, capacity: 2}
+  - {name: line_a, capacity: 1}
+  - {name: line_b, capacity: 1}
+
+products:
+  P1:
+    routing:
+      - {station: prep, time: 2.0}
+      - {station: line_a, time: 3.0}
+  P2:
+    routing:
+      - {station: prep, time: 2.0}
+      - {station: line_b, time: 6.0}
+
+demand:
+  kind: random
+  products: [P1, P2]
+  rate: 0.02
+  qty_min: 5
+  qty_max: 20
+  due_slack: 2.0
