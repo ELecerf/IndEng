@@ -1,0 +1,30 @@
+name: a_demo
+archetype: A
+seed: 1
+horizon: 1000
+scheduling: fifo
+
+stations:
+  - {name: decoupe_a, capacity: 1}
+  - {name: decoupe_b, capacity: 1}
+  - {name: decoupe_c, capacity: 1}
+  - {name: assemblage, capacity: 2}
+
+products:
+  P1:
+    routing:
+      - {station: decoupe_a, time: 2.0}
+      - {station: assemblage, time: 4.0}
+  P2:
+    routing:
+      - {station: decoupe_b, time: 3.0}
+      - {station: assemblage, time: 4.0}
+  P3:
+    routing:
+      - {station: decoupe_c, time: 1.5}
+      - {station: assemblage, time: 4.0}
+
+demand:
+  kind: once
+  products: [P1, P2, P3]
+  qty: 10

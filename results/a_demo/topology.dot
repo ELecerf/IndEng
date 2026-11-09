@@ -1,0 +1,21 @@
+digraph plant {
+  rankdir=LR;
+  node [shape=box, style="rounded,filled", fillcolor=white];
+  "demande" [shape=oval, fillcolor=grey80];
+  "decoupe_a" [label="decoupe_a\ncap=1", fillcolor="white"];
+  "decoupe_b" [label="decoupe_b\ncap=1", fillcolor="white"];
+  "decoupe_c" [label="decoupe_c\ncap=1", fillcolor="white"];
+  "assemblage" [label="assemblage\ncap=2", fillcolor="white"];
+  "P1" [shape=box, style="rounded,filled", fillcolor="#BDD7EE"];
+  "P2" [shape=box, style="rounded,filled", fillcolor="#BDD7EE"];
+  "P3" [shape=box, style="rounded,filled", fillcolor="#BDD7EE"];
+  "demande" -> "decoupe_a" [color="#E6194B", penwidth=2, label="P1"];
+  "decoupe_a" -> "assemblage" [color="#E6194B", penwidth=2, label="t=2.0"];
+  "assemblage" -> "P1" [color="#E6194B", penwidth=2, label="t=4.0"];
+  "demande" -> "decoupe_b" [color="#3CB44B", penwidth=2, label="P2"];
+  "decoupe_b" -> "assemblage" [color="#3CB44B", penwidth=2, label="t=3.0"];
+  "assemblage" -> "P2" [color="#3CB44B", penwidth=2, label="t=4.0"];
+  "demande" -> "decoupe_c" [color="#4363D8", penwidth=2, label="P3"];
+  "decoupe_c" -> "assemblage" [color="#4363D8", penwidth=2, label="t=1.5"];
+  "assemblage" -> "P3" [color="#4363D8", penwidth=2, label="t=4.0"];
+}

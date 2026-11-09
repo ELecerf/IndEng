@@ -27,6 +27,27 @@ Produit dans `out/` : `kpis.csv` (un run par ligne), `events.csv`,
 `completions.csv`, et les graphiques `gantt.png`, `production.png`,
 `utilization.png`.
 
+## Topologie des gammes (Graphviz)
+
+Visualiser la structure V / A / T d'un scénario (postes, gammes par produit,
+temps d'opération, goulot surligné) :
+
+```bash
+indeng graph config/scenarios/v_minimal.yaml --out out --highlight line_b
+# produit out/topology.dot (source Graphviz) et out/topology.svg
+```
+
+Le rendu SVG passe par `scripts/render_dot.mjs`, qui utilise **@viz-js/viz**
+(Graphviz compilé en WebAssembly, donc pas besoin du binaire `dot` système) :
+
+```bash
+npm install @viz-js/viz      # une fois, à la racine du dépôt
+```
+
+Exemples prêts à l'emploi : `config/scenarios/v_minimal.yaml` (V),
+`a_demo.yaml` (A, convergent), `t_demo.yaml` (T). Les rendus sont versionnés
+dans `results/<scenario>/topology.svg` (affichage direct sur GitHub).
+
 ## Vocabulaire TOC couvert
 
 - **Archétypes d'usine** : V (un flux amont diverge vers plusieurs lignes

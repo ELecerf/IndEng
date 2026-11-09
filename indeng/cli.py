@@ -7,6 +7,7 @@ from indeng.config.loader import load_scenario
 from indeng.experiments.runner import run_experiment, run_single, summarize
 from indeng.metrics.kpis import compute_kpis, station_utilization
 from indeng.viz.plots import save_all_plots
+from indeng.viz.topology import save_topology
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -20,6 +21,14 @@ def main(argv: list[str] | None = None) -> int:
     run_parser.add_argument("--seed", type=int, default=None)
     run_parser.add_argument("--out", type=Path, default=Path("out"))
     run_parser.add_argument("--no-plots", action="store_true")
+    graph_parser = subparsers.add_parser(
+        "graph", help="render the routing topology of a scenario (Graphviz DOT/SVG)"
+    )
+    graph_parser.add_argument("config", type=Path)
+    graph_parser.add_argument("--out", type=Path, default=Path("out"))
+    graph_parser.add_argument(
+        "--highlight", type=str, default=None, help="station to highlight (e.g. bottleneck)"
+    )
     args = parser.parse_args(argv)
 
     if args.command == "run":
@@ -39,6 +48,12 @@ def main(argv: list[str] | None = None) -> int:
             )
             for path in paths:
                 print(f"saved {path}")
+        return 0
+    if args.command == "graph":
+        scenario = load_scenario(args.config)
+        paths = save_topology(scenario, args.out, highlight=args.highlight)
+        for path in paths:
+            print(f"saved {path}")
         return 0
     return 2
 

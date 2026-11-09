@@ -1,0 +1,16 @@
+digraph plant {
+  rankdir=LR;
+  node [shape=box, style="rounded,filled", fillcolor=white];
+  "demande" [shape=oval, fillcolor=grey80];
+  "prep" [label="prep\ncap=2", fillcolor="white"];
+  "line_a" [label="line_a\ncap=1", fillcolor="white"];
+  "line_b" [label="line_b\ncap=1\nGOULOT", fillcolor="#FF6B6B"];
+  "P1" [shape=box, style="rounded,filled", fillcolor="#BDD7EE"];
+  "P2" [shape=box, style="rounded,filled", fillcolor="#BDD7EE"];
+  "demande" -> "prep" [color="#E6194B", penwidth=2, label="P1"];
+  "prep" -> "line_a" [color="#E6194B", penwidth=2, label="t=2.0"];
+  "line_a" -> "P1" [color="#E6194B", penwidth=2, label="t=3.0"];
+  "demande" -> "prep" [color="#3CB44B", penwidth=2, label="P2"];
+  "prep" -> "line_b" [color="#3CB44B", penwidth=2, label="t=2.0"];
+  "line_b" -> "P2" [color="#3CB44B", penwidth=2, label="t=6.0"];
+}

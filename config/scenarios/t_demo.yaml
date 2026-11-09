@@ -1,0 +1,29 @@
+name: t_demo
+archetype: T
+seed: 1
+horizon: 1000
+scheduling: fifo
+
+stations:
+  - {name: sous_ensemble_a, capacity: 1}
+  - {name: sous_ensemble_b, capacity: 1}
+  - {name: assemblage, capacity: 2}
+  - {name: finition_x, capacity: 1}
+  - {name: finition_y, capacity: 1}
+
+products:
+  P1:
+    routing:
+      - {station: sous_ensemble_a, time: 2.0}
+      - {station: assemblage, time: 3.0}
+      - {station: finition_x, time: 2.0}
+  P2:
+    routing:
+      - {station: sous_ensemble_b, time: 2.5}
+      - {station: assemblage, time: 3.0}
+      - {station: finition_y, time: 3.5}
+
+demand:
+  kind: once
+  products: [P1, P2]
+  qty: 10

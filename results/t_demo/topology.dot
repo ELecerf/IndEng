@@ -1,0 +1,20 @@
+digraph plant {
+  rankdir=LR;
+  node [shape=box, style="rounded,filled", fillcolor=white];
+  "demande" [shape=oval, fillcolor=grey80];
+  "sous_ensemble_a" [label="sous_ensemble_a\ncap=1", fillcolor="white"];
+  "sous_ensemble_b" [label="sous_ensemble_b\ncap=1", fillcolor="white"];
+  "assemblage" [label="assemblage\ncap=2", fillcolor="white"];
+  "finition_x" [label="finition_x\ncap=1", fillcolor="white"];
+  "finition_y" [label="finition_y\ncap=1", fillcolor="white"];
+  "P1" [shape=box, style="rounded,filled", fillcolor="#BDD7EE"];
+  "P2" [shape=box, style="rounded,filled", fillcolor="#BDD7EE"];
+  "demande" -> "sous_ensemble_a" [color="#E6194B", penwidth=2, label="P1"];
+  "sous_ensemble_a" -> "assemblage" [color="#E6194B", penwidth=2, label="t=2.0"];
+  "assemblage" -> "finition_x" [color="#E6194B", penwidth=2, label="t=3.0"];
+  "finition_x" -> "P1" [color="#E6194B", penwidth=2, label="t=2.0"];
+  "demande" -> "sous_ensemble_b" [color="#3CB44B", penwidth=2, label="P2"];
+  "sous_ensemble_b" -> "assemblage" [color="#3CB44B", penwidth=2, label="t=2.5"];
+  "assemblage" -> "finition_y" [color="#3CB44B", penwidth=2, label="t=3.0"];
+  "finition_y" -> "P2" [color="#3CB44B", penwidth=2, label="t=3.5"];
+}
