@@ -48,6 +48,17 @@ Exemples prêts à l'emploi : `config/scenarios/v_minimal.yaml` (V),
 `a_demo.yaml` (A, convergent), `t_demo.yaml` (T). Les rendus sont versionnés
 dans `results/<scenario>/topology.svg` (affichage direct sur GitHub).
 
+## Rapport LaTeX
+
+`docs/rapport_v_minimal.tex` analyse la simulation V (enseignements TOC) et
+inclut les figures (topologies Graphviz converties en PDF via
+`scripts/svg_to_pdf.py`, graphiques matplotlib en PNG). Compilation :
+
+```bash
+pdflatex -interaction=nonstopmode docs/rapport_v_minimal.tex   # x2
+# sorties versionnées : docs/rapport_v_minimal.pdf + docs/figures/*.pdf
+```
+
 ## Vocabulaire TOC couvert
 
 - **Archétypes d'usine** : V (un flux amont diverge vers plusieurs lignes

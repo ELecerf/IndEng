@@ -7,3 +7,6 @@ out/
 examples/out/
 node_modules/
 node_modules
+docs/*.aux
+docs/*.log
+docs/*.out
