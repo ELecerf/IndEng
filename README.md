@@ -27,6 +27,21 @@ Produit dans `out/` : `kpis.csv` (un run par ligne), `events.csv`,
 `completions.csv`, et les graphiques `gantt.png`, `production.png`,
 `utilization.png`.
 
+## Comparer DBR, kanban et CONWIP
+
+```bash
+# Replays du régime stable et du choc de mix, sur une horloge commune
+indeng compare-flow config/scenarios/flow_comparison.yaml --scenario both --out out/replay
+
+# Campagne complète, 30 répétitions appariées par scénario et phase
+indeng compare-flow config/scenarios/flow_comparison.yaml --campaign --workers 4 --out out/campaign
+```
+
+La campagne calibre les politiques à 95 % de service, les soumet aux chocs
+avec leurs réglages gelés, puis mesure l'effet d'une révision commune. Elle
+exporte les résultats et les journaux nécessaires aux futures animations.
+Voir le [protocole et le dictionnaire des sorties](docs/flow_comparison.md).
+
 ## Topologie des gammes (Graphviz)
 
 Visualiser la structure V / A / T d'un scénario (postes, gammes par produit,
@@ -69,8 +84,9 @@ pdflatex -interaction=nonstopmode docs/rapport_v_minimal.tex   # x2
   1x comp_b, P2 = 1x comp_b + 2x comp_c, assemblage commun).
 - **Goulot / CCR** (Capacity-Constrained Resource) : poste de plus forte
   utilisation, rapporté comme `bottleneck` dans les KPIs.
-- **DBR** (Drum-Buffer-Rope) : règle d'ordonnancement scaffoldée
-  (`scheduling: dbr`) mais pas encore implémentée.
+- **DBR** (Drum-Buffer-Rope) réserve le tambour à capacité finie dans
+  `compare-flow`. La comparaison déclare le pilotage sous `flow_control` et
+  le séquencement sous `scheduling`.
 - **Temps de changement de série** : `setup_default` + `setup_matrix`
   (temps dépendant de la séquence produit -> produit, par poste).
 
@@ -91,6 +107,7 @@ indeng/
   metrics/    KPIs TOC : throughput, WIP moyen (loi de Little), lead time,
               utilisation par poste, goulot, taux de retard
   experiments/ runner Monte-Carlo (N graines -> moyenne / écart-type)
+  flow/       comparaison sur stock, calendrier du tambour et replays appariés
   viz/        Gantt des postes, courbe de production cumulée, utilisation
   cli.py      `indeng run <config> [--runs N] [--out DIR] [--no-plots]`
 examples/     run_v_minimal.py + legacy/ (Archetype1 original)

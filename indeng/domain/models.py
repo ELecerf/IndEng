@@ -83,6 +83,7 @@ class Scenario:
     horizon: float = 1000.0
     setup_default: float = 0.0
     setup_matrix: dict = field(default_factory=dict)
+    flow_control: dict | None = None
 
     def setup_time(self, station: str, from_product: str | None, to_product: str) -> float:
         if from_product is None or from_product == to_product:
