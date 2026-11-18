@@ -1,0 +1,63 @@
+name: flow_comparison
+archetype: V
+seed: 1701
+scheduling: fifo
+
+stations:
+  - {name: A, capacity: 1}
+  - {name: B, capacity: 1}
+  - {name: C, capacity: 1}
+  - {name: D, capacity: 1}
+products:
+  rouge:
+    routing: [{station: A, time: 4}, {station: B, time: 14}, {station: C, time: 5}, {station: D, time: 4}]
+  bleue:
+    routing: [{station: A, time: 4}, {station: B, time: 6}, {station: C, time: 11}, {station: D, time: 4}]
+  verte:
+    routing: [{station: A, time: 4}, {station: B, time: 10}, {station: C, time: 8}, {station: D, time: 4}]
+demand:
+  kind: constant
+  products: [rouge, bleue, verte]
+  interval: 11.111111111111111
+
+flow_control:
+  warmup_windows: 4
+  observation_windows: 8
+  customer_delay: 0
+  replenishment_delay: 75
+  review_windows: 2
+  notice_windows: 1
+  recovery_windows: 2
+  load_amplitude: 0.4
+  drum_window: 666.6666666666666
+  drum_period: 166.66666666666666
+  drum_gap: 0.08
+  policies:
+    dbr: {target: 6, upstream: 16, downstream: 16, drum: B}
+    kanban: {target: 3, intermediate: [1, 1, 1], allocation: [1, 1, 1]}
+    conwip: {target: 4, cap: 8, cap_minutes: 80, drum: B}
+  grids:
+    dbr:
+      - {target: 4}
+      - {target: 5}
+      - {target: 7}
+      - {target: 9}
+      - {target: 6, upstream: 9, downstream: 10}
+      - {target: 6, upstream: 24, downstream: 22}
+      - {target: 8, upstream: 24, downstream: 22}
+    kanban:
+      - {target: 2}
+      - {target: 4}
+      - {target: 6}
+      - {target: 3, intermediate: [1, 2, 1]}
+      - {target: 3, intermediate: [2, 2, 1], allocation: [2, 1, 1]}
+      - {target: 6, intermediate: [2, 2, 1]}
+      - {target: 8, intermediate: [2, 3, 2]}
+    conwip:
+      - {target: 2, cap: 5, cap_minutes: 50}
+      - {target: 4, cap: 5, cap_minutes: 50}
+      - {target: 3, cap: 12, cap_minutes: 120}
+      - {target: 5, cap: 8}
+      - {target: 6, cap: 12, cap_minutes: 120}
+      - {target: 8, cap: 12, cap_minutes: 120}
+      - {target: 10, cap: 16, cap_minutes: 160}

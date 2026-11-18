@@ -45,6 +45,7 @@ def scenario_from_dict(data: dict) -> Scenario:
         horizon=float(data.get("horizon", 1000.0)),
         setup_default=float(data.get("setup_default", 0.0)),
         setup_matrix=data.get("setup_matrix") or {},
+        flow_control=data.get("flow_control"),
     )
 
 
