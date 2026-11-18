@@ -25,5 +25,8 @@ indeng = "indeng.cli:main"
 [tool.setuptools.packages.find]
 include = ["indeng*"]
 
+[tool.setuptools.package-data]
+"indeng.flow" = ["comparison.html"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]

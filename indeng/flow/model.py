@@ -131,7 +131,10 @@ def _settings(values: dict, base: Settings, stations: tuple[str, ...]) -> Settin
 
 
 def load_study(path: str | Path) -> Study:
-    scenario = load_scenario(path)
+    return study_from_scenario(load_scenario(path))
+
+
+def study_from_scenario(scenario: Scenario) -> Study:
     raw = scenario.flow_control
     if not isinstance(raw, dict):
         raise ValueError("comparison requires a flow_control mapping")

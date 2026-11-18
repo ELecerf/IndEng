@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IndEng · Comparaison des flux</title>
+<style>
+  :root { color-scheme: light; font: 16px system-ui, sans-serif; color: #192b2c; background: #edf3f1; }
+  body { max-width: 1080px; margin: auto; padding: 32px 20px; }
+  header { background: #153b38; color: white; padding: 28px; border-radius: 16px; }
+  h1 { margin: 0; font-size: clamp(1.7rem, 5vw, 3rem); }
+  h2 { font-size: 1.25rem; } p { line-height: 1.5; }
+  section, fieldset, details { background: white; border: 1px solid #c9d8d4; border-radius: 12px; padding: 18px; margin: 14px 0; min-width: 0; }
+  legend, summary { font-weight: 650; } summary { cursor: pointer; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 175px), 1fr)); gap: 12px; }
+  .policies { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap: 12px; }
+  label { display: block; font-size: .9rem; }
+  input:not([type=checkbox]), select { display: block; width: 100%; margin-top: 6px; box-sizing: border-box; }
+  input, select, button { font: inherit; padding: 8px; border: 1px solid #8aaba5; border-radius: 6px; }
+  button { cursor: pointer; background: white; padding: 10px 15px; }
+  button[type=submit] { background: #125b50; color: white; border-color: #125b50; }
+  button:disabled { opacity: .55; cursor: default; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .table { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { padding: 10px; border-bottom: 1px solid #dbe5e2; text-align: right; white-space: nowrap; }
+  th:first-child { text-align: left; }
+  thead th { background: #e4efeb; }
+  [role=alert] { color: #942b24; }
+</style>
+</head>
+<body>
+<header><h1>DBR, kanban et CONWIP</h1><p>Comparez les politiques sur les mêmes arrivées et durées opératoires.</p></header>
+<form id="form">
+  <section>
+    <h2>Scénario</h2>
+    <div class="grid">
+      <label>Expérience<select id="design"></select></label>
+      <label>Graine<input id="seed" type="number" required step="1"></label>
+      <label><input id="variants" type="checkbox"> Inclure les variantes</label>
+    </div>
+  </section>
+  <section id="common"><h2>Demande et horizon</h2><div class="grid"></div></section>
+  <div id="policies" class="policies"></div>
+  <details><summary>Temps opératoires et paramètres avancés</summary><div id="advanced" class="grid"></div></details>
+  <div class="actions">
+    <button id="run" type="submit" disabled>Lancer la comparaison</button>
+    <button id="reset" type="button" disabled>Rétablir les valeurs initiales</button>
+    <button id="export" type="button" disabled>Exporter les résultats CSV</button>
+  </div>
+</form>
+<p id="status" role="status"></p>
+<p id="error" role="alert"></p>
+<section id="results" hidden>
+  <h2>Résultats sur la fenêtre d’observation</h2><p id="result-context"></p>
+  <div class="table"><table>
+    <thead><tr><th>Politique</th><th>Service à temps</th><th>Stock moyen</th><th>Livraisons/h</th><th>Pic du backlog</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table></div>
+</section>
+<script>
+const byId = id => document.getElementById(id);
+const form = byId("form");
+const labels = {
+  stable: "Régime stable", mix: "Choc de mix", mix_bleu: "Mix à dominante bleue",
+  mix_gammes_identiques: "Choc de mix · gammes identiques",
+  temoin_gammes_identiques: "Témoin · gammes identiques", renouvellement: "Renouvellement",
+  erreur_durees: "Erreur de durée", hausse_absorbable: "Hausse de demande absorbable",
+  surcharge: "Surcharge", dbr: "DBR", kanban: "Kanban dédié", conwip: "CONWIP",
+  dbr_fifo: "DBR FIFO", dbr_adaptive: "DBR adaptatif",
+  kanban_shared: "Kanban partagé", conwip_weighted: "CONWIP pondéré"
+};
+const metrics = ["observation_service", "observation_stock_total", "observation_delivered_per_hour", "observation_backlog_peak"];
+const number = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 2 });
+let initial, config, bindings, lastRun;
+
+function field(container, label, object, key, options) {
+  const wrapper = document.createElement("label");
+  wrapper.textContent = label;
+  const input = document.createElement(options ? "select" : "input");
+  if (options) input.replaceChildren(...options.map(value => new Option(value, value)));
+  else { input.type = "number"; input.step = "any"; input.required = true; }
+  input.value = object[key];
+  wrapper.append(input);
+  container.append(wrapper);
+  bindings.push(() => { object[key] = options ? input.value : input.valueAsNumber; });
+}
+
+function loadFields() {
+  config = structuredClone(initial);
+  bindings = [];
+  byId("seed").value = config.seed;
+  const common = byId("common").querySelector(".grid");
+  const advanced = byId("advanced");
+  common.replaceChildren();
+  advanced.replaceChildren();
+  byId("policies").replaceChildren();
+  const flow = config.flow_control;
+  field(common, "Intervalle des arrivées (min)", config.demand, "interval");
+  for (const [key, label] of Object.entries({
+    warmup_windows: "Fenêtres d’échauffement", observation_windows: "Fenêtres observées",
+    customer_delay: "Délai promis (min)", replenishment_delay: "Délai de réapprovisionnement (min)",
+    load_amplitude: "Amplitude des temps opératoires (0 à < 1)"
+  })) field(common, label, flow, key);
+  for (const [policy, fields] of Object.entries({
+    dbr: {target: "Cible par référence", upstream: "Tampon amont (min)", downstream: "Tampon aval (min)", drum: "Poste tambour"},
+    kanban: {target: "Cible par référence"}, conwip: {target: "Cible par référence", cap: "Plafond d’OF", cap_minutes: "Plafond pondéré (min)", drum: "Poste de référence"}
+  })) {
+    const group = document.createElement("fieldset");
+    const legend = document.createElement("legend");
+    legend.textContent = labels[policy];
+    const grid = document.createElement("div");
+    grid.className = "grid";
+    const settings = flow.policies[policy];
+    for (const [key, label] of Object.entries(fields)) {
+      field(grid, label, settings, key, key === "drum" ? config.stations.map(station => station.name) : null);
+    }
+    if (policy === "kanban") {
+      settings.intermediate.forEach((_, index) => field(grid, "Cartes après " + config.stations[index].name, settings.intermediate, index));
+      settings.allocation.forEach((_, index) => field(grid, "Coefficient " + config.demand.products[index], settings.allocation, index));
+    }
+    group.append(legend, grid);
+    byId("policies").append(group);
+  }
+  for (const [product, data] of Object.entries(config.products)) {
+    for (const operation of data.routing) field(advanced, product + " · " + operation.station + " (min)", operation, "time");
+  }
+  for (const [key, label] of Object.entries({
+    review_windows: "Fenêtres avant révision", notice_windows: "Préavis de renouvellement (fenêtres)",
+    recovery_windows: "Fenêtres de récupération", drum_window: "Fenêtre du tambour adaptatif (min)",
+    drum_period: "Période du tambour adaptatif (min)", drum_gap: "Écart de charge pour changer de tambour"
+  })) field(advanced, label, flow, key);
+}
+
+function designLabel(key) {
+  const match = /^mix([01])_demande([01])_charge([01])$/.exec(key);
+  if (!match) return labels[key] || key;
+  const active = ["Mix", "Demande", "Charge"].filter((_, index) => match[index + 1] === "1");
+  return "Plan factoriel · " + (active.join(" + ") || "témoin");
+}
+
+async function init() {
+  const response = await fetch("/api/config");
+  if (!response.ok) throw new Error("Configuration indisponible.");
+  const data = await response.json();
+  initial = data.config;
+  byId("design").replaceChildren(...data.designs.map(key => new Option(designLabel(key), key)));
+  byId("design").value = "mix";
+  loadFields();
+  byId("run").disabled = byId("reset").disabled = false;
+}
+
+byId("reset").onclick = () => {
+  loadFields();
+  byId("design").value = "mix";
+  byId("variants").checked = false;
+};
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+  bindings.forEach(save => save());
+  const seed = byId("seed").valueAsNumber;
+  const design = byId("design").value;
+  byId("run").disabled = true;
+  byId("error").textContent = "";
+  byId("status").textContent = "Simulation en cours…";
+  try {
+    const response = await fetch("/api/compare", {
+      method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({config, design, seed, variants: byId("variants").checked})
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error);
+    byId("rows").replaceChildren(...data.map(result => {
+      const row = document.createElement("tr");
+      const name = document.createElement("th");
+      name.scope = "row";
+      name.textContent = labels[result.policy];
+      row.append(name);
+      metrics.forEach((key, index) => {
+        const value = result[key];
+        row.insertCell().textContent = value == null ? "—" : number.format(index === 0 ? value * 100 : value) + (index === 0 ? " %" : "");
+      });
+      return row;
+    }));
+    byId("result-context").textContent = designLabel(design) + " · graine " + seed;
+    byId("results").hidden = false;
+    lastRun = {data, design, seed};
+    byId("export").disabled = false;
+  } catch (error) {
+    byId("error").textContent = error.message;
+  } finally {
+    byId("run").disabled = false;
+    byId("status").textContent = "";
+  }
+});
+
+byId("export").onclick = () => {
+  const {data, design, seed} = lastRun;
+  const fields = [...new Set(data.flatMap(row => Object.keys(row)))];
+  const rows = [["scenario", "seed", ...fields], ...data.map(row => [design, seed, ...fields.map(key => row[key])])];
+  const csv = rows.map(row => row.map(value => '"' + String(value ?? "").replaceAll('"', '""') + '"').join(",")).join("\r\n");
+  const url = URL.createObjectURL(new Blob([csv], {type: "text/csv;charset=utf-8"}));
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "indeng-" + design + "-" + seed + ".csv";
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+};
+if (location.protocol === "file:") {
+  byId("error").textContent = "Démarrez le moteur avec python -m indeng.flow.web depuis le dépôt, puis ouvrez http://127.0.0.1:8765.";
+} else init().catch(error => { byId("error").textContent = error.message; });
+</script>
+</body>
+</html>

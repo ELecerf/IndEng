@@ -2,6 +2,8 @@
 
 ## Lancer l'expérience
 
+Pour comparer les politiques dans un navigateur, lancez `python -m indeng.flow.web` depuis la racine du dépôt et ouvrez [l’interface locale](http://127.0.0.1:8765). La page HTML utilise le moteur SimPy du dépôt. Elle permet de modifier les réglages de chaque politique, la demande et les temps opératoires, puis d’exporter les résultats en CSV. Les modifications s’appliquent uniquement à la simulation lancée dans la page.
+
 Ces commandes s'exécutent depuis la racine du dépôt après `pip install -e '.[dev]'`.
 
 ```bash
