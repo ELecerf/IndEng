@@ -10,6 +10,7 @@ from random import Random
 import pandas as pd
 from collections import Counter
 from policies import RULES, release_time, select_batch
+from line_config import resolve_line
 
 
 @dataclass
@@ -28,6 +29,11 @@ from demand import orders
 
 
 def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None):
+    cfg = resolve_line(cfg)
+    count = len(cfg["stations"])
+    if (not 0 <= cfg["bottleneck"] < count or len(capacity) != count-1
+            or len(cfg["setupHours"]) != count or any(len(j[3]) != count for j in jobs)):
+        raise ValueError("Dimensions des postes, du goulot, des stocks ou des gammes incohérentes")
     rule = cfg.get("dispatchRule", "due")
     if rule not in RULES:
         raise ValueError(f"dispatchRule inconnu {rule}")
@@ -125,6 +131,10 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
                     post.series_start = t
                 post.active, post.family = i, family
                 post.end = t + setup + jobs[i][3][p]
+                if trace is not None and "inversions" in trace:
+                    for arrival,j in post.queue:
+                        if jobs[j][2] != family and jobs[j][1] < due:
+                            trace["inversions"].append((t,p,i,j,arrival,post.end-t))
                 if trace is not None:
                     reds = [j for _,j in post.queue if jobs[j][2] != family and
                             releases[j]+2*(jobs[j][1]-releases[j])/3 <= t < jobs[j][1]] if t < releases[i]+(due-releases[i])/3 else []
@@ -204,7 +214,7 @@ def main():
     if not 0 <= cfg["warmup"] < cfg["arrivalEnd"]:
         parser.error("La fin des arrivées doit suivre la stabilisation.")
     count = len(cfg["stations"])
-    if (count < 2 or not 0 <= cfg["bottleneck"] < count or
+    if (count < 1 or not 0 <= cfg["bottleneck"] < count or
             len(cfg["setupHours"]) != count or any(x < 0 for x in cfg["setupHours"]) or
             any(len(v) != count or min(v) <= 0 for v in cfg["processingHours"].values()) or
             len(cfg["familyWeights"]) != len(cfg["processingHours"]) or

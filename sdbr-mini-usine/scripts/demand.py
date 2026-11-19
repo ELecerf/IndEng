@@ -1,7 +1,9 @@
 from math import exp, isfinite, log1p, sqrt
 from random import Random
+from line_config import resolve_line
 
 def orders(cfg, load, seed, profile=None):
+    cfg = resolve_line(cfg)
     distribution = cfg.get("processingDistribution", "uniform")
     cv = cfg.get("processingCV", 0.15)
     cvs = cv if isinstance(cv, list) else [cv]*len(cfg["stations"])

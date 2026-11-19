@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from policies import RULES
 from run_congestion import orders, simulate
+from line_config import resolve_line
 
 
 def validate(c):
@@ -19,7 +20,7 @@ def validate(c):
     if not (names and "global" not in names and len(set(names))==len(names)
             and isinstance(c["seed"],int) and isinstance(c["replications"],int)
             and isinstance(c["size"],int) and isinstance(c["bottleneck"],int)
-            and n >= 2 and 0 <= c["bottleneck"] < n and c["replications"] >= 2
+            and n >= 1 and 0 <= c["bottleneck"] < n and c["replications"] >= 2
             and c["size"] >= 1 and c["dispatchRule"] in RULES and c["transfer"] in {"bloc","unitaire"}
             and len(c["capacity"]) == n-1 and all(v is None or v >= (c["size"] if c["transfer"]=="bloc" else 1) for v in c["capacity"])
             and len(c["setupHours"]) == n and min(c["setupHours"]) >= 0
@@ -46,7 +47,10 @@ def main():
     rows=[]
     conflicts=[]
     args.out.mkdir(parents=True,exist_ok=True)
-    configs={name:base|patch for name,patch in variants.items()}
+    try:
+        configs={name:resolve_line(base|patch) for name,patch in variants.items()}
+    except (KeyError,ValueError,TypeError) as error:
+        parser.error(f"Configuration de ligne invalide ({error})")
     for name,c in configs.items():
         try:
             validate(c)

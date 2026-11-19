@@ -1,5 +1,7 @@
 # Tester une hypothèse sur l’encours et l’OTD
 
+Commencer par [GUIDE-AGENT.md](GUIDE-AGENT.md) pour le parcours pas à pas, les contrôles d’ordres de grandeur, l’exemple complet de topologie et le dépannage.
+
 Depuis la racine du dépôt, avec Python 3.11 ou supérieur, installer les dépendances avec `python -m pip install -e '.[dev]'` dans un environnement virtuel. Pour reproduire l’expérience fournie, exécuter
 
 ```sh
@@ -13,6 +15,12 @@ python sdbr-mini-usine/scripts/run_hypotheses.py sdbr-mini-usine/scenario-hypoth
 5. Signaler le nombre de graines, les deux fenêtres, les deltas d’encours et d’OTD, l’incertitude, puis le mécanisme observé ou encore indéterminé. Confirmer tout résultat choisi après exploration sur de nouvelles graines.
 
 ## Configurer la ligne
+
+Le lanceur run_hypotheses accepte une définition compacte facultative. Ajouter une clé line avec stationCount (entier au moins égal à un), bottleneckIndex (indice commençant à zéro), families, regularSetupHours, bottleneckSetupHours et bufferCapacity. Par exemple, `"line":{"stationCount":5,"bottleneckIndex":3,"families":{"A":{"regularHours":2,"bottleneckHours":5},"B":{"regularHours":2,"bottleneckHours":5}},"regularSetupHours":1,"bottleneckSetupHours":2,"bufferCapacity":16}` construit cinq postes avec le goulot nominal au quatrième. familyWeights doit correspondre aux familles déclarées. Un CV fourni sous forme de liste doit avoir autant de valeurs que de postes.
+
+La définition compacte remplace stations, bottleneck, processingHours, setupHours et capacity dans la configuration résolue enregistrée avec les résultats. Les variantes remplacent line entièrement. Pour comparer des positions, recopier le même bloc line et changer uniquement bottleneckIndex. Pour comparer des longueurs, adapter stationCount et vérifier que l’indice reste valide. Les scénarios explicites existants permettent toujours des temps différents à chaque poste. Le goulot indiqué est une référence nominale pour calculer les arrivées. La variabilité, les réglages et les blocages peuvent déplacer temporairement la contrainte effective.
+
+Le moteur et le générateur acceptent ce bloc line. L’API simulate conserve son argument capacity explicite, qui doit contenir stationCount−1 capacités numériques (inf pour illimité). Les anciens scripts de campagnes spécialisés conservent leurs grilles prédéfinies. Le lanceur run_hypotheses est l’entrée configurable pour les nouvelles topologies.
 
 Les temps sont en heures. Le JSON fourni est un exemple complet. Les familles suivent toutes les stations dans l’ordre. `processingHours` donne les moyennes par famille et poste, `familyWeights` les poids selon l’ordre des familles du JSON, `setupHours` le temps d’un changement de famille à chaque poste. `bottleneck` est un indice commençant à zéro. `processingDistribution` accepte lognormal avec `processingCV` scalaire ou par poste, ou uniform avec `variation` pour la demi-largeur relative. Les incidents indépendants sont inclus dans la durée tirée.
 
