@@ -18,11 +18,14 @@ sdbr-mini-usine/
 ├── surcharge-10-postes.md                             ← analyse de cette campagne (lancer tôt vs OTD)
 ├── scenario-lots-series.json                          ← campagne lots/séries au goulot (transfert unitaire)
 ├── lots-series.md                                     ← analyse : séries bloquant les OF urgents
+├── scenario-lots-par-poste.json                       ← lots à taille par poste (size = liste)
+├── lots-par-poste.md                                  ← analyse : regrouper au goulot vs hors goulot
 ├── scripts/
 │   └── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
 └── results/
     ├── surcharge-10-postes/                           ← campagne 10 postes (CSV, IC95, otd.png)
     ├── lots-series/                                   ← campagne lots/séries (CSV, conflits.csv, otd.png)
+    ├── lots-par-poste/                                ← campagne lots par poste (CSV, otd.png)
     ├── montecarlo_replications.csv                    ← 2700 lignes (30 réplications × 18 scénarios × 5 politiques)
     ├── montecarlo_summary.csv                         ← moyenne ± demi-IC95 par scénario × indicateur
     └── montecarlo_summary.md                          ← tableaux prêts à lire
@@ -191,3 +194,12 @@ famille traités en bloc) qui bloquent les OF urgents de l'autre famille — mes
 économisent 45 % de réglages au goulot (247 → 137 h) mais coûtent **−33 points d'OTD**
 (84,6 → 51,6 %) et un retard P95 ×2,5 — conforme à Goldratt p. 5–6 et 13 (petits lots,
 flux d'une pièce) et p. 15–17 (au CCR, l'urgence rouge prime sur la série).
+
+## 9. Lots à taille par poste (`size` = liste)
+
+Le moteur accepte désormais **`size` comme liste d'une taille de lot par poste**
+(`run_congestion.py`, test `test_lot_a_taille_par_poste`). Campagne
+[`lots-par-poste.md`](lots-par-poste.md) : regrouper **uniquement au goulot** donne la
+meilleure OTD (91,9 % vs 84,6 % en unitaire, réglages CCR −45 %), tandis que
+regrouper **hors goulot** la dégrade (56,5 %, P95 ×2,3) — l'économie de réglage locale
+ne rapporte de la capacité que si elle s'applique à la contrainte (TOC p. 3, 10, 16–17).

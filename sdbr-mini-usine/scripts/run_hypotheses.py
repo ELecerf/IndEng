@@ -16,13 +16,15 @@ from line_config import resolve_line
 
 def validate(c):
     n = len(c["stations"])
+    sizes = c["size"] if isinstance(c["size"],list) else [c["size"]]*n
     names=[name for name,_,_ in c["phases"]]
     if not (names and "global" not in names and len(set(names))==len(names)
             and isinstance(c["seed"],int) and isinstance(c["replications"],int)
-            and isinstance(c["size"],int) and isinstance(c["bottleneck"],int)
+            and len(sizes)==n and all(isinstance(s,int) and s>=1 for s in sizes)
+            and isinstance(c["bottleneck"],int)
             and n >= 1 and 0 <= c["bottleneck"] < n and c["replications"] >= 2
-            and c["size"] >= 1 and c["dispatchRule"] in RULES and c["transfer"] in {"bloc","unitaire"}
-            and len(c["capacity"]) == n-1 and all(v is None or v >= (c["size"] if c["transfer"]=="bloc" else 1) for v in c["capacity"])
+            and c["dispatchRule"] in RULES and c["transfer"] in {"bloc","unitaire"}
+            and len(c["capacity"]) == n-1 and all(v is None or v >= (sizes[i] if c["transfer"]=="bloc" else 1) for i,v in enumerate(c["capacity"]))
             and len(c["setupHours"]) == n and min(c["setupHours"]) >= 0
             and all(len(row)==n and min(row)>0 for row in c["processingHours"].values())
             and len(c["familyWeights"])==len(c["processingHours"]) and min(c["familyWeights"])>0

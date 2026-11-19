@@ -31,6 +31,9 @@ from demand import orders
 def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None):
     cfg = resolve_line(cfg)
     count = len(cfg["stations"])
+    sizes = [size]*count if isinstance(size, int) else list(size)
+    if len(sizes) != count or any(type(s) is not int or s < 1 for s in sizes):
+        raise ValueError("size doit être un entier >= 1 ou une liste d'une taille de lot par poste")
     if (not 0 <= cfg["bottleneck"] < count or len(capacity) != count-1
             or len(cfg["setupHours"]) != count or any(len(j[3]) != count for j in jobs)):
         raise ValueError("Dimensions des postes, du goulot, des stocks ou des gammes incohérentes")
@@ -87,7 +90,7 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
                         limit = inf if fraction is None else fraction*sum(cfg["requestedLead"])/2
                         same = sorted(e for e in post.queue if jobs[e[1]][2] == post.family)
                         other = sorted(e for e in post.queue if jobs[e[1]][2] != post.family)
-                        estimated = sum(cfg["processingHours"][jobs[j][2]][p] for _,j in same[:size])
+                        estimated = sum(cfg["processingHours"][jobs[j][2]][p] for _,j in same[:sizes[p]])
                         if same and (not other or t-post.series_start+estimated <= limit):
                             local_queue = same
                         elif other:
@@ -96,7 +99,7 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
                     else:
                         selected_rule, wait = rule, cfg["maxBatchWaitHours"]
                     post.pending = select_batch(local_queue, lambda i: jobs[i][2], lambda i: jobs[i][1],
-                                                post.family, t, size, wait, selected_rule)
+                                                post.family, t, sizes[p], wait, selected_rule)
                     if not post.pending:
                         continue
                     if trace is not None:
@@ -107,9 +110,9 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
                             for arrival,j in post.queue:
                                 family = jobs[j][2]
                                 oldest[family] = min(oldest.get(family,arrival),arrival)
-                            eligible = sum(count >= 2 and (count >= size or
+                            eligible = sum(count >= 2 and (count >= sizes[p] or
                                            oldest[f]+cfg["maxBatchWaitHours"] <= t)
-                                           for f,count in counts.items()) if size>1 and rule!="fifo" else 0
+                                           for f,count in counts.items()) if sizes[p]>1 and rule!="fifo" else 0
                             trace["opportunites"].append((t,p,eligible,len(post.pending)))
                         if "marges_concurrentes" in trace and p == cfg["bottleneck"]:
                             family = jobs[post.pending[0][1]][2]
@@ -162,7 +165,7 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
         if nxt == inf:
             raise RuntimeError("Ligne bloquée sans événement futur")
         dt = max(0, min(nxt,stop)-max(t,start))
-        if trace is not None and "paires_heures" in trace and periods and size >= 2 and rule != "fifo":
+        if trace is not None and "paires_heures" in trace and periods and any(s >= 2 for s in sizes) and rule != "fifo":
             duration = max(0, min(nxt, periods[-1][1])-max(t, periods[0][0]))
             for index, post in enumerate(posts):
                 by_family = Counter(jobs[j][2] for _,j in post.queue)
