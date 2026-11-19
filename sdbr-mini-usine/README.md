@@ -13,9 +13,13 @@ sdbr-mini-usine/
 ├── README.md                                          ← ce fichier (analyse)
 ├── simulateur-sdbr-mini-usine.html                    ← la simulation autonome (ressource d'origine)
 ├── goldratt-standing-on-the-shoulders-of-giants.pdf   ← article de Goldratt (2006, 19 p.)
+├── pistes-extension.md                                ← limites reformulées + pistes d'extension
+├── scenario-surcharge-10-postes.json                  ← campagne 10 postes / pics / surcapacités goulot
+├── surcharge-10-postes.md                             ← analyse de cette campagne (lancer tôt vs OTD)
 ├── scripts/
 │   └── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
 └── results/
+    ├── surcharge-10-postes/                           ← campagne 10 postes (CSV, IC95, otd.png)
     ├── montecarlo_replications.csv                    ← 2700 lignes (30 réplications × 18 scénarios × 5 politiques)
     ├── montecarlo_summary.csv                         ← moyenne ± demi-IC95 par scénario × indicateur
     └── montecarlo_summary.md                          ← tableaux prêts à lire
@@ -163,3 +167,14 @@ xdg-open sdbr-mini-usine/simulateur-sdbr-mini-usine.html   # ou double-clic
 node sdbr-mini-usine/scripts/run_montecarlo.mjs --reps 30
 # sorties : sdbr-mini-usine/results/montecarlo_{replications.csv,summary.csv,summary.md}
 ```
+
+## 7. Campagne « surcharge » — ligne de 10 postes à goulot central
+
+Voir [`surcharge-10-postes.md`](surcharge-10-postes.md) : ligne de 10 postes, goulot
+central, demande par paliers avec pics (charge 0,70 → 1,30 du goulot), fenêtres de
+lancement 36–168 h (168 h = lancement immédiat) croisées avec 3 niveaux de
+surcapacité du goulot (×1 / ×1,25 / ×1,5), 20 graines appariées. Résultat : en
+promesse client, lancer plus tôt n'abîme pas l'OTD (+5 à +32 points par pas) — le
+coût passe par l'encours/attention ; c'est la **surcharge du goulot** qui fait
+s'effondrer l'OTD en pic (1–45 %) et la **surcapacité du goulot** qui la restaure
+(100 % à ×1,5), conformément à Goldratt p. 9 et 16–17.
