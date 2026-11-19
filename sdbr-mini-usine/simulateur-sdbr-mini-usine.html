@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Simulateur S-DBR — mini-usine</title>
+<meta name="description" content="Simulation autonome d’une mini-usine S-DBR : arrivées aléatoires, ordonnancement par tampon restant, Gantt synchronisé, OTD, encours moyen et Monte-Carlo.">
+<style>
+:root{--bg:#f1f0eb;--paper:#fff;--ink:#202b2a;--accent:#244d45;--muted:#596762;--line:#becfc7;--soft:#eef4f1;--vert:#9ccda8;--jaune:#f0d482;--rouge:#eaa39a}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.65 Georgia,'Times New Roman',serif}
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:#e0b45c;z-index:60}
+nav#top{position:sticky;top:0;z-index:50;background:var(--accent);display:flex;flex-wrap:wrap;gap:2px 6px;align-items:center;padding:9px 18px;font:13px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif;box-shadow:0 2px 8px #0002}
+nav#top .brand{color:#fff;font-weight:700;margin-right:10px}
+nav#top a{color:#cfe3db;text-decoration:none;padding:4px 9px;border-radius:6px;white-space:nowrap}
+nav#top a:hover{background:#ffffff22;color:#fff}
+nav#top a.active{background:#ffffff2e;color:#fff}
+main{max-width:960px;margin:36px auto;background:var(--paper);padding:52px 62px;box-shadow:0 2px 18px #0000000d}
+h1{font-size:2.1em;line-height:1.2;margin:.2em 0}
+h2{margin-top:2.1em;line-height:1.3;color:var(--accent);scroll-margin-top:70px}
+h3{font-size:1.12em;margin-top:1.6em}
+section{scroll-margin-top:70px}
+.subtitle{color:var(--muted);font-style:italic}
+.context{padding:16px 22px;background:var(--soft);border-left:3px solid #698e78;font-size:.9em;border-radius:0 8px 8px 0}
+.callout{padding:14px 18px;background:var(--soft);border-left:3px solid #698e78;font-size:.92em;border-radius:0 8px 8px 0;margin:18px 0}
+.callout em{color:var(--accent)}
+figure{margin:26px 0}
+svg{width:100%;height:auto;display:block}
+svg text{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;fill:var(--ink)}
+.table{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.88em;margin:14px 0}
+td,th{border:1px solid var(--line);padding:9px 10px;text-align:left}
+tr:first-child{background:#e5eeea;font-weight:bold}
+hr{border:0;border-top:1px solid #d9e2dd;margin:45px 0}
+.widget{background:#f7f9f7;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:24px 0}
+.widget h4{margin:0 0 12px;font:600 12.5px system-ui,sans-serif;letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}
+.controls{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;font:14px system-ui,sans-serif;margin-bottom:14px}
+.controls .fld{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--muted)}
+input[type=range]{accent-color:var(--accent);width:230px}
+input[type=number]{width:80px;padding:5px 7px;border:1px solid var(--line);border-radius:6px;font:14px system-ui}
+button{font:13px system-ui,sans-serif;padding:7px 14px;border-radius:8px;border:1px solid var(--accent);background:#fff;color:var(--accent);cursor:pointer}
+button:hover{background:var(--accent);color:#fff}
+button.primary{background:var(--accent);color:#fff}
+button.primary:hover{opacity:.88}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{display:inline-block;padding:2px 11px;border-radius:12px;font:600 12.5px system-ui,sans-serif;color:#fff;white-space:nowrap}
+.chip.vert{background:#5da878}.chip.jaune{background:#c9a23c}.chip.rouge{background:#c05a48}.chip.noir{background:#4a4a4a}
+.readouts{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;font:13.5px system-ui,sans-serif}
+.readout{background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 12px;min-width:128px}
+.readout b{display:block;font-size:17px;color:var(--accent)}
+.readout .sub{color:var(--muted);font-size:12px}
+.note{font-size:.85em;color:var(--muted)}
+.stations{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font:13px system-ui,sans-serif;margin-top:14px}
+.station{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.station h5{margin:0 0 6px;font:600 13px system-ui,sans-serif;color:var(--accent)}
+#simStations{gap:6px;margin-top:6px}
+#simStations .station{padding:6px 8px;border-radius:7px}
+#simStations .station h5{margin-bottom:3px}
+#simStations .station button{margin:2px 0!important;padding:3px 7px}
+#simStations .station p{margin:3px 0 0}
+#simReadouts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:8px 0;font:12px/1.3 system-ui,sans-serif}
+#simReadouts .metric{background:white;border:1px solid var(--line);border-radius:7px;padding:7px 9px;min-width:0}
+#simReadouts .metric strong{font-size:18px;display:block;margin:2px 0;color:var(--accent)}
+#simReadouts .metric small{display:block;color:var(--muted);font-size:10px}
+#simReadouts svg{height:22px;width:100%;margin-top:4px}
+@media(max-width:600px){#simReadouts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.ofrow{display:flex;align-items:center;gap:8px;padding:4px 0;border-top:1px dashed #e3e8e5}
+.ofrow .oid{font-weight:700;width:48px;flex:none}
+.ofrow .st{color:var(--muted);font-size:12px;flex:1}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.steps button{border-radius:20px;padding:6px 14px}
+.steps button.on{background:var(--accent);color:#fff}
+.panel{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px 18px;min-height:150px}
+.panel h5{margin:0 0 8px;font:600 15px system-ui,sans-serif;color:var(--accent)}
+.panel .app{margin-top:10px;padding:9px 12px;background:var(--soft);border-radius:8px;font:13.5px system-ui,sans-serif}
+.dbr-legend{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 14px;font:13.5px system-ui,sans-serif}
+.dbr-legend span{border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 11px}
+footer{margin-top:40px;font-size:.82em;color:var(--muted);border-top:1px solid #d9e2dd;padding-top:14px}
+@media(max-width:700px){main{margin:0;padding:24px 18px}body{font-size:16px}input[type=range]{width:150px}.stations{grid-template-columns:1fr}}
+@media print{@page{size:A4;margin:20mm}body{background:#fff;font-size:11pt}main{padding:0;margin:0;box-shadow:none}nav#top,#progress,.controls,.btnrow,.steps,.no-print{display:none!important}h2{break-after:avoid}figure,table,.widget{break-inside:avoid}hr{break-after:page;border:0}}
+</style>
+<style>
+:root{--accent:#000066;--ink:#303642;--muted:#626773;--line:#D4D9E2;--soft:#EDF4FB;--bg:#F7F9FC}
+body,h1,h2,h3{font-family:"Times New Roman",Times,"Liberation Serif",Georgia,serif}
+h1,h2,h3{color:#000066}
+button,input,select,svg text,.controls,.readouts,.station{font-family:Arial,Helvetica,sans-serif}
+nav#top{background:white;border-bottom:1px solid var(--line);box-shadow:none}
+nav#top .brand,nav#top a.active{color:#000066}nav#top a{color:#626773}nav#top a:hover,nav#top a.active{background:#EDF4FB;color:#000066}
+.widget{background:#F7F9FC;border-radius:6px}.context,.callout{border-left-color:#000066}button{border-radius:3px}
+.chip.vert{background:#CFE8D8;color:#245E40}.chip.jaune{background:#FFF0D6;color:#784A00}.chip.rouge{background:#F8D8CE;color:#7A2822}
+:focus-visible{outline:2px solid #467886;outline-offset:2px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+<style>
+#atelier .line{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px;margin:12px 0}#atelier article{padding:10px;border:1px solid #bacbc1;border-radius:8px;background:#f4f7f4}#atelier button[data-of]{margin:2px;padding:4px 7px;color:#182622}#atelier .z0{background:#b4dec0}#atelier .z1{background:#ffdc89}#atelier .z2{background:#f3aaa0}#atelier .z3{background:#353737;color:white!important}#atelier .active{outline:2px solid #255b97}#atelier label{display:inline-block;margin:5px}#atelier input[type=number]{width:58px}#atelier .status{padding:9px;background:#e8f0eb}#atelier svg{width:100%;height:auto}#atelier .trace{overflow:auto;max-height:240px}
+</style>
+<style>
+body{min-height:100vh}main{max-width:1180px;margin:20px auto;padding:28px 34px}.sim-head{margin-bottom:14px}.sim-head h1{margin:0 0 4px;font-size:1.75rem}.sim-head p{margin:0;color:var(--muted);font-size:.95rem}.widget{margin:0}#simSvg{min-width:760px}.gantt-scroll{overflow-x:auto}footer{margin-top:18px}
+@media(max-width:700px){main{padding:14px 10px}.sim-head h1{font-size:1.45rem}}
+</style>
+</head>
+<body>
+<main>
+<header class="sim-head"><h1>Simulateur S-DBR — mini-usine</h1><p>Trois postes en série · arrivées de commandes · promesses · priorités par tampon · OTD et encours moyen</p></header>
+<noscript><p class="callout">Activez JavaScript pour utiliser la simulation.</p></noscript>
+<div class="widget">
+<h4>Gantt synchronisé postes–OF — files et statuts en direct</h4>
+<p class="note">Huit OF traversent Préparation, Usinage et Finition en FIFO. La couleur fixe identifie chaque OF ; les pastilles vert, jaune, rouge et noir indiquent son urgence temporelle. Les durées varient légèrement et certaines opérations subissent un petit aléa. Le premier lancement est à h0. Réglez le tampon, cliquez sur un OF pour suivre sa trajectoire, ou tirez un nouveau scénario pour tester la robustesse du réglage.</p>
+<div class="controls">
+  <div class="fld"><label for="simTime">Maintenant (h)</label><input type="range" id="simTime" min="0" max="220" step="1" value="0"></div>
+  <div class="fld"><label for="simBuffer">Traversée cible / tampon S-DBR : <b id="simBufferValue">90 h</b></label><input type="range" id="simBuffer" min="30" max="180" step="1" value="90"></div>
+  <div class="btnrow" style="margin:0">
+    <button type="button" class="primary" id="simPlay">▶ Lire</button>
+    <button type="button" id="simReset">↺ h0</button>
+    <button type="button" id="simRandom">⤨ Nouveau scénario</button>
+  </div>
+</div>
+<figure class="gantt-scroll"><svg id="simSvg" viewBox="0 0 720 240" role="img" aria-label="Gantt des trois postes avec curseur temporel et échéances"></svg></figure>
+<div class="stations" id="simStations"></div>
+<div class="readouts" id="simReadouts"></div>
+</div>
+<footer>Fichier HTML autonome · aucune ressource externe · tous les calculs sont exécutés localement.</footer>
+</main>
+<script>
+'use strict';
+const $=(s,r)=> (r||document).querySelector(s);
+const $$=(s,r)=>Array.from((r||document).querySelectorAll(s));
+const SVGNS='http://www.w3.org/2000/svg';
+function S(tag,attrs,kids){const e=document.createElementNS(SVGNS,tag);if(attrs)for(const k in attrs)e.setAttribute(k,attrs[k]);if(kids)for(const kid of kids)if(kid!=null)e.appendChild(kid);return e}
+function T(x,y,str,attrs){const t=S('text',Object.assign({x:x,y:y},attrs||{}));t.textContent=str;return t}
+function fmt(n,d){return n.toLocaleString('fr-FR',{minimumFractionDigits:d==null?0:d,maximumFractionDigits:d==null?0:d})}
+const COL={vert:'#9ccda8',jaune:'#f0d482',rouge:'#eaa39a',noir:'#5a5a5a',bleu:'#aac6de',orange:'#e0b17e',gris:'#e2e5e4',accent:'#244d45'};
+const ZLABEL={vert:'Vert',jaune:'Jaune',rouge:'Rouge',noir:'Noir'};
+
+function penetration(of,now){const reste=of.due-now;return{reste:reste,p:1-reste/of.buffer}}
+function zoneOf(p,reste){if(reste<0)return'noir';if(p<1/3)return'vert';if(p<2/3)return'jaune';return'rouge'}
+function zoneRank(z){return{vert:0,jaune:1,rouge:2,noir:3}[z]}
+function bufferRule(pct){if(pct<0.05)return{txt:'moins de 5 % de rouges parmi les OF libérés : réduire le tampon',z:'vert'};if(pct>0.10)return{txt:'plus de 10 % de rouges parmi les OF libérés : allonger le tampon',z:'rouge'};return{txt:'entre 5 % et 10 % de rouges : conserver le tampon',z:'jaune'}}
+function attention(t){if(t<0.35)return 1+4.2*Math.pow((0.35-t)/0.35,1.6);if(t<=0.65)return 1;return 1+3.9*(1-Math.exp(-2.4*(t-0.65)))}
+function curveMetrics(t,LT){LT=LT||120;const delai=t<=1?Math.round(LT*t):Math.round(LT+(t-1)*LT*0.8);const late=t<0.35?3+37*Math.pow((0.35-t)/0.35,1.5):(t>0.65?3+24*(1-Math.exp(-2*(t-0.65))):3);return{delai:delai,wip:Math.round(t*100),late:Math.round(late),att:attention(t)}}
+function rng(seed){let a=seed>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function gauss(r){let u=0,v=0;while(u===0)u=r();while(v===0)v=r();return Math.sqrt(-2*Math.log(u))*Math.cos(6.283185307179586*v)}
+
+function initNav(){
+  const bar=$('#progress');const links=$$('nav#top a');
+  const secs=links.map(function(a){return $(a.getAttribute('href'))}).filter(Boolean);
+  function onScroll(){
+    const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;
+    bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+    let cur=-1;secs.forEach(function(s,i){if(s.getBoundingClientRect().top<120)cur=i});
+    links.forEach(function(a,i){a.classList.toggle('active',i===cur)});
+  }
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+}
+
+function initCurve(){
+ const svg=$('#curveSvg'),slider=$('#curveSlider'),ro=$('#curveReadouts');
+ function render(){
+ const v=+slider.value,x=65+Math.min(1,v/120)*620;
+ svg.innerHTML='';
+ const labels=[['Tampon trop court','La plupart des OF deviennent rouges','Interventions permanentes'],['Fenêtre maîtrisée','Files réduites, priorités lisibles','Moins d’arbitrages quotidiens'],['Lancement trop précoce','Encours élevés, urgences concurrentes','Situation classique vers 100 %']];
+ labels.forEach((l,i)=>{const px=60+i*225;svg.appendChild(S('rect',{x:px,y:12,width:218,height:70,fill:i===1?'#e5efe7':'#f3ede4'}));l.forEach((t,j)=>svg.appendChild(T(px+109,31+j*20,t,{'text-anchor':'middle','font-size':j?10:13,'font-weight':j?400:700})))});
+ svg.appendChild(S('path',{d:'M65 105 C110 240 160 265 230 265 S345 265 380 230 S475 120 685 105',fill:'none',stroke:COL.accent,'stroke-width':4}));
+ svg.appendChild(S('path',{d:'M60 90V290H700',fill:'none',stroke:'#687970'}));
+ svg.appendChild(T(8,101,'Forte',{'font-size':11}));
+ svg.appendChild(T(8,275,'Faible',{'font-size':11}));
+ svg.appendChild(T(380,333,'Fenêtre de lancement croissante · schéma qualitatif',{'text-anchor':'middle','font-size':13}));
+ svg.appendChild(S('line',{x1:x,x2:x,y1:90,y2:290,stroke:'#b28d43','stroke-dasharray':'5 4'}));
+ svg.appendChild(T(x,310,v+' %',{'text-anchor':'middle','font-size':12}));
+ svg.appendChild(T(65+100/120*620,102,'100 % · référence classique',{'text-anchor':'middle','font-size':11}));
+ ro.textContent=v<35?'Fenêtre trop courte : les aléas absorbent la marge.':v<75?'Zone de fonctionnement recherchée : suivre les couleurs et traiter les causes récurrentes.':'Lancements précoces : plusieurs niveaux d’urgence se disputent l’attention managériale.';
+ }
+ slider.oninput=render;$$('button[data-t]').forEach(b=>b.onclick=()=>{slider.value=b.dataset.t;render()});render()
+}
+function initRelease(){
+  const svg=$('#releaseSvg');const W=720,H=210,ml=46,mr=14;
+  const sLead=$('#inLead'),sTouch=$('#inTouch'),nLead=$('#inLeadN'),nTouch=$('#inTouchN'),ro=$('#releaseReadouts');
+  function render(){
+    const lead=+sLead.value,touch=+sTouch.value;
+    const buffer=lead*(+document.getElementById("bufferPct").value)/100,launch=lead-buffer;
+    const ratio=100*touch/lead;
+    document.getElementById('releaseAdvice').textContent=(ratio<10?'Vert · Les attentes dominent.':ratio<=30?'Jaune · Entre 10 et 30 % inclus. Mesurer les attentes réellement compressibles.':'Au-delà de 30 % · Étudier la chaîne critique si les tâches ont des dépendances et partagent des ressources.')+(touch>buffer?' La fenêtre cible proposée est infaisable : le travail seul dépasse le temps disponible.':touch===buffer?' Le travail consomme toute la fenêtre cible.':' La fenêtre cible laisse '+(buffer-touch)+' h pour attentes, transferts et aléas.');
+    svg.innerHTML='';
+    const xmin=Math.min(0,launch,lead-touch),xmax=lead; const x=function(h){return ml+(h-xmin)/(xmax-xmin)*(W-ml-mr)};
+    const y1=40,y2=155,bh=30;
+    svg.appendChild(T(ml-8,y1+bh/2+4,'Ancien lancement',{'text-anchor':'end','font-size':11.5,fill:'#596762'}));
+    svg.appendChild(S('rect',{x:x(0),y:y1,width:x(lead)-x(0),height:bh,fill:COL.gris,stroke:'#fff'}));
+    svg.appendChild(T((x(0)+x(lead))/2,y1+bh/2+4,'libéré à h0 — délai '+lead+' h',{'text-anchor':'middle','font-size':11.5}));
+    svg.appendChild(T(ml-8,y2+bh/2+4,'Nouvelle fenêtre',{'text-anchor':'end','font-size':11.5,fill:'#596762'}));
+    svg.appendChild(S('rect',{x:x(0),y:y2,width:Math.max(0,x(launch)-x(0)),height:bh,fill:'#d8dcd9',stroke:'#fff'}));
+    svg.appendChild(T((x(0)+x(launch))/2,y2+bh/2+4,'au carnet',{'text-anchor':'middle','font-size':11.5,fill:'#596762'}));
+    const seg=[[launch,launch+buffer/3,COL.vert,'Vert'],[launch+buffer/3,launch+2*buffer/3,COL.jaune,'Jaune'],[launch+2*buffer/3,lead,COL.rouge,'Rouge']];
+    for(let si=0;si<seg.length;si++){const a=seg[si][0],b=seg[si][1],c=seg[si][2],lab=seg[si][3];svg.appendChild(S('rect',{x:x(a),y:y2,width:x(b)-x(a),height:bh,fill:c,stroke:'#fff'}));if(x(b)-x(a)>44)svg.appendChild(T((x(a)+x(b))/2,y2+bh/2+4,lab,{'text-anchor':'middle','font-size':11.5,fill:'#202b2a'}))}
+    svg.appendChild(S('rect',{x:x(lead-touch),y:102,width:x(lead)-x(lead-touch),height:10,fill:COL.accent}));
+    svg.appendChild(T(x(lead-touch/2),95,touch+' h opératoires',{'text-anchor':'middle','font-size':11,fill:COL.accent,'font-weight':600}));
+    const step=Math.max(10,Math.round(lead/6/10)*10);
+    for(let h=0;h<=lead;h+=step){svg.appendChild(S('line',{x1:x(h),x2:x(h),y1:y2+bh,y2:y2+bh+5,stroke:'#202b2a','stroke-width':1}));svg.appendChild(T(x(h),y2+bh+18,'h'+h,{'text-anchor':'middle','font-size':10.5,fill:'#596762'}))}
+    svg.appendChild(T((ml+W-mr)/2,y2+bh+36,'heures ouvrées',{'text-anchor':'middle','font-size':12}));
+    svg.appendChild(S('line',{x1:x(launch),x2:x(launch),y1:y2-4,y2:y2+bh+5,stroke:COL.accent,'stroke-width':1.6,'stroke-dasharray':'5 4'}));
+    svg.appendChild(T(x(launch),y2-24,'lancement h'+launch,{'text-anchor':'middle','font-size':11.5,fill:COL.accent,'font-weight':600}));
+    ro.innerHTML='';
+    [['Temps opératoire / délai',fmt(100*touch/lead,1)+' %'],['Temps opératoire / fenêtre',fmt(100*touch/buffer,1)+' %'],['Fenêtre cible',fmt(buffer,1)+' h'],['Lancement','h'+launch],['Date client','h'+lead]].forEach(function(kv){const d=document.createElement('div');d.className='readout';d.innerHTML='<b>'+kv[1]+'</b><span class="sub">'+kv[0]+'</span>';ro.appendChild(d)});
+  }
+  document.getElementById('bufferPct').oninput=render;
+  for(const [range,number] of [[sLead,nLead],[sTouch,nTouch]]){
+    range.oninput=()=>{number.value=range.value;render()};
+    number.oninput=()=>{if(number.value && number.validity.valid){range.value=number.value;render()}};
+    number.onchange=()=>{if(number.value)range.value=number.value;number.value=range.value;render()};
+  }
+  render();
+}
+
+function initPriorities(){
+  const ofs=[{id:'C',due:100,launch:40},{id:'A',due:120,launch:60},{id:'D',due:140,launch:80}];
+  ofs.forEach(function(o){o.buffer=o.due-o.launch});
+  const svg=$('#prioSvg');const W=720,H=220,ml=64,mr=14,mt=26,mb=32;
+  const HMIN=40,HMAX=150;
+  const x=function(h){return ml+(h-HMIN)/(HMAX-HMIN)*(W-ml-mr)};
+  const slider=$('#nowSlider'),tbl=$('#prioTable'),ro=$('#prioReadouts');
+  function render(){
+    const now=+slider.value;
+    svg.innerHTML='';
+    svg.appendChild(S('line',{x1:x(40),x2:x(150),y1:H-mb,y2:H-mb,stroke:'#202b2a','stroke-width':1.2}));
+    for(let h=40;h<=150;h+=10){svg.appendChild(S('line',{x1:x(h),x2:x(h),y1:H-mb,y2:H-mb+5,stroke:'#202b2a','stroke-width':1}));svg.appendChild(T(x(h),H-mb+18,'h'+h,{'text-anchor':'middle','font-size':10.5,fill:'#596762'}))}
+    svg.appendChild(T((ml+W-mr)/2,H-2,'heures ouvrées',{'text-anchor':'middle','font-size':12}));
+    const rows=[26,86,146],bh=30;
+    ofs.forEach(function(o,i){
+      const y=rows[i];
+      svg.appendChild(T(ml-8,y+bh/2+4,o.id+' · dû h'+o.due,{'text-anchor':'end','font-size':11.5,fill:'#596762'}));
+      const p=penetration(o,now);const z=zoneOf(p.p,p.reste);
+      if(p.reste<0){svg.appendChild(S('rect',{x:x(o.launch),y:y,width:x(o.due)-x(o.launch),height:bh,fill:COL.noir,stroke:'#fff'}))}
+      else{
+        const seg=[[o.launch,o.launch+o.buffer/3,COL.vert,'Vert'],[o.launch+o.buffer/3,o.launch+2*o.buffer/3,COL.jaune,'Jaune'],[o.launch+2*o.buffer/3,o.due,COL.rouge,'Rouge']];
+        for(let si=0;si<seg.length;si++){const a=seg[si][0],b=seg[si][1],c=seg[si][2],lab=seg[si][3];svg.appendChild(S('rect',{x:x(a),y:y,width:x(b)-x(a),height:bh,fill:c,stroke:'#fff'}));if(x(b)-x(a)>40)svg.appendChild(T((x(a)+x(b))/2,y+bh/2+4,lab,{'text-anchor':'middle','font-size':11}))}
+      }
+      if(now>=o.launch&&now<=o.due){svg.appendChild(S('circle',{cx:x(now),cy:y+bh/2,r:5,fill:'#fff',stroke:COL.accent,'stroke-width':2}))}
+    });
+    const cx=x(now);
+    svg.appendChild(S('line',{x1:cx,x2:cx,y1:mt-8,y2:H-mb,stroke:COL.accent,'stroke-width':2}));
+    svg.appendChild(T(cx,mt-14,'maintenant h'+now,{'text-anchor':'middle','font-size':12,'font-weight':600,fill:COL.accent}));
+    const ranked=ofs.slice().sort(function(a,b){const pa=penetration(a,now),pb=penetration(b,now);const d=zoneRank(zoneOf(pb.p,pb.reste))-zoneRank(zoneOf(pa.p,pa.reste));return d!==0?d:a.launch-b.launch});
+    const rankOf={};ranked.forEach(function(o,i){rankOf[o.id]=i+1});
+    tbl.innerHTML='<tr><td>OF prêt</td><td>Échéance</td><td>Reste</td><td>Pénétration</td><td>Couleur</td><td>Priorité</td></tr>';
+    ofs.forEach(function(o){
+      const p=penetration(o,now);const z=zoneOf(p.p,p.reste);
+      const tr=document.createElement('tr');
+      tr.innerHTML='<td>'+o.id+'</td><td>h'+o.due+'</td><td>'+(p.reste<0?'dépassée':fmt(p.reste,0)+' h')+'</td><td>'+fmt(p.p*100,0)+' %</td><td><span class="chip '+z+'">'+(now<o.launch?'Au carnet':ZLABEL[z])+'</span></td><td>'+(now<o.launch?'—':rankOf[o.id]+' · '+ZLABEL[z])+'</td>';
+      tbl.appendChild(tr);
+    });
+    const released=ofs.filter(function(o){return now>=o.launch});
+    const reds=released.filter(function(o){const p=penetration(o,now);return zoneOf(p.p,p.reste)==='rouge'}).length;
+    const pct=released.length?reds/released.length:0;
+    const rule=bufferRule(pct);
+    ro.innerHTML='';
+    [['OF libérés',released.length+' / '+ofs.length],['Rouges',reds+' ('+fmt(pct*100,0)+' %)'],['Dimensionnement','Observer une cohorte achevée avant de modifier le tampon'],['Prochaine pièce au poste',(ranked.find(o=>now>=o.launch)||{id:'Aucun OF libéré'}).id]].forEach(function(kv){const d=document.createElement('div');d.className='readout';d.innerHTML='<b>'+kv[1]+'</b><span class="sub">'+kv[0]+'</span>';ro.appendChild(d)});
+  }
+  slider.addEventListener('input',render);
+  $$('button[data-now]').forEach(function(b){b.addEventListener('click',function(){slider.value=b.dataset.now;render()})});
+  render();
+}
+
+function initDbr(){
+  const svg=$('#dbrSvg');const W=720,H=230,ml=118,mr=14,mt=30,mb=34;
+  const HMIN=81,HMAX=120;
+  const x=function(h){return ml+(h-HMIN)/(HMAX-HMIN)*(W-ml-mr)};
+  const UP=18,DOWN=18,SLOT=99,SLOT_END=102,DUE=120,LAUNCH=81;
+  const slider=$('#dbrSlider'),ro=$('#dbrReadouts');
+  function thirds(a,b,y,bh){
+    const seg=[[a,a+(b-a)/3,COL.vert,'Vert'],[a+(b-a)/3,a+2*(b-a)/3,COL.jaune,'Jaune'],[a+2*(b-a)/3,b,COL.rouge,'Rouge']];
+    for(let si=0;si<seg.length;si++){const p=seg[si][0],q=seg[si][1],c=seg[si][2],lab=seg[si][3];svg.appendChild(S('rect',{x:x(p),y:y,width:x(q)-x(p),height:bh,fill:c,stroke:'#fff'}));if(x(q)-x(p)>42)svg.appendChild(T((x(p)+x(q))/2,y+bh/2+4,lab,{'text-anchor':'middle','font-size':11}))}
+  }
+  function render(){
+    const now=+slider.value;
+    svg.innerHTML='';
+    svg.appendChild(S('line',{x1:x(81),x2:x(120),y1:H-mb,y2:H-mb,stroke:'#202b2a','stroke-width':1.2}));
+    for(let h=81;h<=120;h+=3){svg.appendChild(S('line',{x1:x(h),x2:x(h),y1:H-mb,y2:H-mb+5,stroke:'#202b2a','stroke-width':1}));svg.appendChild(T(x(h),H-mb+18,'h'+h,{'text-anchor':'middle','font-size':10.5,fill:'#596762'}))}
+    svg.appendChild(T((ml+W-mr)/2,H-2,'heures ouvrées',{'text-anchor':'middle','font-size':12}));
+    const r0y=24,r1y=84,r2y=144,bh=26;
+    svg.appendChild(T(ml-8,r0y+19,'Tampon amont',{'text-anchor':'end','font-size':11.5,fill:'#596762'}));
+    thirds(LAUNCH,SLOT,r0y,bh);
+    svg.appendChild(T(ml-8,r1y+19,'Tambour B',{'text-anchor':'end','font-size':11.5,fill:'#596762'}));
+    const drum=[['C',96,99,COL.bleu],['A',99,102,COL.orange],['D',102,105,COL.bleu]];
+    for(let di=0;di<drum.length;di++){const id=drum[di][0],a=drum[di][1],b=drum[di][2],c=drum[di][3];svg.appendChild(S('rect',{x:x(a),y:r1y,width:x(b)-x(a),height:bh,fill:c,stroke:'#fff','stroke-width':1.4}));svg.appendChild(T((x(a)+x(b))/2,r1y+17,id,{'text-anchor':'middle','font-size':12,'font-weight':700}))}
+    svg.appendChild(T(ml-8,r2y+19,'Tampon aval',{'text-anchor':'end','font-size':11.5,fill:'#596762'}));
+    thirds(SLOT_END,DUE,r2y,bh);
+    const cx=x(Math.max(HMIN,Math.min(HMAX,now)));
+    svg.appendChild(S('line',{x1:cx,x2:cx,y1:mt-8,y2:H-mb,stroke:COL.accent,'stroke-width':2}));
+    svg.appendChild(T(cx,mt-14,'maintenant h'+now,{'text-anchor':'middle','font-size':12,'font-weight':600,fill:COL.accent}));
+    svg.appendChild(S('line',{x1:x(SLOT),x2:x(SLOT),y1:r0y-4,y2:r2y+bh+4,stroke:'#c05a48','stroke-width':1.4,'stroke-dasharray':'4 4'}));
+    svg.appendChild(T(x(SLOT),r0y-8,'créneau réservé h99–102',{'text-anchor':'middle','font-size':10.5,fill:'#c05a48'}));
+    let state,decision,zone='vert';
+    if(now<SLOT-UP){state='Au carnet';decision='Attendre la date de lancement h81';zone='vert'}else if(now<SLOT){const p=1-(SLOT-now)/UP;zone=zoneOf(p,SLOT-now);state='En amont de B — pénétration '+fmt(p*100,0)+' %';decision=zone==='rouge'?'Achever la préparation : A doit être prêt à h99':(zone==='jaune'?'Préparer outils et dossier de B':'Surveiller la file amont, respecter la corde (lancement h81)')}
+    else if(now<SLOT_END){state='A est sur B — créneau réservé h99–102';decision='Usiner A durant 3 h, ne jamais laisser B sans pièce prête';zone='rouge'}
+    else if(now<=DUE){const p=(now-SLOT_END)/DOWN;zone=zoneOf(p,DUE-now);state='En aval de B — pénétration aval '+fmt(p*100,0)+' %';decision=zone==='rouge'?'Prioriser la finition pour expédier à h120':(zone==='jaune'?'Préparer l’emballage et l’expédition':'En route vers l’expédition h120')}
+    else{state='Échéance h120 atteinte';decision='Retirer A du tableau si expédié, sinon A passe noir et passe devant tout';zone='noir'}
+    ro.innerHTML='';
+    [['État de A',state],['Décision',decision],['Zone','<span class="chip '+zone+'">'+ZLABEL[zone]+'</span>'],['Prochaine échéance','h'+(now<SLOT?SLOT:(now<DUE?DUE:now))]].forEach(function(kv){const d=document.createElement('div');d.className='readout';d.innerHTML='<b>'+kv[1]+'</b><span class="sub">'+kv[0]+'</span>';ro.appendChild(d)});
+  }
+  slider.addEventListener('input',render);
+  $$('button[data-dbr]').forEach(function(b){b.addEventListener('click',function(){slider.value=b.dataset.dbr;render()})});
+  render();
+}
+
+const STEPS=[
+{t:'1 · Identifier',txt:'Comparer charge et capacité de B, observer sa file de pièces prêtes et vérifier quelles commandes ratent leur échéance à cause de B.',app:'Application à B : file persistante devant B sur plusieurs semaines, charge des commandes acceptées > capacité disponible → B est la contrainte du système.'},
+{t:'2 · Exploiter',txt:'Relever les heures perdues sur B. Préparer outils et dossiers avant le créneau. Contrôler les pièces en amont pour éviter de consacrer trois heures de B à une pièce déjà défectueuse.',app:'Application à B : jamais d’arrêt pendant les pauses, dossier prêt avant h99, contrôle amont systématique — chaque heure de B est protégée.'},
+{t:'3 · Subordonner',txt:'L’ordonnanceur cale les lancements sur les rendez-vous de B. Les postes amont assurent la disponibilité des prochaines pièces. Le commercial vérifie le créneau libre et la fenêtre aval avant de confirmer une date.',app:'Application à B : lancement de A à h81 = h99 − 18 h (la corde), séquence C → A → D figée sur le tambour, dates promises uniquement sur la capacité non allouée de B.'},
+{t:'4 · Élever',txt:'Si la demande rentable dépasse encore la capacité exploitable de B, chiffrer les heures de B gagnées par transfert de gamme, équipe supplémentaire ou investissement, puis les ventes que ces heures permettent.',app:'Application à B : chiffrer le coût d’une heure de B et la vente qu’elle débloque avant toute promesse — ne jamais « right-sizer » la capacité révélée en excès ailleurs.'},
+{t:'5 · Recommencer',txt:'Comparer les nouvelles files, les heures perdues et le débit livré. Si la finition limite désormais les sorties, reprendre le diagnostic à cet endroit et réexaminer les règles établies pour B.',app:'Application à B : la contrainte se déplace (ex. la finition) → reprendre à l’étape 1 sur le nouveau poste, et réexaminer les règles devenues obsolètes.'}
+];
+function initSteps(){
+  const btns=$('#stepBtns'),panel=$('#stepPanel'),next=$('#stepNext');let cur=0;
+  STEPS.forEach(function(s,i){const b=document.createElement('button');b.type='button';b.textContent=s.t;b.addEventListener('click',function(){cur=i;render()});btns.appendChild(b)});
+  function render(){$$('#stepBtns button').forEach(function(b,i){b.classList.toggle('on',i===cur)});const s=STEPS[cur];panel.innerHTML='<h5>'+s.t+'</h5><p>'+s.txt+'</p><div class="app"><strong>Dans l’exemple :</strong> '+s.app+'</div>';next.textContent=cur<STEPS.length-1?'Étape suivante →':'Revenir à l’étape 1 ↺'}
+  next.addEventListener('click',function(){cur=(cur+1)%STEPS.length;render()});
+  render();
+}
+
+function initLimits(){
+  const svg=$('#ratioSvg');const W=720,H=120,ml=50,mr=20,my=34,bh=30;
+  const slider=$('#ratioSlider'),ro=$('#ratioReadouts');
+  const x=function(v){return ml+(v/60)*(W-ml-mr)};
+  function render(){
+    const v=+slider.value;
+    svg.innerHTML='';
+    svg.appendChild(S('rect',{x:x(0),y:my,width:x(10)-x(0),height:bh,fill:COL.vert,stroke:'#fff'}));
+    svg.appendChild(S('rect',{x:x(10),y:my,width:x(30)-x(10),height:bh,fill:COL.jaune,stroke:'#fff'}));
+    svg.appendChild(S('rect',{x:x(30),y:my,width:x(60)-x(30),height:bh,fill:COL.rouge,stroke:'#fff'}));
+    svg.appendChild(T(x(5),my+bh/2+4,'DBR',{'text-anchor':'middle','font-size':12,'font-weight':700,fill:'#256b45'}));
+    svg.appendChild(T(x(20),my+bh/2+4,'zone jaune',{'text-anchor':'middle','font-size':11.5,'font-weight':700,fill:'#7a5d10'}));
+    svg.appendChild(T(x(45),my+bh/2+4,'CCPM',{'text-anchor':'middle','font-size':12,'font-weight':700,fill:'#a63a26'}));
+    svg.appendChild(S('line',{x1:x(10),x2:x(10),y1:my-6,y2:my+bh+6,stroke:'#202b2a','stroke-width':1.4,'stroke-dasharray':'4 3'}));
+    svg.appendChild(T(x(10),my-12,'10 %',{'text-anchor':'middle','font-size':11,'font-weight':600}));
+    svg.appendChild(S('line',{x1:x(30),x2:x(30),y1:my-6,y2:my+bh+6,stroke:'#202b2a','stroke-width':1.4,'stroke-dasharray':'4 3'}));
+    svg.appendChild(T(x(30),my-12,'30 %',{'text-anchor':'middle','font-size':11,'font-weight':600}));
+    for(let p=0;p<=60;p+=10){svg.appendChild(T(x(p),my+bh+18,p+' %',{'text-anchor':'middle','font-size':10.5,fill:'#596762'}))}
+    svg.appendChild(T((ml+W-mr)/2,H-4,'temps opératoire en % du délai de référence',{'text-anchor':'middle','font-size':12}));
+    const cx=x(v);svg.appendChild(S('line',{x1:cx,x2:cx,y1:my-6,y2:my+bh+6,stroke:COL.accent,'stroke-width':2.4}));
+    svg.appendChild(T(cx,my-12,v+' %',{'text-anchor':'middle','font-size':11.5,'font-weight':700,fill:COL.accent}));
+    let chip,txt;
+    if(v<10){chip=['vert','DBR adapté'];txt='Temps opératoire négligeable devant les files : le tampon temporel (DBR) pilote le flux.'}
+    else if(v<=30){chip=['jaune','DBR encore valable — zone jaune'];txt='Entre 10 % et 30 % : DBR reste utilisable, vérifier la marge disponible pour les attentes et les aléas.'}
+    else{chip=['rouge','CCPM à étudier'];txt='Au-delà de 30 % : le délai promis est proche du travail réel — la chaîne critique avec tampons de projet est l’application la plus intéressante.'}
+    ro.innerHTML='';
+    const d1=document.createElement('div');d1.className='readout';d1.innerHTML='<b><span class="chip '+chip[0]+'">'+chip[1]+'</span></b><span class="sub">application adaptée</span>';ro.appendChild(d1);
+    const d2=document.createElement('div');d2.className='readout';d2.innerHTML='<b>'+txt+'</b><span class="sub">interprétation</span>';ro.appendChild(d2);
+  }
+  slider.addEventListener('input',render);render();
+}
+
+function ganttOrders(seed, count=8, requestedLeadMean=21, rate=null){
+ const draw=rng(seed), arrivalDraw=rng(seed^0x72af315); let arrival=0;
+ return Array.from({length:count},(_,i)=>{
+   if(rate!==null) arrival+=-Math.log1p(-arrivalDraw())/rate;
+   else if(i) arrival+=Math.max(1,Math.round(-3*Math.log(1-draw())));
+   const family=draw()<.5?'○':'□', standard=family==='○'?[2,5,2]:[1.5,5.5,2];
+   const actual=standard.map(v=>Math.round(100*v*(.75+.5*draw()))/100);
+   const requestedLead=Math.max(1,Math.round(requestedLeadMean*(.6+.8*draw())));
+   return {id:i,arrival,requested:arrival+requestedLead,family,standard,actual};
+ });
+}
+
+// Horloge en tiers d’heure pour représenter exactement les seuils du tampon.
+function ganttZone(job,time,buffer){
+ return time>=job.due?3:time>=job.due-buffer/3?2:time>=job.due-2*buffer/3?1:0;
+}
+function ganttQueue(jobs,rule,time,buffer){
+ return jobs.sort((a,b)=>(rule==='fifo'?0:(a.due-time)-(b.due-time))||a.ready-b.ready||a.id-b.id);
+}
+function ganttRun(orders,opt,limit,choices={},forecast=false,initial=null){
+ const state=initial?structuredClone(initial):{t:Math.min(0,orders[0]?.arrival??0),jobs:[],bars:[],last:[null,null,null],decision:null};
+ state.decision=null;
+ function dispatch(t){
+  for(let p=0;p<3;p++){
+   if(state.jobs.some(j=>j.stage===p&&j.end!=null))continue;
+   const q=ganttQueue(state.jobs.filter(j=>j.stage===p&&j.end==null),opt.rule,t,opt.buffer);
+   if(!q.length)continue;
+   const key=[t,p].join('/');let j=q.find(j=>j.id===choices[key])||q[0];
+   if(t<0)j=q.slice().sort((a,b)=>a.ready-b.ready||a.id-b.id)[0];
+   if(t>=0&&opt.rule==='manual'&&q.length>1&&choices[key]==null&&!forecast){state.decision={key,p,ids:q.map(j=>j.id)};return}
+   const setup=state.last[p]!=null&&state.last[p]!==j.family?opt.setup:0;
+   j.end=t+setup+(forecast?j.standard:j.actual)[p];state.last[p]=j.family;
+   const fifo=q.slice().sort((a,b)=>a.ready-b.ready||a.id-b.id);
+   state.bars.push({id:j.id,p,start:t,end:j.end,setup,wait:t-j.ready,
+    fifo:fifo[0].id,candidates:q.map(candidate=>({id:candidate.id,remaining:candidate.due-t})),
+    reordered:q.length>1&&fifo[0].id!==j.id});
+  }
+ }
+ while(true){
+  const t=state.t;
+  state.jobs.forEach(j=>{if(j.end!=null&&j.end<=t){j.stage++;j.ready=t;j.end=null;if(j.stage===3)j.ship=t}});
+  for(const o of orders.filter(o=>o.arrival===t&&!state.jobs.some(j=>j.id===o.id))){
+   const base=Math.max(o.requested,t+(opt.fixed?(opt.promiseLead??15):opt.buffer));
+   let due=base;
+   if(t>=0&&opt.capacity&&!forecast){
+    for(;due<=base+160;due++){
+     const trial={...o,due,release:Math.max(t,due-opt.buffer),stage:-1,end:null};
+     const projected=ganttProjection(state,trial,opt);
+     if(projected.jobs.every(j=>j.ship<=j.due))break;
+    }
+    if(due>base+160){state.jobs.push({...o,stage:-2,due:null});continue}
+   }
+   state.jobs.push({...o,due,release:t<0||opt.immediate?t:Math.max(t,due-opt.buffer),stage:-1,end:null});
+  }
+  state.jobs.forEach(j=>{if(j.stage===-1&&j.release<=t){j.stage=0;j.ready=t}});
+  dispatch(t);
+  if(state.decision||t>=limit)break;
+  const future=[limit,...orders.map(o=>o.arrival)];
+  for(const j of state.jobs.filter(j=>j.stage>=-1&&j.stage<3))future.push(j.release,j.end,j.due,j.due-opt.buffer/3,j.due-2*opt.buffer/3);
+  const next=Math.min(...future.filter(v=>v!=null&&v>t+1e-8));
+  if(!Number.isFinite(next))break;
+  state.t=next;
+ }
+ return state;
+}
+function ganttProjection(state,trial,opt){
+ const copy=structuredClone(state);
+ copy.jobs=copy.jobs.filter(j=>j.stage!==-2);
+ if(trial)copy.jobs.push(trial);
+ for(const j of copy.jobs.filter(j=>j.end!=null)){
+  const bar=copy.bars.findLast(b=>b.id===j.id&&b.p===j.stage);
+  j.end=Math.max(copy.t+1/3,bar.start+bar.setup+j.standard[j.stage]);bar.end=j.end;
+ }
+ return ganttRun([],{...opt,capacity:false},Infinity,{},true,copy);
+}
+function ganttMonteCarlo(seed,opt,rate,warmup,count){
+ const orders=ganttOrders(seed,count+Math.ceil(rate*warmup*2)+32,opt.requestedLeadMean,rate);
+ const last=orders.findIndex((o,i)=>i>=count-1&&orders[i-count+1].arrival>=warmup);
+ if(last<0)throw Error('Prolonger la génération des arrivées.');
+ const end=orders[last].arrival, duration=end-warmup;
+ const run=ganttRun(orders.slice(0,last+1),opt,Infinity);
+ const cohort=run.jobs.slice(-count), shipped=cohort.filter(j=>j.ship!=null);
+ const portion=(start,stop)=>Math.max(0,Math.min(end,stop)-Math.max(warmup,start));
+ const busy=[0,0,0],waiting=[0,0,0];
+ for(const bar of run.bars){
+  busy[bar.p]+=portion(bar.start,bar.end);
+  waiting[bar.p]+=portion(bar.start-bar.wait,bar.start);
+ }
+ const offered=[0,1,2].map(p=>100*cohort.reduce((sum,j)=>sum+j.actual[p]+opt.setup/2,0)/duration);
+ return {orders:orders.slice(0,last+1),otd:100*shipped.filter(j=>j.ship<=j.due).length/(cohort.filter(j=>j.due!=null).length||1),
+  promised:cohort.filter(j=>j.due!=null).length,
+  service:100*shipped.filter(j=>j.ship<=j.requested).length/count,
+  red:100*shipped.filter(j=>j.ship>j.due-opt.buffer/3).length/(shipped.length||1),
+  wip:run.jobs.reduce((a,j)=>a+(j.release==null?0:portion(j.release,j.ship??Infinity)),0)/duration,
+  throughput:run.jobs.filter(j=>j.ship>warmup&&j.ship<=end).length/duration,
+  delays:shipped.map(j=>j.ship-j.release),busy:busy.map(v=>100*v/duration),waiting:waiting.map(v=>v/duration),offered};
+}
+function initSim(){
+ const el=id=>document.getElementById(id),svg=el('simSvg'),slider=el('simTime'),controls=slider.closest('.controls'),read=el('simReadouts'),cards=el('simStations');
+controls.insertAdjacentHTML('beforeend',`<label>Séquence <select id="gsRule"><option value="fifo">FIFO</option><option value="buffer" selected>Tampon restant croissant</option><option value="manual">Choix manuel</option></select></label><label>Promesse <select id="gsPromise"><option value="fixed">Délai commercial indépendant du tampon</option><option value="standard">Au délai standard</option><option value="capacity">Sous charge projetée</option></select></label><label>Délai moyen demandé par les clients <input id="gsRequestedLead" type="number" min="3" max="360" value="120"> h</label><label>Délai commercial minimal <input id="gsLead" type="number" min="1" max="360" value="90"> h</label><label>Réglage ○ ↔ □ <input id="gsSetup" type="number" min="0" max="8" value="1"> h</label><button id="gsNext">Événement suivant</button>`);
+ const note=controls.previousElementSibling;
+ note.textContent='Les commandes apparaissent au carnet, puis entrent en préparation à la date de lancement. Le délai moyen demandé décrit le comportement des clients dans le scénario ; chaque commande varie autour de cette moyenne. Les opérations pâles projettent les commandes connues avec leurs durées standards.';
+ const detail=document.createElement('p');svg.parentElement.after(detail);
+ const names=['Préparation','Usinage','Finition'],colors=['#356aa0','#ae5438','#6f5797','#3e7762','#a07925','#ad517f','#387c8c','#686854'];
+ let seed=42,orders,opt,choices={},timer,selected=0,history,benchmark,axis,replay=null,page=0,runs=[];
+ const ink=id=>colors[id%colors.length];
+ const panel=document.createElement('details');
+ panel.innerHTML=`<summary>Expérience Monte-Carlo</summary><div class="controls">
+ <label>Goulot <select id="mcStation"><option value="0">Préparation</option><option value="1" selected>Usinage</option><option value="2">Finition</option></select></label>
+ <label>Charge cible (%) <input id="mcLoad" type="number" min="5" max="99" value="90"></label>
+ <label>OF mesurés <input id="mcCount" type="number" min="20" max="500" value="120"></label>
+ <label>Warm-up (h) <input id="mcWarm" type="number" min="0" max="1000" value="150"></label>
+ <label>Réplications <input id="mcRuns" type="number" min="5" max="100" value="20"></label>
+ <label>Graine <input id="mcSeed" type="number" value="42"></label>
+ <button type="button" id="mcGo">Lancer le Monte-Carlo</button></div>
+ <p id="mcStatus" role="status"></p><div class="table" id="mcResults"></div>
+ <label>Réplication à rejouer <select id="mcReplay" disabled></select></label>
+ <button type="button" id="mcBack">Revenir au scénario court</button>`;
+ controls.after(panel);
+ const presets=document.createElement('div');
+ presets.className='controls';
+ presets.innerHTML='<label>Lancement <select id="launch"><option value="window">Fenêtre S-DBR</option><option value="now">Dès réception</option></select></label><label>Heures par jour <input id="day" type="number" min="1" max="24" value="8"></label><button id="arb">Prochain arbitrage</button>';
+ controls.before(presets);
+ presets.append(panel.querySelector('#mcLoad').parentElement,panel.querySelector('#mcStation').parentElement);
+ const comparison=document.createElement('div');pagingPlaceholder();
+ function pagingPlaceholder(){panel.after(comparison)}
+ const policies=[['A · Immédiat / FIFO',true,'fifo'],['B · Fenêtre / FIFO',false,'fifo'],['C · Fenêtre / tampon',false,'buffer']];
+ let comparisons=[];
+ for(const [label,immediate,rule] of policies){
+  const b=document.createElement('button');b.textContent=label;presets.append(b);
+  b.onclick=()=>{el('launch').value=immediate?'now':'window';el('gsRule').value=rule;replay=null;reset()};
+ }
+ for(const id of ['launch','mcLoad','mcStation','day'])el(id).onchange=()=>{replay=null;reset()};
+ el('arb').onclick=()=>{stop();const bar=history.bars.find(b=>b.start>+slider.value&&b.candidates.length>1);render(bar?.start??(history.decision?history.t:+slider.value))};
+ const paging=document.createElement('div');
+ paging.innerHTML='<button type="button" id="gsPrevPage">OF précédents</button> <span id="gsPage"></span> <button type="button" id="gsNextPage">OF suivants</button>';
+ svg.parentElement.after(paging);
+ const h=n=>Number(n.toFixed(1)),tag=j=>'OF '+(j.id+1)+' '+j.family;
+ function stop(){clearInterval(timer);timer=null;el('simPlay').textContent='▶ Lire'}
+ function reset(){
+  stop();choices={};
+  const requestedLeadMean=Math.min(360,Math.max(3,+el('gsRequestedLead').value||120));
+  orders=replay?.orders??ganttOrders(seed,8,requestedLeadMean);
+  opt=replay?.options??{requestedLeadMean,promiseLead:Math.min(360,Math.max(1,+el('gsLead').value||90)),buffer:+el('simBuffer').value,setup:Math.min(8,Math.max(0,+el('gsSetup').value)),rule:el('gsRule').value,fixed:el('gsPromise').value==='fixed',capacity:el('gsPromise').value==='capacity'};
+  if(!replay){
+   opt.immediate=el('launch').value==='now';
+   const work=[1.75,5.25,2][+el('mcStation').value]+opt.setup/2;
+   const rate=numeric('mcLoad',5,99)/100/work;
+   const inherited=ganttOrders(seed,44,requestedLeadMean).map((o,i)=>{
+    const arrival=-82+i*1.25;
+    return {...o,arrival,requested:arrival+o.requested-o.arrival};
+   });
+   orders=inherited.concat(ganttOrders(seed^12345,48,requestedLeadMean,rate).map(o=>({...o,id:o.id+44})));
+   comparisons=policies.map(([label,immediate,rule])=>[label,ganttRun(orders,{...opt,capacity:false,immediate,rule},Infinity)]);
+   note.textContent='Prise de poste à J0 après une vague de 44 commandes. Référence historique 180 h · cible '+opt.buffer+' h · gamme nominale 9 h (5 % de la référence, '+h(900/opt.buffer)+' % de la cible). Réglages moyens de référence '+h(1.5*opt.setup)+' h/OF. Demande future '+h(rate*numeric('day',1,24))+' OF/j ouvré.';
+  }
+  const touchMean=orders.reduce((sum,o)=>sum+o.actual.reduce((a,b)=>a+b,0),0)/orders.length;
+  el('simBufferValue').textContent=opt.buffer+' h · opérations moy. '+touchMean.toFixed(1)+' h / cible = '+(100*touchMean/opt.buffer).toFixed(1)+' % (hors réglages)';slider.value=0;slider.step='any';
+  axis=Math.max(...orders.map(o=>o.requested))+200;
+  history=ganttRun(orders,opt,replay?Infinity:axis,choices);
+  const sample=[];
+  for(let n=0;n<5;n++)sample.push(...ganttRun(ganttOrders(seed+n,8,opt.requestedLeadMean),{...opt,rule:opt.rule==='manual'?'buffer':opt.rule},axis+200).jobs.filter(j=>j.ship!=null));
+  benchmark={n:sample.length,r:sample.filter(j=>j.ship>j.due-opt.buffer/3).length};
+  render(replay?history.t:0)
+ }
+ const numeric=(id,min,max)=>Math.min(max,Math.max(min,Math.round(+el(id).value||0)));
+ el('mcGo').onclick=async()=>{
+  const button=el('mcGo'),status=el('mcStatus'),picker=el('mcReplay');
+  button.disabled=true;picker.disabled=true;runs=[];
+  el('mcResults').replaceChildren();
+  try{
+   const station=+el('mcStation').value, target=numeric('mcLoad',5,99);
+   const warmup=numeric('mcWarm',0,1000),count=numeric('mcCount',20,500),reps=numeric('mcRuns',5,100);
+   const experiment={...opt,rule:opt.rule==='manual'?'buffer':opt.rule};
+   const baseSeed=+el('mcSeed').value, calibration=ganttOrders(baseSeed^0x91ab7,4096);
+   const meanWork=[1.75,5.25,2][station]+experiment.setup/2;
+   const rate=target/100/meanWork;
+   for(let i=0;i<reps;i++){
+    status.textContent='Réplication '+(i+1)+' / '+reps;
+    await new Promise(resolve=>setTimeout(resolve,0));
+    const replicationSeed=(baseSeed+Math.imul(i,0x9e3779b9))>>>0;
+    const result=ganttMonteCarlo(replicationSeed,experiment,rate,warmup,count);
+    const fifo=experiment.rule==='fifo'?result:ganttMonteCarlo(replicationSeed,{...experiment,rule:'fifo'},rate,warmup,count);
+    const paired=policies.map(([,immediate,rule])=>ganttMonteCarlo(replicationSeed,{...experiment,capacity:false,immediate,rule},rate,warmup,count));
+    runs.push({...result,paired,options:experiment,serviceDelta:result.service-fifo.service});
+   }
+   const avg=values=>values.reduce((a,b)=>a+b,0)/values.length;
+   function estimate(values){
+    if(values.length<2)return '—';
+    const mean=avg(values),df=values.length-1;
+    const critical=1.96+2.374/df+2.82/(df*df);
+    const half=critical*Math.sqrt(values.reduce((a,v)=>a+(v-mean)**2,0)/df/values.length);
+    return mean.toFixed(2)+' ± '+half.toFixed(2);
+   }
+   const rows=[['OTD promis (%)',runs.filter(r=>r.promised).map(r=>r.otd)],['Service demandé (%)',runs.map(r=>r.service)],['OF rouges parmi les expédiés (%)',runs.filter(r=>r.delays.length).map(r=>r.red)],['Encours moyen dans les ateliers (OF)',runs.map(r=>r.wip)],['Débit observé (OF/h)',runs.map(r=>r.throughput)]];
+   for(const [index,label] of [[1,'B − A'],[2,'C − B']])for(const [key,unit] of [['otd','OTD (points)'],['wip','encours (OF)'],['throughput','débit (OF/h)']])rows.push([label+' · '+unit,runs.map(r=>r.paired[index][key]-r.paired[index-1][key])]);
+   names.forEach((name,p)=>{
+    rows.push([name+' · charge offerte estimée (%)',runs.map(r=>r.offered[p])],[name+' · occupation (%)',runs.map(r=>r.busy[p])],[name+' · file moyenne (OF)',runs.map(r=>r.waiting[p])]);
+   });
+   if(experiment.rule!=='fifo') rows.push(['Service demandé vs FIFO (points, essais appariés)',runs.map(r=>r.serviceDelta)]);
+   const delays=runs.flatMap(r=>r.delays).sort((a,b)=>a-b);
+   const quantile=p=>delays.length?h(delays[Math.ceil(p*delays.length)-1])+' h':'—';
+   el('mcResults').innerHTML='<table><thead><tr><th>Indicateur</th><th>Moyenne ± demi-largeur IC 95 %</th></tr></thead><tbody>'+rows.map(([label,values])=>'<tr><td>'+label+'</td><td>'+estimate(values)+'</td></tr>').join('')+'</tbody></table><p><strong>Encours atelier :</strong> moyenne temporelle des OF lancés mais non expédiés pendant la fenêtre de mesure, warm-up exclu. Les commandes encore au carnet ne sont pas comptées.</p><p>Traversée des OF expédiés · médiane '+quantile(.5)+' · P90 '+quantile(.9)+'</p>';
+   status.textContent=names[station]+' · '+target+' % de charge offerte cible · '+rate.toFixed(3)+' OF/h · '+reps+' réplications × '+count+' OF · warm-up '+warmup+' h · '+experiment.rule+'. Les arrivées s’arrêtent en fin de mesure, puis la cohorte se vide.';
+   picker.replaceChildren(new Option('Choisir une réplication',''));
+   runs.forEach((r,i)=>picker.add(new Option('Réplication '+(i+1)+' · OTD '+(r.promised?h(r.otd)+' %':'—'),i)));
+   picker.disabled=false;
+  }catch(error){status.textContent=error.message}
+  finally{button.disabled=false}
+ };
+ el('mcReplay').onchange=()=>{
+  if(el('mcReplay').value==='')return;
+  replay=runs[+el('mcReplay').value];
+  page=0;
+  selected=0;
+  reset();
+  svg.scrollIntoView({block:'nearest'});
+ };
+ el('mcBack').onclick=()=>{replay=null;page=0;el('mcReplay').value='';reset()};
+ el('gsPrevPage').onclick=()=>{page=Math.max(0,page-1);render(+slider.value)};
+ el('gsNextPage').onclick=()=>{page++;render(+slider.value)};
+ function render(time){
+  const s=ganttRun(orders,opt,time,choices),t=s.t,proj=ganttProjection(s,null,opt);
+  const extent=Math.max(80,replay?history.t:0,...orders.map(o=>Math.max(o.requested,o.arrival+45)),...s.jobs.filter(j=>j.due!=null).map(j=>j.due),...proj.bars.map(b=>b.end));
+  slider.max=Math.ceil(extent);slider.value=t;
+  if(s.decision)stop();
+  const open=s.jobs.filter(j=>j.stage>=0&&j.stage<3),due=s.jobs.filter(j=>j.due!=null&&j.due<=t),req=s.jobs.filter(j=>j.requested<=t),mature=s.jobs.filter(j=>j.due!=null&&j.due-opt.buffer/3<=t);
+  const pct=(a,b)=>b?h(100*a/b)+' % ('+a+'/'+b+')':'—';
+  const red=mature.filter(j=>j.ship==null||j.ship>j.due-opt.buffer/3);
+  const ratio=benchmark.r/benchmark.n;
+  const shipped=s.jobs.filter(j=>j.ship!=null&&j.ship>=0);
+  const day=numeric('day',1,24);
+  const rows=comparisons.map(([label,run])=>{
+   const jobs=run.jobs,deliveries=jobs.filter(j=>j.ship>=0&&j.ship<=t);
+   const avg=fn=>t?h(jobs.reduce((a,j)=>a+fn(j),0)/t):'—';
+   const area=(a,b)=>Math.max(0,Math.min(t,b)-Math.max(0,a));
+   const service=key=>{const cohort=jobs.filter(j=>j[key]>=0&&j[key]<=t);return pct(cohort.filter(j=>j.ship<=j[key]).length,cohort.length)};
+   const decisions=run.bars.filter(b=>b.start>=0&&b.start<=t&&b.candidates.length>1);
+   const delays=deliveries.map(j=>(j.ship-j.release)/day).sort((a,b)=>a-b);
+   const mean=fn=>deliveries.length?h(deliveries.reduce((v,j)=>v+fn(j),0)/deliveries.length/day):'—';
+   return [label,service('due'),service('requested'),avg(j=>area(j.release,j.ship)),avg(j=>area(j.arrival,j.release)),t?h(day*deliveries.length/t):'—',mean(j=>j.ship-j.release),mean(j=>j.ship-j.arrival),[.5,.9].map(p=>delays.length?h(delays[Math.ceil(p*delays.length)-1]):'—').join(' / '),decisions.length+' / '+decisions.filter(b=>b.reordered).length];
+  });
+  comparison.innerHTML=replay?'':'<details open><summary>Comparaison à J'+h(t/day)+' · promesses communes</summary><div class="table"><table><tr>'+['Politique','OTD','Demandée','Encours moy.','Carnet moy.','OF/j','Traversée (j)','Client (j)','P50 / P90 (j)','Arbitrages / écarts FIFO'].map(v=>'<th>'+v+'</th>').join('')+'</tr>'+rows.map(row=>'<tr>'+row.map(v=>'<td>'+v+'</td>').join('')+'</tr>').join('')+'</table></div></details>';
+  function gauge(value){
+   const width=Math.max(0,Math.min(100,value||0));
+   return '<svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><rect y="3" width="100" height="6" rx="3" fill="#e8eeea"/><rect y="3" width="'+width+'" height="6" rx="3" fill="#477f6d"/></svg>';
+  }
+  function spark(points,maxValue){
+   const scale=Math.max(1,maxValue),path=points.map((v,i)=>(i?'L':'M')+(i*100/(points.length-1))+','+(20-18*v/scale)).join(' ');
+   return '<svg viewBox="0 0 100 22" preserveAspectRatio="none" aria-hidden="true"><path d="M0 20H100" stroke="#d7dfda"/><path d="'+path+'" fill="none" stroke="#477f6d" stroke-width="1.7" vector-effect="non-scaling-stroke"/></svg>';
+  }
+  const samples=Array.from({length:33},(_,i)=>t*i/32);
+  const wip=samples.map(at=>s.jobs.filter(j=>j.release!=null&&j.release<=at&&(j.ship==null||j.ship>at)).length);
+  const delivered=samples.map(at=>shipped.filter(j=>j.ship<=at).length);
+  // Encours moyen physique : aire sous N(t), avec N(t) = OF lancés non expédiés.
+  // Les commandes au carnet (avant release) ne sont pas de l'encours atelier.
+  const meanWip=t?s.jobs.reduce((sum,j)=>{
+   if(j.release==null||j.release>=t)return sum;
+   return sum+Math.max(0,Math.min(t,j.ship??t)-Math.max(0,j.release));
+  },0)/t:0;
+  function metric(label,value,caption,chart){
+   return '<div class="metric">'+label+'<strong>'+value+'</strong><small>'+caption+'</small>'+chart+'</div>';
+  }
+  const onTime=due.filter(j=>j.ship!=null&&j.ship<=j.due).length;
+  const requestedOnTime=req.filter(j=>j.ship!=null&&j.ship<=j.requested).length;
+  const redRate=mature.length?100*red.length/mature.length:0;
+  const advice=benchmark.n<40?'Échantillon incomplet':ratio>.1?'Examiner la charge · tester plus long':ratio<.05?'Tester −10 à −20 %':'Conserver le tampon';
+  read.innerHTML=
+   metric('OTD · promesse',due.length?h(100*onTime/due.length)+' %':'—',onTime+'/'+due.length+' échéances · promesse initiale',gauge(due.length?100*onTime/due.length:0))+
+   metric('Service · date demandée',req.length?h(100*requestedOnTime/req.length)+' %':'—',requestedOnTime+'/'+req.length+' échéances client',gauge(req.length?100*requestedOnTime/req.length:0))+
+   metric('Encours moyen atelier',t?h(meanWip)+' OF':'—','Moyenne temporelle depuis h0 · '+open.length+' OF présents à h'+h(t),spark(wip,Math.max(8,...wip)))+
+   metric('Débit livré',t?h(shipped.length/t)+' OF/h':'—',shipped.length+' expédiés · courbe cumulée 0–8',spark(delivered,8))+
+   metric('OF passés au rouge',mature.length?h(redRate)+' %':'—',red.length+'/'+mature.length+' seuils rouges observés',gauge(redRate))+
+   metric('Réglage du tampon',h(100*ratio)+' % rouges',benchmark.r+'/'+benchmark.n+' OF · 5 cohortes · '+(opt.rule==='manual'?'priorité tampon':opt.rule)+' · '+advice,
+    '<svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><rect y="3" width="5" height="6" fill="#9ccda8"/><rect x="5" y="3" width="5" height="6" fill="#f0d482"/><rect x="10" y="3" width="90" height="6" fill="#eaa39a"/><path d="M'+Math.min(99,100*ratio)+' 0V12" stroke="#202b2a" stroke-width="2"/><title>Vert 0–5 %, jaune 5–10 %, rouge au-delà. Curseur à '+h(100*ratio)+' %.</title></svg>');
+  if(!replay){
+   const until=Math.max(10*day,t), inks=['#986747','#537b98','#16734d'];
+   const curves=comparisons.map(([,run])=>{
+    const changes=new Map([[0,0],[Math.min(t,until),0]]);
+    for(const j of run.jobs){
+     if(j.ship<=0||j.release>t)continue;
+     const start=Math.max(0,j.release);changes.set(start,(changes.get(start)||0)+1);
+     if(j.ship<=t)changes.set(j.ship,(changes.get(j.ship)||0)-1);
+    }
+    let n=0;return [...changes].sort((a,b)=>a[0]-b[0]).map(([time,delta])=>[time,n+=delta]);
+   });
+   const peak=Math.max(1,...curves.flatMap(c=>c.map(v=>v[1])));
+   comparison.querySelector('details').insertAdjacentHTML('beforeend','<small>Encours physique depuis J0 · A brun, B bleu, C vert · maximum '+peak+' OF</small><svg style="height:58px" viewBox="0 0 700 60">'+curves.map((c,i)=>'<path fill="none" stroke="'+inks[i]+'" d="'+c.map(([time,n],k)=>(k?'H':'M')+(690*time/until)+(k?'V':' ')+(56-52*n/peak)).join(' ')+'"/>').join('')+'</svg>');
+  }
+  const urgency=j=>['vert','jaune','rouge','noir'][ganttZone(j,t,opt.buffer)];
+  cards.replaceChildren();names.forEach((name,p)=>{
+   const list=open.filter(j=>j.stage===p),q=list.filter(j=>j.end==null),box=document.createElement('div');box.className='station';
+   const load=s.jobs.filter(j=>j.stage>=-1&&j.stage<=p&&j.due<=t+16).reduce((sum,j)=>{
+    const active=j.stage===p&&j.end!=null;
+    const bar=active?s.bars.findLast(b=>b.id===j.id&&b.p===p):null;
+    return sum+(active?Math.max(0,j.standard[p]-Math.max(0,t-bar.start-bar.setup)):j.standard[p]);
+   },0);
+   box.innerHTML='<b>'+name+'</b> · file '+q.reduce((a,j)=>a+j.standard[p],0)+' h<br>Charge exigible sous 16 h : '+h(load)+' / 16 h machine (hors réglages) · '+q.filter(j=>['rouge','noir'].includes(urgency(j))).length+' urgents en file';
+   for(const j of [...list.filter(j=>j.end!=null),...ganttQueue(q,opt.rule,t,opt.buffer)]){const b=document.createElement('button');b.textContent=tag(j)+' · '+(j.end!=null?'en cours':'attente')+' · '+urgency(j);b.onclick=()=>{selected=j.id;render(t)};box.appendChild(b)}
+   if(s.decision?.p===p)for(const id of s.decision.ids){const b=document.createElement('button');b.textContent='Engager OF '+(id+1);b.onclick=()=>{choices[s.decision.key]=id;history=ganttRun(orders,opt,axis,choices);render(t)};box.appendChild(b)}
+   cards.appendChild(box)
+  });
+  page=Math.min(page,Math.max(0,Math.ceil(s.jobs.length/18)-1));
+  const visible=s.jobs.slice(page*18,page*18+18);
+  el('gsPage').textContent=visible.length?(page*18+1)+'–'+(page*18+visible.length)+' / '+s.jobs.length:'Aucun OF';
+  el('gsPrevPage').disabled=page===0;
+  el('gsNextPage').disabled=(page+1)*18>=s.jobs.length;
+  const chartHeight=155+16*visible.length;
+  svg.setAttribute('viewBox','0 0 900 '+chartHeight);svg.replaceChildren();
+  const x=v=>95+725*Math.max(0,v)/extent;
+  function txt(a,b,str){svg.appendChild(T(a,b,str,{'font-size':12}))}
+  function rect(a,y,b,height,fill,opacity,id){const r=S('rect',{x:x(a),y,width:Math.max(.6,x(b)-x(a)),height,fill,opacity});r.onclick=()=>{selected=id;render(t)};svg.appendChild(r)}
+  const tick=Math.max(10,Math.ceil(extent/120)*10);
+  txt(5,15,'J'+h(t/day));for(let k=0;k<=extent;k+=tick)txt(x(k),15,'J'+h(k/day));
+  txt(4,40,'Carnet');
+  for(const j of s.jobs){
+   const until=Math.max(j.arrival,j.release??j.arrival);
+   rect(j.arrival,30,until,14,ink(j.id),.35,j.id);
+   txt(x(j.arrival)+2,41,String(j.id+1));
+   const arrival=S('circle',{cx:x(j.arrival),cy:37,r:3,fill:ink(j.id)});
+   const title=S('title');title.textContent='Demande OF '+(j.id+1)+' arrivée à h'+j.arrival+' · lancement à h'+(j.release??'à arbitrer');arrival.appendChild(title);svg.appendChild(arrival);
+  }
+  names.forEach((n,p)=>txt(4,65+24*p,n));
+  for(const b of proj.bars.filter(b=>b.end>=0)){
+   const y=52+24*b.p;rect(b.start,y,b.end,16,ink(b.id),.28,b.id);
+   if(b.start<t)rect(b.start,y,Math.min(t,b.end),16,ink(b.id),1,b.id);
+   txt(x(b.start)+2,y+12,(b.reordered?'↪':'')+(b.id+1));
+   svg.lastChild.onclick=()=>{selected=b.id;render(t);detail.textContent=names[b.p]+' à h'+h(b.start)+' · FIFO : OF '+(b.fifo+1)+' · engagé : OF '+(b.id+1)+' · candidats '+b.candidates.map(c=>'OF '+(c.id+1)+' ('+h(c.remaining)+' h restantes)').join(', ')};
+   const title=S('title');title.textContent='Poste '+names[b.p]+' à h'+h(b.start)+' : OF '+(b.id+1)+' choisi. Tampons restants : '+(b.candidates||[]).map(c=>'OF '+(c.id+1)+' = '+h(c.remaining)+' h').join(', ');svg.lastChild.appendChild(title);
+  }
+  txt(4,139,'OF / tampon');txt(500,139,'│ demandée    ◆ promise    ● expédiée');
+  const stageInk=['#467886','#000066','#B87400'];
+  names.forEach((name,p)=>{
+   const left=100+100*p;
+   svg.appendChild(S('line',{x1:left,x2:left+12,y1:135,y2:135,stroke:stageInk[p],'stroke-width':2}));
+   txt(left+15,139,name);
+  });
+  for(const [row,j] of visible.entries()){const y=149+16*row;txt(4,y+10,tag(j));if(j.due==null){txt(100,y+10,'À arbitrer');continue}
+   for(let k=0;k<3;k++)rect(j.due-opt.buffer+k*opt.buffer/3,y,j.due-opt.buffer+(k+1)*opt.buffer/3,7,[COL.vert,COL.jaune,COL.rouge][k],1,j.id);
+   svg.appendChild(S('line',{x1:x(j.requested),x2:x(j.requested),y1:y-2,y2:y+10,stroke:'#9b583a','stroke-width':2}));
+   txt(x(j.due)-5,y+12,'◆');
+   txt(827,y+11,'d'+h(j.requested)+' / p'+h(j.due));
+   if(j.ship!=null)txt(x(j.ship)-4,y+12,'●');
+   let entered=j.release;
+   for(const bar of proj.bars.filter(b=>b.id===j.id)){
+    const drawSegment=(start,end,waiting,planned)=>{
+     if(end<=start)return;
+     const line=S('line',{x1:x(start),x2:x(end),y1:y+13,y2:y+13,stroke:stageInk[bar.p],'stroke-width':1.5,'stroke-dasharray':waiting?'2 2':'none',opacity:planned?.35:1});
+     const title=S('title');title.textContent=names[bar.p]+' · '+(waiting?'en file':'au poste, réglage inclus')+' · h'+h(start)+' à h'+h(end)+(planned?' · prévu':' · réalisé');line.appendChild(title);svg.appendChild(line);
+    };
+    for(const [start,end,waiting] of [[entered,bar.start,true],[bar.start,bar.end,false]]){
+     drawSegment(start,Math.min(t,end),waiting,false);
+     drawSegment(Math.max(t,start),end,waiting,true);
+    }
+    entered=bar.end;
+   }
+  }
+  svg.appendChild(S('line',{x1:x(t),x2:x(t),y1:20,y2:chartHeight-3,stroke:'#253f3a','stroke-dasharray':'3 3','pointer-events':'none'}));
+  const j=s.jobs.find(j=>j.id===selected)||s.jobs[0];
+  detail.textContent=j?'Carnet : '+(s.jobs.filter(j=>j.stage===-1).map(tag).join(', ')||'vide')+' · '+tag(j)+' · arrivée h'+h(j.arrival)+' · demandée h'+h(j.requested)+(j.due==null?' · à arbitrer':' · promise h'+h(j.due)+' · lancement h'+h(j.release)+(j.ship!=null?' · expédié h'+h(j.ship):''))+' · attentes réalisées '+s.bars.filter(b=>b.id===j.id).map(b=>names[b.p]+' '+h(b.wait)+' h').join(', '):'Carnet vide · première arrivée à h'+h(orders[0]?.arrival??0);
+ }
+ slider.oninput=()=>{stop();render(+slider.value)};
+ el('gsNext').onclick=()=>{stop();const times=[...history.jobs.flatMap(j=>[j.arrival,j.release,j.due,j.due-opt.buffer/3,j.due-2*opt.buffer/3]),...history.bars.flatMap(b=>[b.start,b.end]),history.t];render(Math.min(+slider.max,...times.filter(v=>v>+slider.value+1e-6)))};
+ el('simPlay').onclick=()=>{if(timer)return stop();if(+slider.value>=+slider.max)render(0);timer=setInterval(()=>{render(Math.min(+slider.max,+slider.value+1));if(+slider.value>=+slider.max)stop()},180);el('simPlay').textContent='Pause'};
+ el('simReset').onclick=reset;
+ el('simRandom').onclick=()=>{replay=null;el('mcReplay').value='';seed=Math.floor(Math.random()*1e8);reset()};
+ el('simBuffer').oninput=()=>{replay=null;el('mcReplay').value='';reset()};
+ for(const id of ['gsSetup','gsPromise','gsRule','gsLead','gsRequestedLead'])el(id).onchange=()=>{replay=null;el('mcReplay').value='';reset()};
+ reset()
+}
+
+function initWater(){
+  const svg=$('#waterSvg');const W=720,H=260,ml=44,mr=20,mt=18,mb=34;
+  const bedY=H-mb-8;
+  svg.appendChild(S('rect',{x:ml,y:bedY,width:W-ml-mr,height:H-mb-bedY+6,fill:'#cbb9a0'}));
+  svg.appendChild(S('line',{x1:ml,x2:W-mr,y1:bedY,y2:bedY,stroke:'#8a7f70','stroke-width':2}));
+  svg.appendChild(T(ml-8,mt+4,'100 %',{'text-anchor':'end','font-size':10.5,fill:'#596762'}));
+  svg.appendChild(T(ml-8,bedY+4,'0 %',{'text-anchor':'end','font-size':10.5,fill:'#596762'}));
+  svg.appendChild(T((ml+W-mr)/2,H-8,'encours (WIP) relatif',{'text-anchor':'middle','font-size':12}));
+  const r=rng(7);const rocks=[];
+  for(let i=0;i<16;i++){rocks.push({x:ml+34+r()*(W-ml-mr-68),y:bedY-4-r()*30,rx:13+r()*24,ry:7+r()*13})}
+  const water=S('rect',{x:ml,y:mt,width:W-ml-mr,height:bedY-mt,fill:'#7fb3d5',opacity:0.72});
+  svg.appendChild(water);
+  const rockEls=rocks.map(function(rk){const e=S('ellipse',{cx:rk.x,cy:rk.y,rx:rk.rx,ry:rk.ry,fill:'#8a7f70',stroke:'#5f574c','stroke-width':1.2});svg.appendChild(e);return e});
+  const bubbles=rocks.map((rk,i)=>{const g=S('g');g.appendChild(S('rect',{x:48+(i%4)*165,y:24+Math.floor(i/4)*36,width:159,height:29,rx:8,fill:'#fff5df',stroke:'#9c7951'}));g.appendChild(T(127+(i%4)*165,43+Math.floor(i/4)*36,['Panne récurrente','Outil indisponible','Défaut qualité','Matière manquante','Réglage long','Dossier incomplet','Contrôle en attente','Absence opérateur'][i%8],{'font-size':10,'text-anchor':'middle'}));svg.appendChild(g);return g});
+  const slider=$('#waterSlider'),ro=$('#waterReadouts');
+  function render(){
+    const lvl=slider.value/100;const wh=(bedY-mt)*lvl;
+    water.setAttribute('y',bedY-wh);water.setAttribute('height',wh);
+    let visible=0;
+    rocks.forEach(function(rk,i){const vis=(rk.y-rk.ry)<(bedY-wh);rockEls[i].setAttribute('opacity',vis?1:0.22);bubbles[i].setAttribute('display',vis?'inline':'none');if(vis)visible++});
+    ro.innerHTML='';
+    [['Niveau d’encours',slider.value+' %'],['Problèmes à résoudre exposés (rochers sortis de l’eau)',visible+' / '+rocks.length],['Conduite à tenir',visible?'Traiter la cause du problème exposé, vérifier la reprise du flux, puis réduire encore les encours.':'Les problèmes sont encore masqués par les encours. Baisser progressivement pour révéler le premier obstacle.']].forEach(function(kv){const d=document.createElement('div');d.className='readout';d.innerHTML='<b>'+kv[1]+'</b><span class="sub">'+kv[0]+'</span>';ro.appendChild(d)});
+  }
+  slider.addEventListener('input',render);render();
+}
+
+function initAll(){initSim()}
+if(typeof document!=='undefined'){if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initAll);else initAll()}
+if(typeof module!=='undefined'){module.exports={penetration:penetration,zoneOf:zoneOf,zoneRank:zoneRank,bufferRule:bufferRule,attention:attention,curveMetrics:curveMetrics,rng:rng,gauss:gauss,buildSim:buildSim}}
+</script>
+</body>
+</html>
