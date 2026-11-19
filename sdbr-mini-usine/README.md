@@ -16,10 +16,13 @@ sdbr-mini-usine/
 ├── pistes-extension.md                                ← limites reformulées + pistes d'extension
 ├── scenario-surcharge-10-postes.json                  ← campagne 10 postes / pics / surcapacités goulot
 ├── surcharge-10-postes.md                             ← analyse de cette campagne (lancer tôt vs OTD)
+├── scenario-lots-series.json                          ← campagne lots/séries au goulot (transfert unitaire)
+├── lots-series.md                                     ← analyse : séries bloquant les OF urgents
 ├── scripts/
 │   └── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
 └── results/
     ├── surcharge-10-postes/                           ← campagne 10 postes (CSV, IC95, otd.png)
+    ├── lots-series/                                   ← campagne lots/séries (CSV, conflits.csv, otd.png)
     ├── montecarlo_replications.csv                    ← 2700 lignes (30 réplications × 18 scénarios × 5 politiques)
     ├── montecarlo_summary.csv                         ← moyenne ± demi-IC95 par scénario × indicateur
     └── montecarlo_summary.md                          ← tableaux prêts à lire
@@ -178,3 +181,13 @@ promesse client, lancer plus tôt n'abîme pas l'OTD (+5 à +32 points par pas) 
 coût passe par l'encours/attention ; c'est la **surcharge du goulot** qui fait
 s'effondrer l'OTD en pic (1–45 %) et la **surcapacité du goulot** qui la restaure
 (100 % à ×1,5), conformément à Goldratt p. 9 et 16–17.
+
+## 8. Campagne « lots et séries au goulot » (transfert unitaire)
+
+Voir [`lots-series.md`](lots-series.md) : avec `transfer: unitaire`, des variantes
+`size` = 4/8/16 + règle `family_fifo` créent au goulot des **séries** (lots d'une même
+famille traités en bloc) qui bloquent les OF urgents de l'autre famille — mesuré par
+`conflits_avec_retard` (510/517 rouges bloqués livrés en retard). Résultat : les lots
+économisent 45 % de réglages au goulot (247 → 137 h) mais coûtent **−33 points d'OTD**
+(84,6 → 51,6 %) et un retard P95 ×2,5 — conforme à Goldratt p. 5–6 et 13 (petits lots,
+flux d'une pièce) et p. 15–17 (au CCR, l'urgence rouge prime sur la série).
