@@ -149,6 +149,9 @@ sont **tous reproduits quantitativement** par les scénarios Monte-Carlo du simu
   prend tout son sens avec plusieurs ressources en concurrence.
 - La cohorte mesurée est les 120 derniers OF après 150 h de warm-up ; les IC 95 %
   utilisent l'approximation de Student embarquée dans le HTML.
+- Ces limites sont reformulées et assorties de propositions d'extension (attention
+  managériale et surcharges, regroupements/tailles de lot, passage à une grande
+  usine dans `indeng`) dans [`pistes-extension.md`](pistes-extension.md).
 
 ## 6. Reproduction
 
