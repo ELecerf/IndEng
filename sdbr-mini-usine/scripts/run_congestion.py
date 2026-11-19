@@ -8,6 +8,7 @@ from pathlib import Path
 from random import Random
 
 import pandas as pd
+from collections import Counter
 from policies import RULES, release_time, select_batch
 
 
@@ -20,6 +21,7 @@ class Post:
     end: float = inf
     family: str = ""
     blocked: bool = False
+    series_start: float = 0.
 
 
 from demand import orders
@@ -73,14 +75,41 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
                 if post.active is not None or post.blocked:
                     continue
                 if not post.pending:
-                    post.pending = select_batch(post.queue, lambda i: jobs[i][2], lambda i: jobs[i][1],
-                                                post.family, t, size, cfg["maxBatchWaitHours"], rule)
+                    local_queue = post.queue
+                    if "seriesFraction" in cfg and (cfg.get("seriesScope","bottleneck") == "all" or p == cfg["bottleneck"]):
+                        fraction = cfg["seriesFraction"]
+                        limit = inf if fraction is None else fraction*sum(cfg["requestedLead"])/2
+                        same = sorted(e for e in post.queue if jobs[e[1]][2] == post.family)
+                        other = sorted(e for e in post.queue if jobs[e[1]][2] != post.family)
+                        estimated = sum(cfg["processingHours"][jobs[j][2]][p] for _,j in same[:size])
+                        if same and (not other or t-post.series_start+estimated <= limit):
+                            local_queue = same
+                        elif other:
+                            local_queue = other
+                        selected_rule, wait = "batch_fifo", 0
+                    else:
+                        selected_rule, wait = rule, cfg["maxBatchWaitHours"]
+                    post.pending = select_batch(local_queue, lambda i: jobs[i][2], lambda i: jobs[i][1],
+                                                post.family, t, size, wait, selected_rule)
                     if not post.pending:
                         continue
                     if trace is not None:
-                        from collections import Counter
                         counts = Counter(jobs[j][2] for _,j in post.queue)
                         trace["lots"].append((t,p,len(post.pending),sum(v>=2 for v in counts.values())))
+                        if "opportunites" in trace:
+                            oldest = {}
+                            for arrival,j in post.queue:
+                                family = jobs[j][2]
+                                oldest[family] = min(oldest.get(family,arrival),arrival)
+                            eligible = sum(count >= 2 and (count >= size or
+                                           oldest[f]+cfg["maxBatchWaitHours"] <= t)
+                                           for f,count in counts.items()) if size>1 and rule!="fifo" else 0
+                            trace["opportunites"].append((t,p,eligible,len(post.pending)))
+                        if "marges_concurrentes" in trace and p == cfg["bottleneck"]:
+                            family = jobs[post.pending[0][1]][2]
+                            margins = [jobs[j][1]-t-sum(jobs[j][3][p:]) for _,j in post.queue
+                                       if jobs[j][2] != family]
+                            trace["marges_concurrentes"][t] = margins
                     if phase is not None:
                         phase["choix"] += len(post.queue) > 1
                         phase["regroupements"] += len(post.pending) > 1
@@ -90,6 +119,10 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
                 _, i = post.pending.pop(0)
                 due, family = jobs[i][1:3]
                 setup = cfg["setupHours"][p] if post.family and post.family != family else 0
+                if family != post.family:
+                    if trace is not None and post.family and "series" in trace:
+                        trace["series"].append((post.series_start,t,p))
+                    post.series_start = t
                 post.active, post.family = i, family
                 post.end = t + setup + jobs[i][3][p]
                 if trace is not None:
@@ -119,6 +152,11 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
         if nxt == inf:
             raise RuntimeError("Ligne bloquée sans événement futur")
         dt = max(0, min(nxt,stop)-max(t,start))
+        if trace is not None and "paires_heures" in trace and periods and size >= 2 and rule != "fifo":
+            duration = max(0, min(nxt, periods[-1][1])-max(t, periods[0][0]))
+            for index, post in enumerate(posts):
+                by_family = Counter(jobs[j][2] for _,j in post.queue)
+                trace["paires_heures"][index] += duration * sum(n*(n-1)//2 for n in by_family.values())
         if trace is not None:
             trace["intervals"].append((t,nxt,wip,tuple(post.blocked for post in posts)))
         for (a,b), m in zip(periods, phases):

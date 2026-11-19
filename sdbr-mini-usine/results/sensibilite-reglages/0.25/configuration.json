@@ -1,0 +1,18 @@
+{
+  "scope": "all",
+  "setup_scale": 0.25,
+  "setups": [
+    0.25,
+    0.5,
+    0.25
+  ],
+  "arrival_reference_setups": [
+    1,
+    2,
+    1
+  ],
+  "seeds": [
+    2000,
+    2059
+  ]
+}
