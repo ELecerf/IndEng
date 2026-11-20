@@ -101,3 +101,14 @@ def test_compteurs_ruptures_et_changements():
     assert court[0]["ruptures_carnet"]>=1
     assert long[0]["ruptures_carnet"]==0
     assert court[0]["changements"]>=1 and long[0]["changements"]>=1
+
+
+def test_compteur_opportunites_et_file():
+    c=resolve_line(dict(line=dict(stationCount=2,bottleneckIndex=1,
+        families={"A":dict(regularHours=1,bottleneckHours=5)}),
+        warmup=0,arrivalEnd=300,maxBatchWaitHours=0,requestedLead=[100,100]))
+    jobs=[(0,150,"A",c["processingHours"]["A"]) for _ in range(4)]
+    trace=defaultdict(list)
+    res=simulate(c,jobs,200,[float("inf")],1,1,[(0,300)],trace)
+    assert any(n>=1 for _,_,n in trace["opportunites2"])
+    assert res[0]["file"]>0

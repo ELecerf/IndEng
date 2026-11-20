@@ -56,8 +56,9 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
     starv = [0]*count
     starv_carnet = [0]*count
     changes = [0]*count
+    queue_area = [0.]*count
     start, stop = cfg["warmup"], cfg["arrivalEnd"]
-    phases = [dict(encours=0., carnet=0., goulot_actif=0., goulot_bloque=0.,
+    phases = [dict(encours=0., carnet=0., goulot_actif=0., goulot_bloque=0., file=0.,
                    choix=0, regroupements=0, conflits=0,
                    ruptures=0, ruptures_carnet=0, changements=0) for _ in periods]
     goulot = posts[cfg["bottleneck"]]
@@ -141,6 +142,7 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
                     if trace is not None:
                         counts = Counter(jobs[j][2] for _,j in post.queue)
                         trace["lots"].append((t,p,len(post.pending),sum(v>=2 for v in counts.values())))
+                        trace["opportunites2"].append((t, p, sum(v >= 2 for v in counts.values())))
                         if "opportunites" in trace:
                             oldest = {}
                             for arrival,j in post.queue:
@@ -217,12 +219,14 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
         for (a,b), m in zip(periods, phases):
             duration = max(0, min(nxt,b)-max(t,a))
             m["encours"] += wip*duration
+            m["file"] += sum(len(p.queue) for p in posts)*duration
             m["goulot_actif"] += (goulot.active is not None)*duration
             m["goulot_bloque"] += goulot.blocked*duration
         area += wip*dt
         blocked_hours += sum(p.blocked for p in posts)*dt
         for i,p in enumerate(posts):
             blocked_by_post[i] += p.blocked*dt
+            queue_area[i] += len(p.queue)*dt
         full_hours += sum(len(p.queue) == c for p,c in zip(posts[1:],capacity))*dt
         t = nxt
     if periods:
@@ -232,7 +236,7 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
             m["carnet"] = sum(max(0, min(b,releases[i])-max(a,j[0])) for i,j in enumerate(jobs))
             cohort = [i for i,j in enumerate(jobs) if a <= j[1] < b]
             late = [max(0, shipped[i]-jobs[i][1]) for i in cohort]
-            for key in ("encours", "carnet", "goulot_actif", "goulot_bloque"):
+            for key in ("encours", "carnet", "file", "goulot_actif", "goulot_bloque"):
                 m[key] /= b-a
             m.update(n=len(late), a_heure=sum(d==0 for d in late),
                      otd=100*sum(d==0 for d in late)/len(late) if late else float("nan"),
@@ -252,9 +256,11 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
         result[f"ruptures_{name}"] = starv[i]
         result[f"ruptures_carnet_{name}"] = starv_carnet[i]
         result[f"changements_{name}"] = changes[i]
+        result[f"file_{name}"] = queue_area[i]/horizon
     result["ruptures"] = sum(starv)
     result["ruptures_carnet"] = sum(starv_carnet)
     result["changements"] = sum(changes)
+    result["file_moy"] = sum(queue_area)/horizon
     return result
 
 

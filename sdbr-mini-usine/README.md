@@ -32,6 +32,7 @@ sdbr-mini-usine/
     ├── lots-par-poste/                                ← campagne lots par poste (CSV, otd.png)
     ├── train-logistique/                              ← campagne train logistique N=1..16 (CSV, otd.png)
     ├── charge-otd-encours/                            ← balayage de charge cv0.3 / cv0 (CSV)
+    ├── dashboard-u/                                   ← sweep fenêtres + tableau de bord (PNG, CSV, MD)
     ├── montecarlo_replications.csv                    ← 2700 lignes (30 réplications × 18 scénarios × 5 politiques)
     ├── montecarlo_summary.csv                         ← moyenne ± demi-IC95 par scénario × indicateur
     └── montecarlo_summary.md                          ← tableaux prêts à lire
@@ -246,3 +247,15 @@ lognormales CV 0,3, délai client lognormal (moyenne 108 h, CV 0,6), fenêtre fi
 coude marqué au-delà de ρ ≈ 0,90 (OTD < 90 %, conforme à Goldratt p. 9 ; mécanisme
 fluctuations + dépendance p. 14). La fenêtre étant constante, la dégradation vient
 des files, pas du tampon.
+
+## 13. Tableau de bord du U de Goldratt (sweep de fenêtres)
+
+Voir [`dashboard-u.md`](dashboard-u.md) : 13 tailles de fenêtres (0,5–14 ×W) × 2
+variantes × 20 graines, avec nouveaux indicateurs (`file_moy`, `opportunites`) et
+compteurs (ruptures, changements). Tableau de bord produit par
+`scripts/dashboard_u.py` (`results/dashboard-u/u_*.png`, `dashboard_*.md/csv`) :
+**indice d'attention en nuage de points** = groupe flux (ruptures carnet, changements)
++ groupe ordonnancement (opportunités de regroupement, taille des files). Lecture :
+branche gauche du U très nette via l'OTD (0 % à 12 h → plateau 61,6 % à ≥ 5×W ;
+99,3 % en creux), branche droite sur les files en pic (+43 % de 12 h à 168 h) ;
+surcapacité ×1,5 du goulot → plateau à 99,8 % et encours ~5 OF.

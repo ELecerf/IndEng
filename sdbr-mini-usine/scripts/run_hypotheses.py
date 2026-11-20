@@ -84,7 +84,7 @@ def main():
                 a,b=c["warmup"],start
                 n=sum(m["n"] for m in metrics)
                 global_metrics=indicators(trace,jobs,a,b,c["stations"])
-                for key in ("encours","charge_usinage","carnet"):
+                for key in ("encours","charge_usinage","carnet","file"):
                     global_metrics[key]=sum(m[key]*(y-x) for m,(x,y) in zip(metrics,periods))/(b-a)
                 recovery=float("nan")
                 service_recovery=float("nan")

@@ -18,6 +18,7 @@ def indicators(trace, jobs, a, b, stations):
     result["ruptures"] = sum(a<=t<b for t,_,_ in trace["starv"])
     result["ruptures_carnet"] = sum(a<=t<b and c for t,_,c in trace["starv"])
     result["changements"] = sum(a<=t<b for t,_ in trace["changes"])
+    result["opportunites"] = sum(a<=t<b for t,_,_ in trace["opportunites2"])
     for p,name in enumerate(stations):
         starts = [row for row in trace["starts"] if row[1]==p]
         result[f"actif_{name}"] = sum(overlap(t,end) for t,_,_,end,_,_ in starts)/(b-a)
@@ -27,6 +28,7 @@ def indicators(trace, jobs, a, b, stations):
         result[f"ruptures_{name}"] = sum(a<=t<b for t,pp,_ in trace["starv"] if pp==p)
         result[f"ruptures_carnet_{name}"] = sum(a<=t<b and c for t,pp,c in trace["starv"] if pp==p)
         result[f"changements_{name}"] = sum(a<=t<b for t,pp in trace["changes"] if pp==p)
+        result[f"opportunites_{name}"] = sum(a<=t<b and n>=1 for t,pp,n in trace["opportunites2"] if pp==p)
         result["conflits_avec_retard"] += sum(any(shipped[j]>jobs[j][1] for j in reds)
                                               for t,_,_,_,_,reds in starts if a<=t<b)
     return result
