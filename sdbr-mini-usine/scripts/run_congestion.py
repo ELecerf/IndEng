@@ -34,6 +34,10 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
     sizes = [size]*count if isinstance(size, int) else list(size)
     if len(sizes) != count or any(type(s) is not int or s < 1 for s in sizes):
         raise ValueError("size doit être un entier >= 1 ou une liste d'une taille de lot par poste")
+    if isinstance(transfer, bool) or not (transfer in ("bloc", "unitaire")
+            or (isinstance(transfer, int) and transfer >= 1)):
+        raise ValueError("transfer vaut 'bloc', 'unitaire' ou un entier N >= 1 (train logistique de N OF, toutes familles)")
+    train = transfer if isinstance(transfer, int) else None
     if (not 0 <= cfg["bottleneck"] < count or len(capacity) != count-1
             or len(cfg["setupHours"]) != count or any(len(j[3]) != count for j in jobs)):
         raise ValueError("Dimensions des postes, du goulot, des stocks ou des gammes incohérentes")
@@ -70,17 +74,33 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
             for p in reversed(range(len(posts))):
                 post = posts[p]
                 post.blocked = False
-                if post.finished and (transfer == "unitaire" or not post.pending):
-                    if p == len(posts)-1:
-                        shipped.update((i,t) for i in post.finished)
-                        wip -= len(post.finished)
-                        post.finished.clear()
-                    elif len(posts[p+1].queue) + len(post.finished) <= capacity[p]:
-                        posts[p+1].queue.extend((t,i) for i in post.finished)
-                        moved = True
-                        post.finished.clear()
+                if post.finished and (train is not None or transfer == "unitaire" or not post.pending):
+                    termine = post.active is None and not post.queue and not post.pending
+                    if train is None:
+                        if p == len(posts)-1 or len(posts[p+1].queue) + len(post.finished) <= capacity[p]:
+                            if p == len(posts)-1:
+                                shipped.update((i,t) for i in post.finished)
+                                wip -= len(post.finished)
+                            else:
+                                posts[p+1].queue.extend((t,i) for i in post.finished)
+                                moved = True
+                            post.finished.clear()
+                        else:
+                            post.blocked = True
                     else:
-                        post.blocked = True
+                        free = inf if p == len(posts)-1 else capacity[p] - len(posts[p+1].queue)
+                        if len(post.finished) >= train or termine:
+                            take = min(len(post.finished), train, free)
+                            if take > 0:
+                                if p == len(posts)-1:
+                                    shipped.update((i,t) for i in post.finished[:take])
+                                    wip -= take
+                                else:
+                                    posts[p+1].queue.extend((t,i) for i in post.finished[:take])
+                                del post.finished[:take]
+                                moved = True
+                            else:
+                                post.blocked = True
                 if post.active is not None or post.blocked:
                     continue
                 if not post.pending:
@@ -225,7 +245,8 @@ def main():
             not 0 <= cfg["variation"] < 1 or cfg["replications"] < 2 or
             not cfg["loads"] or min(cfg["loads"]) <= 0 or
             min(cfg["batchSizes"]) < 1 or cfg["maxBatchWaitHours"] < 0 or
-            not set(cfg["transfers"]) <= {"bloc", "unitaire"} or
+            not all(t in ("bloc", "unitaire") or (isinstance(t, int) and not isinstance(t, bool) and t >= 1)
+                    for t in cfg["transfers"]) or
             cfg["referenceWindow"] not in cfg["windows"] or min(cfg["windows"]) < 0):
         parser.error("Paramètres de ligne ou de campagne incohérents.")
     for caps, size, mode in product(cfg["capacities"].values(), cfg["batchSizes"], cfg["transfers"]):

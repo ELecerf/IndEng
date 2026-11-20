@@ -20,12 +20,15 @@ sdbr-mini-usine/
 ├── lots-series.md                                     ← analyse : séries bloquant les OF urgents
 ├── scenario-lots-par-poste.json                       ← lots à taille par poste (size = liste)
 ├── lots-par-poste.md                                  ← analyse : regrouper au goulot vs hors goulot
+├── scenario-train-logistique.json                     ← train logistique : un seul paramètre transfer = N
+├── train-logistique.md                                ← analyse : l'OTD s'effondre quand le train grossit
 ├── scripts/
 │   └── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
 └── results/
     ├── surcharge-10-postes/                           ← campagne 10 postes (CSV, IC95, otd.png)
     ├── lots-series/                                   ← campagne lots/séries (CSV, conflits.csv, otd.png)
     ├── lots-par-poste/                                ← campagne lots par poste (CSV, otd.png)
+    ├── train-logistique/                              ← campagne train logistique N=1..16 (CSV, otd.png)
     ├── montecarlo_replications.csv                    ← 2700 lignes (30 réplications × 18 scénarios × 5 politiques)
     ├── montecarlo_summary.csv                         ← moyenne ± demi-IC95 par scénario × indicateur
     └── montecarlo_summary.md                          ← tableaux prêts à lire
@@ -203,3 +206,12 @@ Le moteur accepte désormais **`size` comme liste d'une taille de lot par poste*
 meilleure OTD (91,9 % vs 84,6 % en unitaire, réglages CCR −45 %), tandis que
 regrouper **hors goulot** la dégrade (56,5 %, P95 ×2,3) — l'économie de réglage locale
 ne rapporte de la capacité que si elle s'applique à la contrainte (TOC p. 3, 10, 16–17).
+
+## 10. Train logistique — un seul paramètre `transfer` = N
+
+`transfer` accepte un entier N : les OF finis partent **par trains de N, toutes
+familles confondues** (départ au plein de N, ou vidange quand le poste amont est
+inactif). Campagne [`train-logistique.md`](train-logistique.md) : sur la ligne
+10 postes avec pic, l'OTD chute de **84,6 % (N=1) à 3,7 % (N=16)**, traversée P95
+144 → 482 h — la contrainte logistique pénalise d'autant plus que le train est
+gros ; N=1 (unitaire) domine, conforme à Goldratt p. 5–6.

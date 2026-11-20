@@ -23,7 +23,8 @@ def validate(c):
             and len(sizes)==n and all(isinstance(s,int) and s>=1 for s in sizes)
             and isinstance(c["bottleneck"],int)
             and n >= 1 and 0 <= c["bottleneck"] < n and c["replications"] >= 2
-            and c["dispatchRule"] in RULES and c["transfer"] in {"bloc","unitaire"}
+            and c["dispatchRule"] in RULES and (c["transfer"] in {"bloc","unitaire"}
+                or (isinstance(c["transfer"],int) and not isinstance(c["transfer"],bool) and c["transfer"]>=1))
             and len(c["capacity"]) == n-1 and all(v is None or v >= (sizes[i] if c["transfer"]=="bloc" else 1) for i,v in enumerate(c["capacity"]))
             and len(c["setupHours"]) == n and min(c["setupHours"]) >= 0
             and all(len(row)==n and min(row)>0 for row in c["processingHours"].values())
