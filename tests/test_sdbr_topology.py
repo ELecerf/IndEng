@@ -43,3 +43,16 @@ def test_train_logistique_par_enoirs_sans_famille():
     trace2=defaultdict(list)
     simulate(c,jobs,100,[float("inf")],1,1,[(0,100)],trace2)
     assert list(trace2["shipped"].values())==[6,11,16,21,26,31]
+
+
+def test_train_vidange_optionnelle_sauf_fin():
+    base=dict(line=dict(stationCount=2,bottleneckIndex=1,
+        families={"A":dict(regularHours=1,bottleneckHours=5),"B":dict(regularHours=1,bottleneckHours=5)}),
+        warmup=0,arrivalEnd=100,maxBatchWaitHours=0)
+    jobs=[(t,t+50,f,[1,5]) for t,f in [(0,"A"),(30,"B"),(60,"A")]]
+    strict=defaultdict(list)
+    simulate(resolve_line(base),jobs,100,[float("inf")],2,2,[(0,100)],strict)
+    assert list(strict["shipped"].values())==[41,41,66]
+    vidange=defaultdict(list)
+    simulate(resolve_line(base|{"trainVidange":True}),jobs,100,[float("inf")],2,2,[(0,100)],vidange)
+    assert list(vidange["shipped"].values())==[6,36,66]

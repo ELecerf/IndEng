@@ -212,6 +212,8 @@ ne rapporte de la capacité que si elle s'applique à la contrainte (TOC p. 3, 1
 `transfer` accepte un entier N : les OF finis partent **par trains de N, toutes
 familles confondues** (départ au plein de N, ou vidange quand le poste amont est
 inactif). Campagne [`train-logistique.md`](train-logistique.md) : sur la ligne
-10 postes avec pic, l'OTD chute de **84,6 % (N=1) à 3,7 % (N=16)**, traversée P95
-144 → 482 h — la contrainte logistique pénalise d'autant plus que le train est
-gros ; N=1 (unitaire) domine, conforme à Goldratt p. 5–6.
+10 postes avec pic, l'OTD chute de **84,6 % (N=1) à 0 % (N≥8, mode strict)**, traversée P95
+144 → 620 h — la contrainte logistique pénalise d'autant plus que le train est
+gros ; N=1 (unitaire) domine, conforme à Goldratt p. 5–6. La **vidange** d'un train
+incomplet est optionnelle (`trainVidange`, défaut `false`) sauf en fin de simulation
+(dernière pièce, sinon blocage) : avec vidange, N=8 → OTD 8,6 % au lieu de 0 %.

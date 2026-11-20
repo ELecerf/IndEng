@@ -89,7 +89,8 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
                             post.blocked = True
                     else:
                         free = inf if p == len(posts)-1 else capacity[p] - len(posts[p+1].queue)
-                        if len(post.finished) >= train or termine:
+                        vidange_ok = termine and (cfg.get("trainVidange", False) or pointer >= len(incoming))
+                        if len(post.finished) >= train or vidange_ok:
                             take = min(len(post.finished), train, free)
                             if take > 0:
                                 if p == len(posts)-1:

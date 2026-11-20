@@ -14,7 +14,13 @@ Scénario : `scenario-train-logistique.json` · résultats : `results/train-logi
   jamais bloquer la ligne à faible charge.
 
 Un seul nombre suffit donc à décider « un OF à la fois » vs « attendre d'en avoir
-plusieurs », sans considération de famille. Test : `test_train_logistique_par_enoirs_sans_famille`.
+plusieurs », sans considération de famille. Tests : `test_train_logistique_par_enoirs_sans_famille`, `test_train_vidange_optionnelle_sauf_fin`.
+
+**Vidange optionnelle** (`trainVidange`, booléen, défaut `false`) : par défaut, un
+train incomplet ne part **que quand plus aucune arrivée n'est à venir** (fin de
+simulation) — sinon la dernière pièce ne pourrait jamais partir et la simulation
+bloquerait sans événement futur. Si `trainVidange: true`, un train incomplet part
+aussi dès que le poste amont est inactif (vidange à chaque poste).
 
 ## 2. Campagne (ligne 10 postes, goulot central, pic de charge)
 
@@ -25,17 +31,26 @@ phases 0,70 → 0,95 → **pic 1,10** → 0,85, fenêtres 120/168 h, 20 graines,
 | transfer N | OTD global (IC95, fenêtre 168 h) | OTD pic | traversée P95 | retard P95 | encours moyen |
 | --- | --- | --- | --- | --- | --- |
 | 1 (unitaire) | **84,6 ± 6,4 %** | 85,2 % | 144 h | 26 h | 8,6 OF |
-| 2 | 68,9 ± 7,3 % | 64,3 % | 167 h | 45 h | 11,4 OF |
-| 4 | 29,4 ± 4,5 % | 17,7 % | 217 h | 93 h | 16,8 OF |
-| 8 | 8,6 ± 2,2 % | 1,6 % | 311 h | 188 h | 26,3 OF |
-| 16 | 3,7 ± 1,6 % | 0,0 % | 482 h | 368 h | 42,0 OF |
+| 2 | 61,9 ± 6,5 % | 55,8 % | 172 h | 50 h | 12,2 OF |
+| 4 | 14,1 ± 2,3 % | 7,6 % | 234 h | 112 h | 19,8 OF |
+| 8 | **0,0 %** | 0,0 % | 361 h | 241 h | 34,9 OF |
+| 16 | **0,0 %** | 0,0 % | 620 h | 507 h | 64,6 OF |
+| 8 + `trainVidange: true` | 8,6 ± 2,2 % | 1,6 % | 311 h | 188 h | 26,3 OF |
+
+Par défaut (train strict, vidange seulement en fin de simulation), la contrainte
+logistique est maximale : à partir de N=8, l'OTD tombe à 0. Avec `trainVidange: true`,
+les trains incomplets partent dès qu'un poste est inactif et la dégradation est
+moindre (N=8 → 8,6 %) — ce qui illustre pourquoi la vidange doit rester optionnelle
+pendant la simulation (sinon, à charge intermittente, le train partirait presque
+toujours avec 1 OF et N ne contraindrait plus rien), tout en restant obligatoire
+pour la dernière pièce (sinon blocage en fin de simulation).
 
 ## 3. Lecture
 
 Effet **monotone et fort** : chaque fois que le train attend de se remplir (N plus
 grand), les OF — y compris urgents — restent immobilisés en amont, la traversée et
-l'encours explosent, et l'OTD s'effondre (84,6 % → 3,7 % de N=1 à N=16 ; en pic,
-N ≥ 8 → OTD ≈ 0). C'est la contrainte logistique modélisée : un petit train peu
+l'encours explosent, et l'OTD s'effondre (84,6 % → 0 % de N=1 à N≥8 en mode strict ; en pic,
+N ≥ 4 → OTD < 8 %). C'est la contrainte logistique modélisée : un petit train peu
 fréquent pénalise la performance de dates, indépendamment des familles.
 
 À l'inverse, N = 1 (transfert unitaire) est le meilleur réglage ici — cohérent avec
