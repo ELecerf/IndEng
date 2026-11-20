@@ -32,6 +32,8 @@ sdbr-mini-usine/
 ├── regroupements-transfer-otd.md                      ← OTD à fort encours avec regroupements et transferts par batch
 ├── scenario-courbe-u-otd.json                         ← sweep 12 fenêtres (0,5–12×W) × 4 variantes pour voir le U
 ├── courbe-u-otd.md                                    ← le U vu par l'OTD (courte / intermédiaire / longue fenêtre)
+├── scenario-u-lots-goulot.json                        ← taille de lot réelle au goulot (cap 24 h) vs fenêtre
+├── u-lots-goulot.md                                   ← lots réels : pic à 7–9×W puis plateau ; conflits en branche droite
 ├── scripts/
 │   ├── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
 │   ├── dashboard_u.py                                 ← tableau de bord du U (attention, OTD vs fenêtre)
@@ -46,6 +48,7 @@ sdbr-mini-usine/
     ├── branche-droite-u/                              ← sweep 0,5–100×W + dashboard (PNG, CSV, MD)
     ├── regroupements-transfer-otd/                    ← fenêtres 48/120/240 h × 5 modes (CSV, otd.png)
     ├── courbe-u-otd/                                  ← sweep 0,5–12×W × 4 variantes (CSV, u_otd.png)
+    ├── u-lots-goulot/                                 ← lots au goulot cap 24 h vs fenêtre (CSV, u_otd.png 3 panneaux)
     ├── montecarlo_replications.csv                    ← 2700 lignes (30 réplications × 18 scénarios × 5 politiques)
     ├── montecarlo_summary.csv                         ← moyenne ± demi-IC95 par scénario × indicateur
     └── montecarlo_summary.md                          ← tableaux prêts à lire
@@ -307,3 +310,16 @@ marge (retard P95 ×6 à ×22). Note : avec des promesses client, l'OTD est mono
 fenêtre jusqu'à saturation ; la branche droite apparaît comme écart de niveau à fort encours
 (cf. aussi `regroupements-transfer-otd.md` : 81,6 → 50,4 → 32,1 → 0,0 % à 240 h) et comme
 dégradation vs la charge (`charge-otd-encours.md`).
+
+## 17. Taille de lot réelle au goulot : pourquoi le U ne "baisse" pas en OTD vs fenêtre
+
+Voir [`u-lots-goulot.md`](u-lots-goulot.md) : avec un plafond d'attente de 6 h, la taille
+de lot ne se déclenchait jamais (lots 8 ≡ lots 16) ; avec 24 h au goulot seul, de vraies
+séries se forment. Résultat : OTD monte jusqu'à un pic à **7–9 × W (W ≈ 11–14 % de la
+fenêtre)** — 88,5 % pour lot_goulot8, 68,2 % pour lots-partout — puis **plateau**
+(87,9 % vs 93,5 % unitaire à 10–12 ×W), tandis que les conflits avec retard croissent
+(0,9 → 11,8) : c'est la branche droite, visible en niveau. La baisse franche n'apparaît
+pas en fonction de la fenêtre car `lancement = max(arrivée, promesse − fenêtre)` la rend
+monotone jusqu'à saturation (fenêtre ≥ délai max) ; elle apparaît vs la **charge**
+(96 → 33 %, `charge-otd-encours.md`), en écart de niveau à fort encours selon le mode
+(93,5 / 67,9 / 51,7 / 0,9 % à 12 ×W) et dans les files/attention (`dashboard-u.md`).

@@ -41,11 +41,12 @@ def main():
                              encours=gg.encours.mean(), retard_p95=gg.retard_p95.mean()))
     pd.DataFrame(rows).sort_values(["variante", "phase", "fenetre"]).to_csv(args.out / "courbe_u.csv", index=False)
 
-    fig, axes = plt.subplots(2, 2, figsize=(13, 9), layout="constrained")
+    fig, axes = plt.subplots(2, 3, figsize=(17, 9), layout="constrained")
     for row, phase in enumerate(PHASES):
         for col, (key, label, title) in enumerate([
                 ("otd", "OTD (%)", f"OTD vs fenêtre — phase {phase}"),
-                ("encours", "encours (OF)", f"Encours vs fenêtre — phase {phase}")]):
+                ("encours", "encours (OF)", f"Encours vs fenêtre — phase {phase}"),
+                ("conflits_avec_retard", "conflits avec retard", f"Conflits (séries bloquant OF urgents) — phase {phase}")]):
             ax = axes[row, col]
             for name, g in r[r.phase == phase].groupby("variante"):
                 m = g.groupby("xW")[key].mean()
