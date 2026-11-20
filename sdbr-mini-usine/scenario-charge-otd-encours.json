@@ -1,0 +1,102 @@
+{
+  "stations": [
+    "poste_1",
+    "poste_2",
+    "poste_3",
+    "poste_4",
+    "poste_5",
+    "poste_6",
+    "poste_7",
+    "poste_8",
+    "poste_9",
+    "poste_10"
+  ],
+  "bottleneck": 4,
+  "processingHours": {
+    "A": [
+      2,
+      2,
+      2,
+      2,
+      6,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "B": [
+      2,
+      2,
+      2,
+      2,
+      6,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  "familyWeights": [
+    1,
+    1
+  ],
+  "setupHours": [
+    1,
+    1,
+    1,
+    1,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "requestedLead": [
+    108
+  ],
+  "requestedLeadDistribution": "lognormal",
+  "requestedLeadCV": 0.6,
+  "processingDistribution": "lognormal",
+  "processingCV": 0.3,
+  "variation": 0,
+  "warmup": 400,
+  "arrivalEnd": 4000,
+  "seed": 42,
+  "replications": 20,
+  "loads": [
+    0.6,
+    0.7,
+    0.8,
+    0.85,
+    0.9,
+    0.95,
+    0.99
+  ],
+  "batchSizes": [
+    1
+  ],
+  "maxBatchWaitHours": 0,
+  "transfers": [
+    1
+  ],
+  "capacities": {
+    "illimite": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  "windows": [
+    120
+  ],
+  "referenceWindow": 120
+}

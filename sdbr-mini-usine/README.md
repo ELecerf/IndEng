@@ -22,6 +22,8 @@ sdbr-mini-usine/
 ├── lots-par-poste.md                                  ← analyse : regrouper au goulot vs hors goulot
 ├── scenario-train-logistique.json                     ← train logistique : un seul paramètre transfer = N
 ├── train-logistique.md                                ← analyse : l'OTD s'effondre quand le train grossit
+├── scenario-charge-otd-encours.json                   ← balayage de charge (OTD vs encours)
+├── charge-otd-encours.md                              ← analyse : OTD s'effondre à fort encours (corr −0,99)
 ├── scripts/
 │   └── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
 └── results/
@@ -29,6 +31,7 @@ sdbr-mini-usine/
     ├── lots-series/                                   ← campagne lots/séries (CSV, conflits.csv, otd.png)
     ├── lots-par-poste/                                ← campagne lots par poste (CSV, otd.png)
     ├── train-logistique/                              ← campagne train logistique N=1..16 (CSV, otd.png)
+    ├── charge-otd-encours/                            ← balayage de charge cv0.3 / cv0 (CSV)
     ├── montecarlo_replications.csv                    ← 2700 lignes (30 réplications × 18 scénarios × 5 politiques)
     ├── montecarlo_summary.csv                         ← moyenne ± demi-IC95 par scénario × indicateur
     └── montecarlo_summary.md                          ← tableaux prêts à lire
@@ -233,3 +236,13 @@ Par défaut le délai client est **uniforme** entre les bornes de `requestedLead
 `requestedLead: [m]` + `requestedLeadDistribution: "lognormal"` +
 `requestedLeadCV: c` (moyenne m, CV c, médiane < moyenne). Test :
 `test_delai_client_lognormal_moyenne_preservee`.
+
+## 12. Balayage de charge : OTD vs encours sous distributions statistiques
+
+Voir [`charge-otd-encours.md`](charge-otd-encours.md) : arrivées Poisson, durées
+lognormales CV 0,3, délai client lognormal (moyenne 108 h, CV 0,6), fenêtre fixe
+120 h, charge du goulot 0,60 → 0,99 (20 graines). **Oui, la dégradation est retrouvée**
+: OTD 96 % → 33 % quand l'encours passe de 3 à 18 OF (corrélation OTD/encours −0,99),
+coude marqué au-delà de ρ ≈ 0,90 (OTD < 90 %, conforme à Goldratt p. 9 ; mécanisme
+fluctuations + dépendance p. 14). La fenêtre étant constante, la dégradation vient
+des files, pas du tampon.
