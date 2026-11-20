@@ -39,6 +39,7 @@ sdbr-mini-usine/
 ├── scenario-u-fenetre-immediate.json                  ← protocole validé (NON lancé) : fenêtre seule jusqu'à > lead
 ├── protocole-u-fenetre-immediate.md                   ← choix de paramétrage pour viser hausse → plateau → baisse de l'OTD
 ├── u-fenetre-immediate.md                             ← résultats lancés : pic à 3–5×W, taille pratiquée ↑, conflits ↑ à 15×W
+├── configs-demande-lead-20xw.md                       ← pourquoi le carnet absorbe + 3 configs de demande lead ≈ 20–30×W (proposées)
 ├── scripts/
 │   ├── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
 │   ├── dashboard_u.py                                 ← tableau de bord du U (attention, OTD vs fenêtre)
@@ -355,3 +356,15 @@ transfert unitaire. Résultat : pic d'OTD à 3–5 × W (85,4 % size1) puis lég
 L'encours ligne ne grossit que modérément (8 → 9,6 OF, le carnet absorbe le reste), donc
 les files restent courtes et les lots pratiqués petits — l'effet de `size` à iso-fenêtre
 vient de la taille pratiquée, pas du plafond.
+
+## 20. Configurations de demande proposées (non lancées) : lead ≈ 20–30 × W
+
+Voir [`configs-demande-lead-20xw.md`](configs-demande-lead-20xw.md). Réponse à « pourquoi le
+carnet absorbe à fenêtre croissante » : `release = max(arrivée, promesse − fenêtre)` —
+l'encours ligne vaut λ × traversée (Little), fixé par la charge du goulot ; le surplus reste
+dans le carnet (données : carnet 32 → 7,5 OF quand la fenêtre passe de 1 à 15 × W, encours
+8,0 → 9,7 OF seulement). L'encours max n'est atteint qu'à fenêtre ≥ lead (lancement
+immédiat). 3 configs de demande proposées : A uniforme [10,30]×W, B lognormale moyenne
+20×W CV 0,25, C lognormale centrée 30×W CV 0,3 (touch ≈ 5 % puis 3,3 % du lead — régime
+« usine par lots », Goldratt p. 11/13), avec tampons finis `capacity` et sweep de fenêtres
+incluant le point fenêtre > lead.
