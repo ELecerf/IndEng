@@ -88,3 +88,16 @@ def test_delai_client_lognormal_moyenne_preservee():
     assert len(leads)>500
     assert abs(statistics.mean(leads)-50)/50 < 0.1
     assert statistics.median(leads) < 40
+
+
+def test_compteurs_ruptures_et_changements():
+    c=resolve_line(dict(line=dict(stationCount=2,bottleneckIndex=1,
+        families={"A":dict(regularHours=1,bottleneckHours=5),"B":dict(regularHours=1,bottleneckHours=5)}),
+        warmup=0,arrivalEnd=300,maxBatchWaitHours=0,requestedLead=[100,100]))
+    jobs=[(0,100,"A",c["processingHours"]["A"]),(0,200,"B",c["processingHours"]["B"])]
+    court=simulate(c,jobs,36,[float("inf")],1,1,[(0,300)])
+    long=simulate(c,jobs,200,[float("inf")],1,1,[(0,300)])
+    assert court[0]["ruptures"]>long[0]["ruptures"]
+    assert court[0]["ruptures_carnet"]>=1
+    assert long[0]["ruptures_carnet"]==0
+    assert court[0]["changements"]>=1 and long[0]["changements"]>=1

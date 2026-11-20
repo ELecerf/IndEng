@@ -108,7 +108,31 @@ nuise aussi à l'OTD, il faut des promesses fixées par la capacité du goulot (
 « promesse sous charge » du simulateur HTML) ou modéliser l'attention finie —
 deux pistes déjà consignées dans `pistes-extension.md`.
 
-## 4. Reproduction
+## 4. Compteurs de ruptures de charge et de changements de série
+
+Deux nouveaux compteurs par poste (moteur `run_congestion.py` + `indicators.py`,
+test `test_compteurs_ruptures_et_changements`) :
+
+- `ruptures_{poste}` : nombre de fois où le poste se retrouve **à vide** après avoir
+  travaillé ; `ruptures_carnet_{poste}` : sous-ensemble où le carnet contient encore du
+  travail non lancé (poste affamé **par la corde**, pas par la demande) ;
+- `changements_{poste}` : nombre de **changements de série** (changements de famille,
+  indépendamment du temps de réglage).
+
+Résultats sur cette campagne (témoin ×1, phase `gros_pic`) : les ruptures sont
+**quasi indépendantes de la fenêtre** (291 → 295 de 36 h à 168 h) et concentrées sur
+les postes hors goulot (poste_5, le goulot, n'en compte que ~0,15 : il n'est jamais
+affamé) — l'inactivité des postes rapides est structurelle (capacité protectrice,
+p. 10). **La prédiction « ruptures hautes à fenêtre courte (branche gauche du U) » n'est
+pas confirmée ici** : la branche gauche se lit dans l'OTD (1,4 % à 36 h vs 45,4 % à
+168 h en pic), les conflits et le temps de récupération, pas dans le compteur de
+ruptures. En revanche le compteur de **changements de série** est très informatif côté
+lots (campagne `lots-par-poste`, fenêtre 168 h) : 1229 changements en unitaire → 860
+avec lots de 8 (`family_fifo`), dont 123,6 → 68,4 au goulot, avec 247 → 137 h de
+réglage au poste contraint (−45 %) — le lot réduit bien les changements de série là où
+cela rapporte de la capacité (résultat de la section 9 du README).
+
+## 5. Reproduction
 
 ```bash
 python -m venv .venv && .venv/bin/pip install -e '.[dev]'

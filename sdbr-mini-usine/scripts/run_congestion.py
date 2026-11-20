@@ -53,9 +53,13 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
     area = blocked_hours = full_hours = 0
     blocked_by_post = [0.] * len(posts)
     decisions = conflicts = 0
+    starv = [0]*count
+    starv_carnet = [0]*count
+    changes = [0]*count
     start, stop = cfg["warmup"], cfg["arrivalEnd"]
     phases = [dict(encours=0., carnet=0., goulot_actif=0., goulot_bloque=0.,
-                   choix=0, regroupements=0, conflits=0) for _ in periods]
+                   choix=0, regroupements=0, conflits=0,
+                   ruptures=0, ruptures_carnet=0, changements=0) for _ in periods]
     goulot = posts[cfg["bottleneck"]]
     while len(shipped) < len(jobs):
         phase = next((m for (a,b),m in zip(periods,phases) if a <= t < b), None)
@@ -63,10 +67,21 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
             posts[0].queue.append((t, incoming[pointer][1]))
             pointer += 1
             wip += 1
-        for post in posts:
+        for p, post in enumerate(posts):
             if post.end == t:
                 post.finished.append(post.active)
                 post.active, post.end = None, inf
+                if not post.queue and not post.pending and start <= t < stop:
+                    starv[p] += 1
+                    if phase is not None:
+                        phase["ruptures"] += 1
+                    carnet = any(r > t for r in releases.values())
+                    if carnet:
+                        starv_carnet[p] += 1
+                        if phase is not None:
+                            phase["ruptures_carnet"] += 1
+                    if trace is not None:
+                        trace["starv"].append((t, p, carnet))
         # Un départ en aval peut libérer de la place en amont au même instant.
         moved = True
         while moved:
@@ -150,6 +165,12 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
                 due, family = jobs[i][1:3]
                 setup = cfg["setupHours"][p] if post.family and post.family != family else 0
                 if family != post.family:
+                    if post.family:
+                        changes[p] += 1
+                        if phase is not None:
+                            phase["changements"] += 1
+                        if trace is not None:
+                            trace["changes"].append((t, p))
                     if trace is not None and post.family and "series" in trace:
                         trace["series"].append((post.series_start,t,p))
                     post.series_start = t
@@ -223,10 +244,18 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
     if not cohort:
         raise ValueError("Aucune commande dans la période mesurée.")
     horizon = stop-start
-    return dict(n=len(late), otd=100*sum(d==0 for d in late)/len(late),
+    result = dict(n=len(late), otd=100*sum(d==0 for d in late)/len(late),
                 retard_moyen=sum(late)/len(late), encours=area/horizon,
                 blocage=blocked_hours, goulot_bloque=blocked_by_post[cfg["bottleneck"]],
                 stocks_pleins=full_hours, choix=decisions, conflits=conflicts)
+    for i, name in enumerate(cfg["stations"]):
+        result[f"ruptures_{name}"] = starv[i]
+        result[f"ruptures_carnet_{name}"] = starv_carnet[i]
+        result[f"changements_{name}"] = changes[i]
+    result["ruptures"] = sum(starv)
+    result["ruptures_carnet"] = sum(starv_carnet)
+    result["changements"] = sum(changes)
+    return result
 
 
 def main():
