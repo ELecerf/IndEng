@@ -50,14 +50,16 @@ sdbr-mini-usine/
 ├── figure-u.md                                        ← figure publiable du U (log₂) : progressif 98,5 % à 8×W → 17,2 % à 45×W
 ├── scenario-lot-fenetre-coef.json                     ← campagne lot min = k × fenêtre/W : k ∈ {0,25 ; 0,5 ; 1 ; 2} × 18 fenêtres × 10 graines
 ├── lot-fenetre-coef.md                                ← résultats : k=0,25 trace le U complet (pic 98,8 % à 5×W → 17,2 % à 45×W) ; k=1 (fenêtre/W) trop agressif (OTD ≈ 0)
-└── rapport-manager.tex                                ← présentation beamer 14 slides pour un manager (compile : pdflatex depuis sdbr-mini-usine/)
+├── rapport-manager.tex                                ← présentation beamer 14 slides pour un manager (compile : pdflatex depuis sdbr-mini-usine/)
+└── rapport-manager.html                               ← rapport HTML autonome généré ici (rapport_html.py, figures en base64) : s'ouvre tel quel
 ├── scripts/
 │   ├── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
 │   ├── dashboard_u.py                                 ← tableau de bord du U (attention, OTD vs fenêtre)
 │   ├── courbe_u.py                                    ← figure du U : OTD ± IC95 vs fenêtre/W
 │   ├── zones_couleur.py                               ← zones vert/jaune/rouge/noir des OF selon la fenêtre (lot mini progressif)
 │   ├── figure_u.py                                     ← figure 3 panneaux vectorielle du U (axe log₂, PDF/SVG/PNG 300 dpi + panneaux PNG séparés)
-│   └── figure_slides.py                                ← figures paysage par panneau pour le beamer (slide_otd/zones/meca.png)
+│   ├── figure_slides.py                                ← figures paysage par panneau pour le beamer (slide_otd/zones/meca.png)
+│   └── rapport_html.py                                 ← génère rapport-manager.html (rapport manager autonome, images en base64)
 └── results/
     ├── surcharge-10-postes/                           ← campagne 10 postes (CSV, IC95, otd.png)
     ├── lots-series/                                   ← campagne lots/séries (CSV, conflits.csv, otd.png)
@@ -429,9 +431,18 @@ supportable est ≤ 2 OF : W ≈ 12,5–20 % de la fenêtre au pic, cohérent av
 W ≈ 10–15 % de Goldratt. Figure 3 panneaux régénérée (`figure_u.pdf`, axe log₂, zones de
 couleur de k025).
 
-## 24. Présentation beamer pour un manager : `rapport-manager.tex`
+## 24. Rapport pour un manager : `rapport-manager.html` (autonome) + `rapport-manager.tex` (beamer)
 
-14 slides 16:9 (thème Boadilla ; paquets : utf8/T1, lmodern, graphicx, booktabs — pas de babel) :
+Le rapport HTML est généré ici et s'ouvre tel quel (figures embarquées en base64) :
+`.venv/bin/python sdbr-mini-usine/scripts/rapport_html.py` → `sdbr-mini-usine/rapport-manager.html`
+(13 sections : contexte, vérification de Goldratt 2006, modèle, 7 résultats commentés avec
+figures, 6 leçons managériales, pistes/limites, reproduction). Le tableau « lot min = k × fenêtre/W »
+y est recalculé depuis `results/lot-fenetre-coef/figure_u_stats.csv`. Le PDF iso-lot est rendu en
+PNG (`results/iso-lot/otd-fenetre.png`) pour l'embarquement.
+
+Version beamer équivalente (14 slides 16:9, thème Boadilla ; utf8/T1 + lmodern + graphicx + booktabs, pas de babel) : `rapport-manager.tex`, à compiler avec `cd sdbr-mini-usine && pdflatex -interaction=nonstopmode rapport-manager.tex` (×2).
+
+La version beamer reprend les mêmes contenus :
 contexte, vérification des écrits de Goldratt (2006), modèle, puis les figures clés commentées —
 U de l'OTD (`results/figure-u/slide_otd.png`), zones vert/jaune/rouge/noir
 (`results/lot-fenetre-coef/slide_zones.png`), mécanisme lots/encours (`slide_meca.png`), lots min
