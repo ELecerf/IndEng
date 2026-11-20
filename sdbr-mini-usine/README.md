@@ -45,11 +45,15 @@ sdbr-mini-usine/
 ├── scenario-lot-min-40xw.json                         ← protocole validé (NON lancé) : lot min 2/4/8/16, lead ≤ 40×W, fenêtres ≤ 45×W
 ├── protocole-lot-min-40xw.md                          ← demande améliorée + nouveautés moteur (minLotSize, familyCount, overCapacity, sizeFromWindow)
 ├── lot-min-40xw.md                                    ← résultats lancés (10 graines) : branche gauche accentuée par minLot, encours ×5 à 45×W
+├── protocole-figure-u-publiable.md                    ← prompt amélioré exécuté : figure académique du U (10 graines, axe log₂)
+├── scenario-figure-u.json                             ← campagne figure U : 5 variantes × 18 fenêtres × 10 graines
+├── figure-u.md                                        ← figure publiable du U (log₂) : progressif 98,5 % à 8×W → 17,2 % à 45×W
 ├── scripts/
 │   ├── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
 │   ├── dashboard_u.py                                 ← tableau de bord du U (attention, OTD vs fenêtre)
 │   ├── courbe_u.py                                    ← figure du U : OTD ± IC95 vs fenêtre/W
-│   └── zones_couleur.py                               ← zones vert/jaune/rouge/noir des OF selon la fenêtre (lot mini progressif)
+│   ├── zones_couleur.py                               ← zones vert/jaune/rouge/noir des OF selon la fenêtre (lot mini progressif)
+│   └── figure_u.py                                     ← figure 3 panneaux vectorielle du U (axe log₂, PDF/SVG/PNG 300 dpi)
 └── results/
     ├── surcharge-10-postes/                           ← campagne 10 postes (CSV, IC95, otd.png)
     ├── lots-series/                                   ← campagne lots/séries (CSV, conflits.csv, otd.png)
@@ -65,6 +69,7 @@ sdbr-mini-usine/
     ├── u-fenetre-immediate/                           ← fenêtres 1–15×W × size 1/4/8/16, tampons finis (CSV, u_otd.png 4 panneaux)
     ├── demande-a-20xw/                                ← config A : lead [10,30]×W, fenêtres 2–35×W (CSV, u_otd.png)
     ├── lot-min-40xw/                                  ← lot min 2/4/8/16, lead [10,40]×W, fenêtres 2–45×W, 10 graines (CSV, u_otd.png)
+    ├── figure-u/                                      ← figure publiable du U : 5 variantes × 18 fenêtres × 10 graines (PDF/SVG/PNG/CSV/TeX)
     ├── montecarlo_replications.csv                    ← 2700 lignes (30 réplications × 18 scénarios × 5 politiques)
     ├── montecarlo_summary.csv                         ← moyenne ± demi-IC95 par scénario × indicateur
     └── montecarlo_summary.md                          ← tableaux prêts à lire

@@ -1,4 +1,4 @@
-# Prompt amélioré (proposé, non exécuté) : figure publiable/académique du U de Goldratt
+# Prompt amélioré (exécuté : voir figure-u.md et results/figure-u/) : figure publiable/académique du U de Goldratt
 
 Objectif : produire une **figure publiable/académique du U de Goldratt** (OTD vs fenêtre
 de lancement) sur la ligne S-DBR 10 postes, avec lot mini progressif, et un **protocole
@@ -6,9 +6,9 @@ de test renforcé** pour que le U soit indiscutable.
 
 ## 1. Protocole statistique renforcé
 
-- **30 graines appariées** (mêmes arrivées, familles, promesses et durées entre politiques
+- **10 graines appariées** (décision du 20/11 : 10 seeds pour le test) (mêmes arrivées, familles, promesses et durées entre politiques
   à fenêtre donnée) → IC95 de Student resserrés.
-- Fenêtres : sweep fin **1–45×W** (ex. 1, 2, 3, 4, 6, 8, 10, 12, 16, 20, 24, 30, 35, 40, 45),
+- Fenêtres : sweep fin **1–45×W** (retenu : 1, 1,5, 2, 3, 4, 5, 6, 7, 8, 10, 12, 16, 20, 24, 30, 35, 40, 45 — dense en petites fenêtres),
   incluant le **point de saturation** (≥ lead max 40×W = lancement immédiat).
 - Variantes : `fixe1` (témoin), `fixe8`, `fixe16`, `progressif` (k = 0,25), `rapide` (k = 1) —
   plafond `size` = 16 et attente 168 h identiques partout (iso-lot).
@@ -19,7 +19,7 @@ de test renforcé** pour que le U soit indiscutable.
 
 ## 2. Figure publiable (vectorielle)
 
-- **3 panneaux (a)(b)(c)**, format ~17×12 cm (double colonne), export **PDF + SVG + PNG 300 dpi** :
+- **3 panneaux (a)(b)(c)**, format ~17×12 cm (double colonne), export **PDF + SVG + PNG 300 dpi**, axe des abscisses en **échelle log₂** (ticks 1, 2, 4, 8, 16, 32) :
   - **(a)** OTD % vs fenêtre en ×W, une courbe par politique avec barres d'IC95, bande grise
     « W ≈ 10–15 % de la fenêtre », annotations des 3 régimes (branche gauche / plateau /
     branche droite), point de saturation repéré ;
