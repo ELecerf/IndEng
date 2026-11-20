@@ -8,6 +8,7 @@ from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
 import pandas as pd
 from policies import RULES
 from run_congestion import orders, simulate
@@ -66,6 +67,48 @@ def effective_lot_sizes(c, window):
     spec = c["sizeFromWindow"]
     s = max(1, min(spec["max"], round(spec["coef"]*window/c["workContentHours"])))
     return s, s
+
+
+def write_otd_report(means, configs, scenario, path):
+    """Compare les variantes à fenêtres identiques, au global puis par phase."""
+    phases = ["global", *dict.fromkeys(means.loc[means.phase != "global", "phase"])]
+    with PdfPages(path, metadata={"Title": f"OTD selon la fenêtre — {scenario}"}) as pdf:
+        linked = {name: c for name, c in configs.items() if "sizeFromWindow" in c}
+        if linked:
+            fig, axes = plt.subplots(3, 1, figsize=(11, 9), sharex=True, layout="constrained")
+            fig.suptitle(f"{scenario} — Couplage du lot minimum et de la fenêtre")
+            for name, config in linked.items():
+                points = means[(means.phase == "global") & (means.variante == name)].sort_values("fenetre")
+                x = points.fenetre / config["workContentHours"]
+                lots = [effective_lot_sizes(config, w)[1] for w in points.fenetre]
+                spec = config["sizeFromWindow"]
+                label = f"{name} (coefficient {spec['coef']:g}, plafond {spec['max']})"
+                axes[0].plot(x, points.otd, "o-", label=label)
+                axes[1].plot(x, 100 - points.otd, "o-")
+                axes[2].plot(x, lots, "o--")
+            axes[0].set(ylabel="Livraisons à l’heure (%)", ylim=(-2, 102))
+            axes[0].legend(fontsize=8)
+            axes[1].set(ylabel="Livraisons en retard (%)", ylim=(-2, 102))
+            axes[2].set(ylabel="Lot minimum demandé", xlabel="Fenêtre / contenu de travail W")
+            for ax in axes:
+                ax.grid(alpha=0.25)
+            pdf.savefig(fig)
+            plt.close(fig)
+        for phase in phases:
+            fig, ax = plt.subplots(figsize=(11, 7), layout="constrained")
+            subset = means[means.phase == phase]
+            for name in configs:
+                points = subset[subset.variante == name].sort_values("fenetre")
+                if points.empty:
+                    continue
+                ax.plot(points.fenetre, points.otd, marker="o", label=name)
+            fig.suptitle(f"{scenario} — {phase}")
+            ax.set(title="Part des commandes livrées à l’heure, moyenne des réplications",
+                   xlabel="Fenêtre de lancement (heures)", ylabel="OTD (%)", ylim=(-2, 102))
+            ax.grid(alpha=0.25)
+            ax.legend(title="Variante", loc="upper left", bbox_to_anchor=(1, 1))
+            pdf.savefig(fig)
+            plt.close(fig)
 
 
 def main():
@@ -161,6 +204,8 @@ def main():
         ax.set(xlabel=key,ylabel="OTD (%)")
     axes[-1].legend(fontsize=7)
     fig.savefig(out/"otd.png")
+    plt.close(fig)
+    write_otd_report(means, configs, args.scenario.stem, out / "rapport-otd.pdf")
 
 
 if __name__=="__main__":
