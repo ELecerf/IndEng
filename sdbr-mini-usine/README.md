@@ -24,6 +24,10 @@ sdbr-mini-usine/
 ├── train-logistique.md                                ← analyse : l'OTD s'effondre quand le train grossit
 ├── scenario-charge-otd-encours.json                   ← balayage de charge (OTD vs encours)
 ├── charge-otd-encours.md                              ← analyse : OTD s'effondre à fort encours (corr −0,99)
+├── scenario-dashboard-u.json                          ← sweep 13 fenêtres (0,5–14 ×W), 2 variantes
+├── dashboard-u.md                                     ← compte rendu + lecture du U de Goldratt
+├── scenario-branche-droite-u.json                     ← fenêtres jusqu'à 100×W, délai client 50–150×W
+├── branche-droite-u.md                                ← branche droite du U (VA ≈ 1 % du lead)
 ├── scripts/
 │   └── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
 └── results/
@@ -33,6 +37,7 @@ sdbr-mini-usine/
     ├── train-logistique/                              ← campagne train logistique N=1..16 (CSV, otd.png)
     ├── charge-otd-encours/                            ← balayage de charge cv0.3 / cv0 (CSV)
     ├── dashboard-u/                                   ← sweep fenêtres + tableau de bord (PNG, CSV, MD)
+    ├── branche-droite-u/                              ← sweep 0,5–100×W + dashboard (PNG, CSV, MD)
     ├── montecarlo_replications.csv                    ← 2700 lignes (30 réplications × 18 scénarios × 5 politiques)
     ├── montecarlo_summary.csv                         ← moyenne ± demi-IC95 par scénario × indicateur
     └── montecarlo_summary.md                          ← tableaux prêts à lire
@@ -259,3 +264,12 @@ compteurs (ruptures, changements). Tableau de bord produit par
 branche gauche du U très nette via l'OTD (0 % à 12 h → plateau 61,6 % à ≥ 5×W ;
 99,3 % en creux), branche droite sur les files en pic (+43 % de 12 h à 168 h) ;
 surcapacité ×1,5 du goulot → plateau à 99,8 % et encours ~5 OF.
+
+## 14. Branche droite du U : fenêtres jusqu'à 100 × W
+
+Voir [`branche-droite-u.md`](branche-droite-u.md) : pour atteindre la branche droite,
+le délai client doit être du même ordre que la fenêtre (ici 50–150×W) — sinon la
+fenêtre sature au délai demandé et on reste sur le plateau. Résultat : à 100×W,
+l'encours passe de 0,30 à 6,10 OF et l'indice d'attention de 0,12 à 1,35 (branche
+droite = embouteillages, p. 12) ; W ne vaut alors que 1 % du lead time (p. 13). La
+branche gauche reste visible via l'OTD (0 % à 0,5×W → 100 % dès 2×W).
