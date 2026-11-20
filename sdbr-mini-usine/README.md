@@ -48,7 +48,8 @@ sdbr-mini-usine/
 ├── scripts/
 │   ├── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
 │   ├── dashboard_u.py                                 ← tableau de bord du U (attention, OTD vs fenêtre)
-│   └── courbe_u.py                                    ← figure du U : OTD ± IC95 vs fenêtre/W
+│   ├── courbe_u.py                                    ← figure du U : OTD ± IC95 vs fenêtre/W
+│   └── zones_couleur.py                               ← zones vert/jaune/rouge/noir des OF selon la fenêtre (lot mini progressif)
 └── results/
     ├── surcharge-10-postes/                           ← campagne 10 postes (CSV, IC95, otd.png)
     ├── lots-series/                                   ← campagne lots/séries (CSV, conflits.csv, otd.png)

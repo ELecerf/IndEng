@@ -220,3 +220,11 @@ def test_minimum_variable_a_plafond_constant():
               "sizeFromWindow": {"coef": 0.25, "max": 16, "minimumOnly": True}}
     assert effective_lot_sizes(config, 400) == (16, 2)
     assert effective_lot_sizes(config, 4000) == (16, 16)
+
+
+def test_zone_couleur_quatre_tiers():
+    from zones_couleur import zone_couleur
+    assert zone_couleur(0.0)=="vert" and zone_couleur(1/3)=="vert"
+    assert zone_couleur(0.5)=="jaune" and zone_couleur(2/3)=="jaune"
+    assert zone_couleur(0.9)=="rouge" and zone_couleur(1.0)=="rouge"
+    assert zone_couleur(1.5)=="noir"
