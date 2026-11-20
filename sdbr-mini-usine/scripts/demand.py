@@ -1,4 +1,4 @@
-from math import exp, isfinite, log1p, sqrt
+from math import exp, isfinite, log, log1p, sqrt
 from random import Random
 from line_config import resolve_line
 
@@ -33,7 +33,16 @@ def orders(cfg, load, seed, profile=None):
 
     for t in arrival_times():
         family = demand.choices(families, weights)[0]
-        due = t + demand.uniform(*cfg["requestedLead"])
+        lead = cfg["requestedLead"]
+        if cfg.get("requestedLeadDistribution", "uniform") == "lognormal":
+            cv = cfg.get("requestedLeadCV", 0.5)
+            if not isfinite(cv) or cv < 0:
+                raise ValueError("requestedLeadCV doit être positif ou nul")
+            s = sqrt(log1p(cv*cv))
+            mu = log(lead[0]) - s*s/2
+            due = t + exp(mu + s*demand.gauss(0, 1))
+        else:
+            due = t + demand.uniform(lead[0], lead[-1])
         if distribution == "lognormal":
             # Un même quantile normal par opération pour apparier les niveaux de CV.
             durations = [h * exp(s*work.gauss(0,1)-s*s/2)

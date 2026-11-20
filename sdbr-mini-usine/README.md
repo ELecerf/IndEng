@@ -227,3 +227,9 @@ les fenêtres de lancement (multiples de W, ou fractions du délai client moyen 
 ex. 0,5 = tampon = moitié du délai, règle de Goldratt p. 14). Exemple : W = 24 h,
 `[2,7]` → délai [48, 168] h ; `[3,5,7]` → fenêtres [72, 120, 168] h. Test :
 `test_echelles_relatilles_somme_temps_operatoires`.
+
+Par défaut le délai client est **uniforme** entre les bornes de `requestedLead`
+(loi symétrique). Pour une loi **asymétrique à droite de moyenne fixée** :
+`requestedLead: [m]` + `requestedLeadDistribution: "lognormal"` +
+`requestedLeadCV: c` (moyenne m, CV c, médiane < moyenne). Test :
+`test_delai_client_lognormal_moyenne_preservee`.

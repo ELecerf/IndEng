@@ -29,7 +29,11 @@ def validate(c):
             and len(c["setupHours"]) == n and min(c["setupHours"]) >= 0
             and all(len(row)==n and min(row)>0 for row in c["processingHours"].values())
             and len(c["familyWeights"])==len(c["processingHours"]) and min(c["familyWeights"])>0
-            and 0 < c["requestedLead"][0] <= c["requestedLead"][1]
+            and len(c["requestedLead"]) >= 1 and 0 < c["requestedLead"][0] <= c["requestedLead"][-1]
+            and c.get("requestedLeadDistribution", "uniform") in {"uniform", "lognormal"}
+            and (c.get("requestedLeadDistribution", "uniform") != "lognormal"
+                 or (isinstance(c.get("requestedLeadCV", 0.5), (int, float))
+                     and c["requestedLeadCV"] >= 0))
             and len(set(c["windows"]))==len(c["windows"])>=2 and min(c["windows"])>=0
             and c["warmup"]>=0 and c["maxBatchWaitHours"]>=0
             and (c.get("processingDistribution","uniform")!="uniform" or 0 <= c["variation"] < 1)
@@ -66,7 +70,7 @@ def main():
             periods.append((start,start+duration))
             start+=duration
             schedule.append((start,load))
-        c["arrivalEnd"]=start+c["requestedLead"][1]
+        c["arrivalEnd"]=start+c["requestedLead"][-1]
         schedule.append((c["arrivalEnd"],schedule[-1][1]))
         for seed in range(c["seed"],c["seed"]+c["replications"]):
             jobs=orders(c,None,seed,schedule)

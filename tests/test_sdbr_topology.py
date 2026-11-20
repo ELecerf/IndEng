@@ -74,3 +74,17 @@ def test_echelles_relatilles_somme_temps_operatoires():
     base2["windowsLeadFraction"]=[0.5,1.0]
     c2=resolve_line(base2)
     assert c2["windows"]==[15.0,30.0]
+
+
+def test_delai_client_lognormal_moyenne_preservee():
+    import statistics
+    from demand import orders
+    c=resolve_line(dict(line=dict(stationCount=1,bottleneckIndex=0,
+        families={"A":dict(regularHours=1,bottleneckHours=1)}),
+        familyWeights=[1],requestedLead=[50],requestedLeadDistribution="lognormal",requestedLeadCV=1.0,
+        processingDistribution="lognormal",processingCV=0.3,
+        warmup=0,arrivalEnd=200000,maxBatchWaitHours=0))
+    leads=[j[1]-j[0] for j in orders(c,0.01,7)]
+    assert len(leads)>500
+    assert abs(statistics.mean(leads)-50)/50 < 0.1
+    assert statistics.median(leads) < 40
