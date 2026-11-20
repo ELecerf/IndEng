@@ -1,0 +1,125 @@
+{
+  "stations": [
+    "poste_1",
+    "poste_2",
+    "poste_3",
+    "poste_4",
+    "poste_5",
+    "poste_6",
+    "poste_7",
+    "poste_8",
+    "poste_9",
+    "poste_10"
+  ],
+  "bottleneck": 4,
+  "processingHours": {
+    "A": [
+      4,
+      4,
+      4,
+      4,
+      6,
+      4,
+      4,
+      4,
+      4,
+      4
+    ],
+    "B": [
+      4,
+      4,
+      4,
+      4,
+      6,
+      4,
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  "familyWeights": [
+    1,
+    1
+  ],
+  "setupHours": [
+    1,
+    1,
+    1,
+    1,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "requestedLeadWorkMultiple": [
+    10,
+    30
+  ],
+  "windowsWorkMultiple": [
+    2,
+    3,
+    5,
+    8,
+    10,
+    15,
+    20,
+    25,
+    30,
+    35
+  ],
+  "processingDistribution": "lognormal",
+  "processingCV": 0.3,
+  "dispatchRule": "due",
+  "size": 1,
+  "transfer": 1,
+  "maxBatchWaitHours": 6,
+  "capacity": [
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4
+  ],
+  "warmup": 400,
+  "seed": 42,
+  "replications": 20,
+  "phases": [
+    [
+      "creux",
+      480,
+      0.7
+    ],
+    [
+      "normal",
+      720,
+      0.95
+    ],
+    [
+      "reprise",
+      480,
+      0.85
+    ]
+  ],
+  "variants": {
+    "size1": {},
+    "size4": {
+      "size": 4,
+      "dispatchRule": "family_fifo"
+    },
+    "size8": {
+      "size": 8,
+      "dispatchRule": "family_fifo"
+    },
+    "size16": {
+      "size": 16,
+      "dispatchRule": "family_fifo"
+    }
+  }
+}

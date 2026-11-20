@@ -40,6 +40,8 @@ sdbr-mini-usine/
 ├── protocole-u-fenetre-immediate.md                   ← choix de paramétrage pour viser hausse → plateau → baisse de l'OTD
 ├── u-fenetre-immediate.md                             ← résultats lancés : pic à 3–5×W, taille pratiquée ↑, conflits ↑ à 15×W
 ├── configs-demande-lead-20xw.md                       ← pourquoi le carnet absorbe + 3 configs de demande lead ≈ 20–30×W (proposées)
+├── scenario-demande-a-20xw.json                       ← config A lancée : lead uniforme [10,30]×W, fenêtres 2–35×W
+├── demande-a-20xw.md                                  ← résultats A : plateau 100 % dès 3×W, carnet → 0 à 30×W, pas de branche droite
 ├── scripts/
 │   ├── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
 │   ├── dashboard_u.py                                 ← tableau de bord du U (attention, OTD vs fenêtre)
@@ -57,6 +59,7 @@ sdbr-mini-usine/
     ├── u-lots-goulot/                                 ← lots au goulot cap 24 h vs fenêtre (CSV, u_otd.png 3 panneaux)
     ├── u-20xw/                                        ← fenêtres 1–20×W × 4 variantes, pic 1,30 (CSV, u_otd.png)
     ├── u-fenetre-immediate/                           ← fenêtres 1–15×W × size 1/4/8/16, tampons finis (CSV, u_otd.png 4 panneaux)
+    ├── demande-a-20xw/                                ← config A : lead [10,30]×W, fenêtres 2–35×W (CSV, u_otd.png)
     ├── montecarlo_replications.csv                    ← 2700 lignes (30 réplications × 18 scénarios × 5 politiques)
     ├── montecarlo_summary.csv                         ← moyenne ± demi-IC95 par scénario × indicateur
     └── montecarlo_summary.md                          ← tableaux prêts à lire
@@ -368,3 +371,13 @@ immédiat). 3 configs de demande proposées : A uniforme [10,30]×W, B lognormal
 20×W CV 0,25, C lognormale centrée 30×W CV 0,3 (touch ≈ 5 % puis 3,3 % du lead — régime
 « usine par lots », Goldratt p. 11/13), avec tampons finis `capacity` et sweep de fenêtres
 incluant le point fenêtre > lead.
+
+## 21. Config A lancée : lead uniforme [10, 30] × W, fenêtres 2–35 × W
+
+Voir [`demande-a-20xw.md`](demande-a-20xw.md) : tampons finis `capacity` = 4, transfert
+unitaire, `size` = 1/4/8/16, pas de pic. Résultat : **OTD 100 % dès 3–5 × W jusqu'à 35 × W**
+(lancement immédiat) — la traversée à encours max vaut ~62 h ≈ 1,5 × W, très < lead min
+10 × W ; le carnet se vide (84 → 0 OF à 30 × W = saturation) et l'encours plafonne à
+~9,8 OF (λ × traversée). La taille pratiquée croît un peu (1,34 → 1,47) mais les conflits
+restent ~0. **Pas de branche droite en OTD à lead 20 × W sans surcharge** : il faudrait une
+traversée > 10 × W à fort encours, donc un pic de charge (piste : config A + pic ρ = 1,30).
