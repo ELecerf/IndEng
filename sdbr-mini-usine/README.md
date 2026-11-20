@@ -49,13 +49,15 @@ sdbr-mini-usine/
 ├── scenario-figure-u.json                             ← campagne figure U : 5 variantes × 18 fenêtres × 10 graines
 ├── figure-u.md                                        ← figure publiable du U (log₂) : progressif 98,5 % à 8×W → 17,2 % à 45×W
 ├── scenario-lot-fenetre-coef.json                     ← campagne lot min = k × fenêtre/W : k ∈ {0,25 ; 0,5 ; 1 ; 2} × 18 fenêtres × 10 graines
-└── lot-fenetre-coef.md                                ← résultats : k=0,25 trace le U complet (pic 98,8 % à 5×W → 17,2 % à 45×W) ; k=1 (fenêtre/W) trop agressif (OTD ≈ 0)
+├── lot-fenetre-coef.md                                ← résultats : k=0,25 trace le U complet (pic 98,8 % à 5×W → 17,2 % à 45×W) ; k=1 (fenêtre/W) trop agressif (OTD ≈ 0)
+└── rapport-manager.tex                                ← présentation beamer 14 slides pour un manager (compile : pdflatex depuis sdbr-mini-usine/)
 ├── scripts/
 │   ├── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
 │   ├── dashboard_u.py                                 ← tableau de bord du U (attention, OTD vs fenêtre)
 │   ├── courbe_u.py                                    ← figure du U : OTD ± IC95 vs fenêtre/W
 │   ├── zones_couleur.py                               ← zones vert/jaune/rouge/noir des OF selon la fenêtre (lot mini progressif)
-│   └── figure_u.py                                     ← figure 3 panneaux vectorielle du U (axe log₂, PDF/SVG/PNG 300 dpi)
+│   ├── figure_u.py                                     ← figure 3 panneaux vectorielle du U (axe log₂, PDF/SVG/PNG 300 dpi + panneaux PNG séparés)
+│   └── figure_slides.py                                ← figures paysage par panneau pour le beamer (slide_otd/zones/meca.png)
 └── results/
     ├── surcharge-10-postes/                           ← campagne 10 postes (CSV, IC95, otd.png)
     ├── lots-series/                                   ← campagne lots/séries (CSV, conflits.csv, otd.png)
@@ -72,7 +74,7 @@ sdbr-mini-usine/
     ├── demande-a-20xw/                                ← config A : lead [10,30]×W, fenêtres 2–35×W (CSV, u_otd.png)
     ├── lot-min-40xw/                                  ← lot min 2/4/8/16, lead [10,40]×W, fenêtres 2–45×W, 10 graines (CSV, u_otd.png)
     ├── figure-u/                                      ← figure publiable du U : 5 variantes × 18 fenêtres × 10 graines (PDF/SVG/PNG/CSV/TeX)
-    └── lot-fenetre-coef/                              ← lot min = k × fenêtre/W : 5 variantes × 18 fenêtres × 10 graines (CSV, figure_u.*, zones_couleur.*)
+    ├── lot-fenetre-coef/                              ← lot min = k × fenêtre/W : 5 variantes × 18 fenêtres × 10 graines (CSV, figure_u.*, zones_couleur.*, slide_*.png)
     ├── montecarlo_replications.csv                    ← 2700 lignes (30 réplications × 18 scénarios × 5 politiques)
     ├── montecarlo_summary.csv                         ← moyenne ± demi-IC95 par scénario × indicateur
     └── montecarlo_summary.md                          ← tableaux prêts à lire
@@ -426,3 +428,18 @@ le lot min atteint le plafond 16) ; k = 2 → OTD ≈ 0. À la fenêtre optimale
 supportable est ≤ 2 OF : W ≈ 12,5–20 % de la fenêtre au pic, cohérent avec la bande
 W ≈ 10–15 % de Goldratt. Figure 3 panneaux régénérée (`figure_u.pdf`, axe log₂, zones de
 couleur de k025).
+
+## 24. Présentation beamer pour un manager : `rapport-manager.tex`
+
+14 slides 16:9 (thème Boadilla ; paquets : utf8/T1, lmodern, graphicx, booktabs — pas de babel) :
+contexte, vérification des écrits de Goldratt (2006), modèle, puis les figures clés commentées —
+U de l'OTD (`results/figure-u/slide_otd.png`), zones vert/jaune/rouge/noir
+(`results/lot-fenetre-coef/slide_zones.png`), mécanisme lots/encours (`slide_meca.png`), lots min
+fixes 2/4/8/16 (`results/lot-min-40xw/u_otd.png`), lot min = k × fenêtre/W
+(`results/lot-fenetre-coef/slide_otd.png`), comparaison appariée iso-lot
+(`results/iso-lot/otd-fenetre.pdf`), surcharge ρ→1 (`results/surcharge-10-postes/otd.png` +
+tableau de bord `results/dashboard-u/u_surcap_x1_5.png`) — puis 6 leçons managériales, pistes
+d'amélioration et limites, reproduction. Figures paysage produites par `scripts/figure_slides.py`
+(`slide_*.png` dans `results/figure-u/` et `results/lot-fenetre-coef/`) ; `figure_u.py` exporte
+aussi chaque panneau séparément (`figure_u_panel_{a,b,c}.png`). Compilation :
+`cd sdbr-mini-usine && pdflatex -interaction=nonstopmode rapport-manager.tex` (×2).

@@ -114,6 +114,22 @@ def main():
 
     for fmt in ("pdf", "svg", "png"):
         fig.savefig(args.out / f"figure_u.{fmt}", dpi=300)
+    fig.canvas.draw()
+    renderer = fig.canvas.get_renderer()
+    from matplotlib.transforms import Bbox
+    for tag, ax_ in zip(("a", "b", "c"), axes):
+        tight = ax_.get_tightbbox(renderer)
+        abox = ax_.get_window_extent(renderer)
+        titles = Bbox.union([t.get_window_extent(renderer)
+                             for t in (ax_.title, ax_._left_title, ax_._right_title)
+                             if t.get_text()])
+        bb = Bbox.from_extents(min(tight.x0, abox.x0, titles.x0),
+                               min(tight.y0, abox.y0, titles.y0),
+                               max(abox.x1, titles.x1),
+                               max(tight.y1, abox.y1, titles.y1))
+        bb = bb.transformed(fig.dpi_scale_trans.inverted())
+        fig.savefig(args.out / f"figure_u_panel_{tag}.png", dpi=300,
+                    bbox_inches=bb, pad_inches=0.1)
     snippet = ("\\begin{figure}[t]\n  \\centering\n"
                "  \\includegraphics[width=\\linewidth]{figure_u.pdf}\n"
                "  \\caption{OTD selon la fenêtre de lancement (échelle log$_2$) pour cinq politiques\n"
