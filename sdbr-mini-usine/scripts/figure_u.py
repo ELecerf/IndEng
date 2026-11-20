@@ -97,7 +97,7 @@ def main():
     ax = axes[2]
     prog = g[g.variante == args.progressive].sort_values("xW")
     tem = g[g.variante == args.temoin].sort_values("xW")
-    ax.plot(prog.x, prog.lot, "o-", color=OKABE_ITO[args.progressive], lw=1.2,
+    ax.plot(prog.x, prog.lot, "o-", color=OKABE_ITO.get(args.progressive, "#E69F00"), lw=1.2,
             label=f"lot réalisé ({args.progressive})")
     ax.set(xlabel="fenêtre de lancement (× W, échelle log₂)", ylabel="taille de lot réalisée (OF)",
            xlim=(np.log2(0.9), np.log2(50)), ylim=(0, None))

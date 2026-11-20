@@ -48,6 +48,8 @@ sdbr-mini-usine/
 ├── protocole-figure-u-publiable.md                    ← prompt amélioré exécuté : figure académique du U (10 graines, axe log₂)
 ├── scenario-figure-u.json                             ← campagne figure U : 5 variantes × 18 fenêtres × 10 graines
 ├── figure-u.md                                        ← figure publiable du U (log₂) : progressif 98,5 % à 8×W → 17,2 % à 45×W
+├── scenario-lot-fenetre-coef.json                     ← campagne lot min = k × fenêtre/W : k ∈ {0,25 ; 0,5 ; 1 ; 2} × 18 fenêtres × 10 graines
+└── lot-fenetre-coef.md                                ← résultats : k=0,25 trace le U complet (pic 98,8 % à 5×W → 17,2 % à 45×W) ; k=1 (fenêtre/W) trop agressif (OTD ≈ 0)
 ├── scripts/
 │   ├── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
 │   ├── dashboard_u.py                                 ← tableau de bord du U (attention, OTD vs fenêtre)
@@ -70,6 +72,7 @@ sdbr-mini-usine/
     ├── demande-a-20xw/                                ← config A : lead [10,30]×W, fenêtres 2–35×W (CSV, u_otd.png)
     ├── lot-min-40xw/                                  ← lot min 2/4/8/16, lead [10,40]×W, fenêtres 2–45×W, 10 graines (CSV, u_otd.png)
     ├── figure-u/                                      ← figure publiable du U : 5 variantes × 18 fenêtres × 10 graines (PDF/SVG/PNG/CSV/TeX)
+    └── lot-fenetre-coef/                              ← lot min = k × fenêtre/W : 5 variantes × 18 fenêtres × 10 graines (CSV, figure_u.*, zones_couleur.*)
     ├── montecarlo_replications.csv                    ← 2700 lignes (30 réplications × 18 scénarios × 5 politiques)
     ├── montecarlo_summary.csv                         ← moyenne ± demi-IC95 par scénario × indicateur
     └── montecarlo_summary.md                          ← tableaux prêts à lire
@@ -409,3 +412,17 @@ min8 trace un **U** (0 % → 74 % à 30×W → 65 % à 40–45×W, 222 conflits)
 `taille_liee_fenetre` reproduit min16 à haute fenêtre. (Avec la borne 24 h, les lots ne se
 formaient pas — taille pratiquée 3,7 — et l'OTD restait à 100 % : c'est la borne d'attente
 qui limite les lots, pas `minLotSize`.)
+
+## 23. Campagne « lot min dimensionné par la fenêtre » : lot min = k × fenêtre/W
+
+[`scenario-lot-fenetre-coef.json`](scenario-lot-fenetre-coef.json) + résultats
+[`lot-fenetre-coef.md`](lot-fenetre-coef.md) + `results/lot-fenetre-coef/` : 5 variantes
+(`temoin` min 1 ; `k025`/`k05`/`k1`/`k2` = `sizeFromWindow` coef 0,25/0,5/1/2, max 16,
+`minimumOnly`) × 18 fenêtres 1–45×W × 10 graines appariées = 900 sims. **k = 0,25 trace le
+U complet** (pic 98,8 % à 5×W, plateau ~96 % jusqu'à 24×W, puis 17,2 % à 45×W, 83 % d'OF
+noirs, encours ×8, 171 conflits) ; **k = 1 — la règle « lot min = fenêtre/W » — est ~4× trop
+agressive** (OTD 1,9 % dès 2×W, ≈ 0–4 % partout, puis convergence vers min16 = 13,1 % quand
+le lot min atteint le plafond 16) ; k = 2 → OTD ≈ 0. À la fenêtre optimale, le lot min
+supportable est ≤ 2 OF : W ≈ 12,5–20 % de la fenêtre au pic, cohérent avec la bande
+W ≈ 10–15 % de Goldratt. Figure 3 panneaux régénérée (`figure_u.pdf`, axe log₂, zones de
+couleur de k025).
