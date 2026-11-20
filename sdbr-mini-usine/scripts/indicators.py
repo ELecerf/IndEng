@@ -8,8 +8,12 @@ def indicators(trace, jobs, a, b, stations):
     cycle = pd.Series([shipped[i]-trace["releases"][i] for i in ids],dtype=float)
     lots = [lot for lot in trace["lots"] if a<=lot[0]<b]
     intervals = [row for row in trace["intervals"] if overlap(*row[:2])]
+    series = [row for row in trace["series_sizes"] if a<=row[0]<b] if "series_sizes" in trace else []
+    tailles = [row[2] for row in series] or [row[2] for row in lots]
     result = dict(decisions=len(lots), occasions=sum(row[3] for row in lots),
                   retard_moyen=late.mean(),regroupements=sum(row[2]>1 for row in lots),
+                  taille_lot_moy=(sum(tailles)/len(tailles) if tailles else 0.0),
+                  taille_lot_max=max(tailles,default=0),
                   conflits=sum(bool(reds) for t,_,_,_,_,reds in trace["starts"] if a<=t<b),
                   encours_max=max((row[2] for row in intervals),default=0),
                   retard_p50=late.median(),retard_p95=late.quantile(.95),
@@ -29,6 +33,8 @@ def indicators(trace, jobs, a, b, stations):
         result[f"ruptures_carnet_{name}"] = sum(a<=t<b and c for t,pp,c in trace["starv"] if pp==p)
         result[f"changements_{name}"] = sum(a<=t<b for t,pp in trace["changes"] if pp==p)
         result[f"opportunites_{name}"] = sum(a<=t<b and n>=1 for t,pp,n in trace["opportunites2"] if pp==p)
+        tailles_poste = ([row[2] for row in series if row[1]==p] or [row[2] for row in lots if row[1]==p])
+        result[f"taille_lot_moy_{name}"] = (sum(tailles_poste)/len(tailles_poste) if tailles_poste else 0.0)
         result["conflits_avec_retard"] += sum(any(shipped[j]>jobs[j][1] for j in reds)
                                               for t,_,_,_,_,reds in starts if a<=t<b)
     return result

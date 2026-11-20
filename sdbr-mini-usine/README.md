@@ -38,6 +38,7 @@ sdbr-mini-usine/
 ├── u-20xw.md                                          ← lots de facto = min(size, file) ; conflits croissants, écart de niveau à 20×W
 ├── scenario-u-fenetre-immediate.json                  ← protocole validé (NON lancé) : fenêtre seule jusqu'à > lead
 ├── protocole-u-fenetre-immediate.md                   ← choix de paramétrage pour viser hausse → plateau → baisse de l'OTD
+├── u-fenetre-immediate.md                             ← résultats lancés : pic à 3–5×W, taille pratiquée ↑, conflits ↑ à 15×W
 ├── scripts/
 │   ├── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
 │   ├── dashboard_u.py                                 ← tableau de bord du U (attention, OTD vs fenêtre)
@@ -54,6 +55,7 @@ sdbr-mini-usine/
     ├── courbe-u-otd/                                  ← sweep 0,5–12×W × 4 variantes (CSV, u_otd.png)
     ├── u-lots-goulot/                                 ← lots au goulot cap 24 h vs fenêtre (CSV, u_otd.png 3 panneaux)
     ├── u-20xw/                                        ← fenêtres 1–20×W × 4 variantes, pic 1,30 (CSV, u_otd.png)
+    ├── u-fenetre-immediate/                           ← fenêtres 1–15×W × size 1/4/8/16, tampons finis (CSV, u_otd.png 4 panneaux)
     ├── montecarlo_replications.csv                    ← 2700 lignes (30 réplications × 18 scénarios × 5 politiques)
     ├── montecarlo_summary.csv                         ← moyenne ± demi-IC95 par scénario × indicateur
     └── montecarlo_summary.md                          ← tableaux prêts à lire
@@ -340,12 +342,16 @@ passe de 1 à 20 × W ; encours 22,4 → 24,2 OF. **Résultat** : à 20 × W, OT
 vs lot au goulot 72,9 % vs lots partout 45,0 % — la branche droite est un écart de niveau
 (pas une chute de pente, impossible avec `lancement = max(arrivée, promesse − fenêtre)`).
 
-## 19. Protocole préparé (non lancé) : fenêtre seule, cas fenêtre > lead (lancement immédiat)
+## 19. Fenêtre seule jusqu'à 15 × W, lots sans attente plafonnés à `size` (résultats)
 
-Voir [`protocole-u-fenetre-immediate.md`](protocole-u-fenetre-immediate.md) et
-`scenario-u-fenetre-immediate.json` (validé, **simulation non lancée**) : faible surcapacité
-des non-goulots (4 h vs 6 h au goulot), tampons finis (`capacity` = 4), délai 2–6 × W,
-fenêtres 1–10 × W (au-delà de 6 × W = lancement immédiat), variantes `size` = 1/4/8/16 en
-transfert unitaire, pas de surcharge. Objectif : hausse → plateau → baisse de l'OTD en ne
-faisant varier que la fenêtre ; KPI : OTD, encours, files, conflits avec retard, consommation
-de tampons (`stocks_pleins`, `blocage`).
+Voir [`u-fenetre-immediate.md`](u-fenetre-immediate.md) (protocole dans
+`protocole-u-fenetre-immediate.md`) : nouvelle sémantique des lots — `size` = plafond de
+série, **pas d'attente** (le poste regroupe ce qu'il a), les arrivées de même famille
+pendant le traitement rejoignent la série jusqu'à `size` ; nouvelle métrique
+`taille_lot_moy`/`taille_lot_max`. Config : réguliers 4 h vs goulot 6 h, tampons finis
+`capacity` = 4, délai lognormal moyenne 8 × W CV 1,5, fenêtres 1–15 × W, `size` = 1/4/8/16,
+transfert unitaire. Résultat : pic d'OTD à 3–5 × W (85,4 % size1) puis légère baisse à
+15 × W (84,1 %) ; taille pratiquée au goulot 2,16 → 2,38, conflits 0,5 → 6,0, P95 34 → 40 h.
+L'encours ligne ne grossit que modérément (8 → 9,6 OF, le carnet absorbe le reste), donc
+les files restent courtes et les lots pratiqués petits — l'effet de `size` à iso-fenêtre
+vient de la taille pratiquée, pas du plafond.

@@ -23,6 +23,7 @@ class Post:
     family: str = ""
     blocked: bool = False
     series_start: float = 0.
+    lot_size: int = 0
 
 
 from demand import orders
@@ -47,6 +48,16 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
     releases = {i: release_time(a,d,window) for i, (a,d,_,_) in enumerate(jobs)}
     incoming = sorted((t,i) for i,t in releases.items())
     posts = [Post() for _ in cfg["stations"]]
+    def ajouter(p, t, i):
+        post = posts[p]
+        if ((post.pending or post.active is not None) and jobs[i][2] == post.family
+                and post.lot_size < sizes[p]):
+            post.pending.append((t, i))
+            post.lot_size += 1
+            if trace is not None:
+                trace["lot_ext"].append((t, p, post.lot_size))
+        else:
+            post.queue.append((t, i))
     shipped = {}
     pointer = wip = 0
     t = 0
@@ -65,7 +76,7 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
     while len(shipped) < len(jobs):
         phase = next((m for (a,b),m in zip(periods,phases) if a <= t < b), None)
         while pointer < len(incoming) and incoming[pointer][0] <= t:
-            posts[0].queue.append((t, incoming[pointer][1]))
+            ajouter(0, t, incoming[pointer][1])
             pointer += 1
             wip += 1
         for p, post in enumerate(posts):
@@ -98,7 +109,8 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
                                 shipped.update((i,t) for i in post.finished)
                                 wip -= len(post.finished)
                             else:
-                                posts[p+1].queue.extend((t,i) for i in post.finished)
+                                for i in post.finished:
+                                    ajouter(p+1, t, i)
                                 moved = True
                             post.finished.clear()
                         else:
@@ -113,7 +125,8 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
                                     shipped.update((i,t) for i in post.finished[:take])
                                     wip -= take
                                 else:
-                                    posts[p+1].queue.extend((t,i) for i in post.finished[:take])
+                                    for i in post.finished[:take]:
+                                        ajouter(p+1, t, i)
                                 del post.finished[:take]
                                 moved = True
                             else:
@@ -132,25 +145,20 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
                             local_queue = same
                         elif other:
                             local_queue = other
-                        selected_rule, wait = "batch_fifo", 0
+                        selected_rule = "batch_fifo"
                     else:
-                        selected_rule, wait = rule, cfg["maxBatchWaitHours"]
+                        selected_rule = rule
                     post.pending = select_batch(local_queue, lambda i: jobs[i][2], lambda i: jobs[i][1],
-                                                post.family, t, sizes[p], wait, selected_rule)
+                                                post.family, sizes[p], selected_rule)
                     if not post.pending:
                         continue
+                    post.lot_size = len(post.pending)
                     if trace is not None:
                         counts = Counter(jobs[j][2] for _,j in post.queue)
                         trace["lots"].append((t,p,len(post.pending),sum(v>=2 for v in counts.values())))
                         trace["opportunites2"].append((t, p, sum(v >= 2 for v in counts.values())))
                         if "opportunites" in trace:
-                            oldest = {}
-                            for arrival,j in post.queue:
-                                family = jobs[j][2]
-                                oldest[family] = min(oldest.get(family,arrival),arrival)
-                            eligible = sum(count >= 2 and (count >= sizes[p] or
-                                           oldest[f]+cfg["maxBatchWaitHours"] <= t)
-                                           for f,count in counts.items()) if sizes[p]>1 and rule!="fifo" else 0
+                            eligible = sum(count >= 2 for count in counts.values()) if sizes[p]>1 and rule!="fifo" else 0
                             trace["opportunites"].append((t,p,eligible,len(post.pending)))
                         if "marges_concurrentes" in trace and p == cfg["bottleneck"]:
                             family = jobs[post.pending[0][1]][2]
@@ -164,6 +172,8 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
                     post.queue = [e for e in post.queue if e[1] not in selected]
 
                 _, i = post.pending.pop(0)
+                if not post.pending and trace is not None:
+                    trace["series_sizes"].append((t, p, post.lot_size))
                 due, family = jobs[i][1:3]
                 setup = cfg["setupHours"][p] if post.family and post.family != family else 0
                 if family != post.family:

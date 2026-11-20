@@ -6,7 +6,7 @@ def release_time(arrival, due, window):
     return max(arrival, due-window)
 
 
-def select_batch(queue, family, deadline, current, now, size, wait, rule):
+def select_batch(queue, family, deadline, current, size, rule):
     if rule not in RULES:
         raise ValueError(f"Règle inconnue {rule}")
     if rule == "fifo":
@@ -15,9 +15,10 @@ def select_batch(queue, family, deadline, current, now, size, wait, rule):
     key = (lambda entry: (deadline(entry[1]), *entry)) if rule == "due" else None
     for entry in sorted(queue, key=key):
         groups.setdefault(family(entry[1]), []).append(entry)
-    eligible = [name for name, group in groups.items()
-                if len(group) >= size or min(t for t,_ in group)+wait <= now]
-    if not eligible:
+    if not groups:
         return []
-    name = current if rule == "family_fifo" and current in eligible else eligible[0]
+    name = current if rule == "family_fifo" and current in groups else next(iter(groups))
+    # Pas d'attente : le poste regroupe ce qu'il a au poste, plafonné à size
+    # (2 OF de même famille avec size=8 -> lot de 2). La série peut ensuite grossir
+    # jusqu'à size pendant le traitement (voir run_congestion.ajouter).
     return groups[name][:size]

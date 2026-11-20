@@ -38,15 +38,18 @@ def main():
         for fenetre, gg in g.groupby("fenetre"):
             rows.append(dict(variante=v, phase=phase, fenetre=fenetre, xW=round(fenetre / work, 4),
                              otd=gg.otd.mean(), otd_ic95=1.96 * gg.otd.sem(),
-                             encours=gg.encours.mean(), retard_p95=gg.retard_p95.mean()))
+                             encours=gg.encours.mean(), retard_p95=gg.retard_p95.mean(),
+                             taille_lot_moy=gg.taille_lot_moy.mean() if "taille_lot_moy" in gg else float("nan"),
+                             conflits_avec_retard=gg.conflits_avec_retard.mean()))
     pd.DataFrame(rows).sort_values(["variante", "phase", "fenetre"]).to_csv(args.out / "courbe_u.csv", index=False)
 
-    fig, axes = plt.subplots(2, 3, figsize=(17, 9), layout="constrained")
+    fig, axes = plt.subplots(2, 4, figsize=(21, 9), layout="constrained")
     for row, phase in enumerate(PHASES):
         for col, (key, label, title) in enumerate([
                 ("otd", "OTD (%)", f"OTD vs fenêtre — phase {phase}"),
                 ("encours", "encours (OF)", f"Encours vs fenêtre — phase {phase}"),
-                ("conflits_avec_retard", "conflits avec retard", f"Conflits (séries bloquant OF urgents) — phase {phase}")]):
+                ("conflits_avec_retard", "conflits avec retard", f"Conflits (séries bloquant OF urgents) — phase {phase}"),
+                ("taille_lot_moy", "taille de lot pratiquée", f"Taille de lot pratiquée vs fenêtre — phase {phase}")]):
             ax = axes[row, col]
             for name, g in r[r.phase == phase].groupby("variante"):
                 m = g.groupby("xW")[key].mean()

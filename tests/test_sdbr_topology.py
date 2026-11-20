@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"sdbr-mini-usine"/"scripts"))
+from indicators import indicators
 from line_config import resolve_line
 from run_congestion import simulate
 
@@ -112,3 +113,47 @@ def test_compteur_opportunites_et_file():
     res=simulate(c,jobs,200,[float("inf")],1,1,[(0,300)],trace)
     assert any(n>=1 for _,_,n in trace["opportunites2"])
     assert res[0]["file"]>0
+
+
+def test_taille_lot_pratiquee_borne_par_size_et_file():
+    c=resolve_line(dict(line=dict(stationCount=2,bottleneckIndex=1,
+        families={"A":dict(regularHours=1,bottleneckHours=5),"B":dict(regularHours=1,bottleneckHours=5)}),
+        warmup=0,arrivalEnd=300,maxBatchWaitHours=0,requestedLead=[100,100]))
+    jobs=[(0,150,"A",c["processingHours"]["A"]) for _ in range(4)]
+    trace=defaultdict(list)
+    res=simulate(c,jobs,200,[float("inf")],4,1,[(0,300)],trace)
+    ind=indicators(trace,jobs,0,300,c["stations"])
+    assert 1 < ind["taille_lot_moy"] <= 4
+    assert ind["taille_lot_max"] <= 4
+    assert ind["taille_lot_moy_poste_1"] <= 4
+
+
+def test_lot_sans_attente_plafonne_a_size():
+    # 6 OF famille A, size=4 : pas d'attente, séries [4, 2], plafond = size
+    c=resolve_line(dict(line=dict(stationCount=2,bottleneckIndex=1,
+        families={"A":dict(regularHours=1,bottleneckHours=5)}),
+        warmup=0,arrivalEnd=300,maxBatchWaitHours=1000,requestedLead=[100,100]))
+    jobs=[(0,150,"A",c["processingHours"]["A"]) for _ in range(6)]
+    trace=defaultdict(list)
+    simulate(c,jobs,200,[float("inf")],4,1,[(0,300)],trace)
+    ind=indicators(trace,jobs,0,300,c["stations"])
+    assert trace["lots"][0][0]==0 and trace["lots"][0][2]==4  # décision immédiate, lot de 4
+    assert ind["taille_lot_moy_poste_1"]==3 and ind["taille_lot_max"]==4  # séries [4, 2] au poste 1
+
+
+def test_arrivee_rejoint_la_serie_en_cours_jusqu_a_size():
+    # 1 poste, 5 OF A arrivant à t=0,0,1,2,3 : une seule série de 5 (size=8)
+    c=resolve_line(dict(line=dict(stationCount=1,bottleneckIndex=0,
+        families={"A":dict(regularHours=1,bottleneckHours=1)}),
+        warmup=0,arrivalEnd=300,maxBatchWaitHours=0,requestedLead=[100,100]))
+    jobs=[(0,150,"A",c["processingHours"]["A"]) for _ in range(2)] \
+        +[(t,150,"A",c["processingHours"]["A"]) for t in (1,2,3)]
+    trace=defaultdict(list)
+    simulate(c,jobs,200,[],8,1,[(0,300)],trace)
+    ind=indicators(trace,jobs,0,300,c["stations"])
+    assert ind["taille_lot_moy_poste_1"]==5 and ind["taille_lot_max"]==5
+    # avec size=3 la série est plafonnée : séries [3, 2]
+    trace=defaultdict(list)
+    simulate(c,jobs,200,[],3,1,[(0,300)],trace)
+    ind=indicators(trace,jobs,0,300,c["stations"])
+    assert ind["taille_lot_max"]==3 and ind["taille_lot_moy_poste_1"]==2.5

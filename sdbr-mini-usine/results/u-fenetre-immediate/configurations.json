@@ -1,0 +1,462 @@
+{
+  "size1": {
+    "stations": [
+      "poste_1",
+      "poste_2",
+      "poste_3",
+      "poste_4",
+      "poste_5",
+      "poste_6",
+      "poste_7",
+      "poste_8",
+      "poste_9",
+      "poste_10"
+    ],
+    "bottleneck": 4,
+    "processingHours": {
+      "A": [
+        4,
+        4,
+        4,
+        4,
+        6,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "B": [
+        4,
+        4,
+        4,
+        4,
+        6,
+        4,
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    "familyWeights": [
+      1,
+      1
+    ],
+    "setupHours": [
+      1,
+      1,
+      1,
+      1,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "processingDistribution": "lognormal",
+    "processingCV": 0.3,
+    "dispatchRule": "due",
+    "size": 1,
+    "transfer": 1,
+    "maxBatchWaitHours": 6,
+    "capacity": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+    ],
+    "warmup": 400,
+    "seed": 42,
+    "replications": 20,
+    "phases": [
+      [
+        "creux",
+        480,
+        0.7
+      ],
+      [
+        "normal",
+        720,
+        0.95
+      ],
+      [
+        "reprise",
+        480,
+        0.85
+      ]
+    ],
+    "requestedLeadDistribution": "lognormal",
+    "requestedLeadCV": 1.5,
+    "requestedLead": [
+      336.0,
+      840.0
+    ],
+    "windows": [
+      42.0,
+      84.0,
+      126.0,
+      168.0,
+      210.0,
+      252.0,
+      294.0,
+      336.0,
+      420.0,
+      504.0,
+      630.0
+    ],
+    "workContentHours": 42.0,
+    "arrivalEnd": 2920.0
+  },
+  "size4": {
+    "stations": [
+      "poste_1",
+      "poste_2",
+      "poste_3",
+      "poste_4",
+      "poste_5",
+      "poste_6",
+      "poste_7",
+      "poste_8",
+      "poste_9",
+      "poste_10"
+    ],
+    "bottleneck": 4,
+    "processingHours": {
+      "A": [
+        4,
+        4,
+        4,
+        4,
+        6,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "B": [
+        4,
+        4,
+        4,
+        4,
+        6,
+        4,
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    "familyWeights": [
+      1,
+      1
+    ],
+    "setupHours": [
+      1,
+      1,
+      1,
+      1,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "processingDistribution": "lognormal",
+    "processingCV": 0.3,
+    "dispatchRule": "family_fifo",
+    "size": 4,
+    "transfer": 1,
+    "maxBatchWaitHours": 6,
+    "capacity": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+    ],
+    "warmup": 400,
+    "seed": 42,
+    "replications": 20,
+    "phases": [
+      [
+        "creux",
+        480,
+        0.7
+      ],
+      [
+        "normal",
+        720,
+        0.95
+      ],
+      [
+        "reprise",
+        480,
+        0.85
+      ]
+    ],
+    "requestedLeadDistribution": "lognormal",
+    "requestedLeadCV": 1.5,
+    "requestedLead": [
+      336.0,
+      840.0
+    ],
+    "windows": [
+      42.0,
+      84.0,
+      126.0,
+      168.0,
+      210.0,
+      252.0,
+      294.0,
+      336.0,
+      420.0,
+      504.0,
+      630.0
+    ],
+    "workContentHours": 42.0,
+    "arrivalEnd": 2920.0
+  },
+  "size8": {
+    "stations": [
+      "poste_1",
+      "poste_2",
+      "poste_3",
+      "poste_4",
+      "poste_5",
+      "poste_6",
+      "poste_7",
+      "poste_8",
+      "poste_9",
+      "poste_10"
+    ],
+    "bottleneck": 4,
+    "processingHours": {
+      "A": [
+        4,
+        4,
+        4,
+        4,
+        6,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "B": [
+        4,
+        4,
+        4,
+        4,
+        6,
+        4,
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    "familyWeights": [
+      1,
+      1
+    ],
+    "setupHours": [
+      1,
+      1,
+      1,
+      1,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "processingDistribution": "lognormal",
+    "processingCV": 0.3,
+    "dispatchRule": "family_fifo",
+    "size": 8,
+    "transfer": 1,
+    "maxBatchWaitHours": 6,
+    "capacity": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+    ],
+    "warmup": 400,
+    "seed": 42,
+    "replications": 20,
+    "phases": [
+      [
+        "creux",
+        480,
+        0.7
+      ],
+      [
+        "normal",
+        720,
+        0.95
+      ],
+      [
+        "reprise",
+        480,
+        0.85
+      ]
+    ],
+    "requestedLeadDistribution": "lognormal",
+    "requestedLeadCV": 1.5,
+    "requestedLead": [
+      336.0,
+      840.0
+    ],
+    "windows": [
+      42.0,
+      84.0,
+      126.0,
+      168.0,
+      210.0,
+      252.0,
+      294.0,
+      336.0,
+      420.0,
+      504.0,
+      630.0
+    ],
+    "workContentHours": 42.0,
+    "arrivalEnd": 2920.0
+  },
+  "size16": {
+    "stations": [
+      "poste_1",
+      "poste_2",
+      "poste_3",
+      "poste_4",
+      "poste_5",
+      "poste_6",
+      "poste_7",
+      "poste_8",
+      "poste_9",
+      "poste_10"
+    ],
+    "bottleneck": 4,
+    "processingHours": {
+      "A": [
+        4,
+        4,
+        4,
+        4,
+        6,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "B": [
+        4,
+        4,
+        4,
+        4,
+        6,
+        4,
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    "familyWeights": [
+      1,
+      1
+    ],
+    "setupHours": [
+      1,
+      1,
+      1,
+      1,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "processingDistribution": "lognormal",
+    "processingCV": 0.3,
+    "dispatchRule": "family_fifo",
+    "size": 16,
+    "transfer": 1,
+    "maxBatchWaitHours": 6,
+    "capacity": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+    ],
+    "warmup": 400,
+    "seed": 42,
+    "replications": 20,
+    "phases": [
+      [
+        "creux",
+        480,
+        0.7
+      ],
+      [
+        "normal",
+        720,
+        0.95
+      ],
+      [
+        "reprise",
+        480,
+        0.85
+      ]
+    ],
+    "requestedLeadDistribution": "lognormal",
+    "requestedLeadCV": 1.5,
+    "requestedLead": [
+      336.0,
+      840.0
+    ],
+    "windows": [
+      42.0,
+      84.0,
+      126.0,
+      168.0,
+      210.0,
+      252.0,
+      294.0,
+      336.0,
+      420.0,
+      504.0,
+      630.0
+    ],
+    "workContentHours": 42.0,
+    "arrivalEnd": 2920.0
+  }
+}
