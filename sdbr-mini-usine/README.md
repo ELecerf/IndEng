@@ -36,6 +36,8 @@ sdbr-mini-usine/
 ├── u-lots-goulot.md                                   ← lots réels : pic à 7–9×W puis plateau ; conflits en branche droite
 ├── scenario-u-20xw.json                               ← test reformulé : lots à tous postes, fenêtres jusqu'à 20×W
 ├── u-20xw.md                                          ← lots de facto = min(size, file) ; conflits croissants, écart de niveau à 20×W
+├── scenario-u-fenetre-immediate.json                  ← protocole validé (NON lancé) : fenêtre seule jusqu'à > lead
+├── protocole-u-fenetre-immediate.md                   ← choix de paramétrage pour viser hausse → plateau → baisse de l'OTD
 ├── scripts/
 │   ├── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
 │   ├── dashboard_u.py                                 ← tableau de bord du U (attention, OTD vs fenêtre)
@@ -337,3 +339,13 @@ retard montent de 0,6 à **52,9** (lots partout) et 0,1 → **27,8** (goulot) qu
 passe de 1 à 20 × W ; encours 22,4 → 24,2 OF. **Résultat** : à 20 × W, OTD unitaire 80,0 %
 vs lot au goulot 72,9 % vs lots partout 45,0 % — la branche droite est un écart de niveau
 (pas une chute de pente, impossible avec `lancement = max(arrivée, promesse − fenêtre)`).
+
+## 19. Protocole préparé (non lancé) : fenêtre seule, cas fenêtre > lead (lancement immédiat)
+
+Voir [`protocole-u-fenetre-immediate.md`](protocole-u-fenetre-immediate.md) et
+`scenario-u-fenetre-immediate.json` (validé, **simulation non lancée**) : faible surcapacité
+des non-goulots (4 h vs 6 h au goulot), tampons finis (`capacity` = 4), délai 2–6 × W,
+fenêtres 1–10 × W (au-delà de 6 × W = lancement immédiat), variantes `size` = 1/4/8/16 en
+transfert unitaire, pas de surcharge. Objectif : hausse → plateau → baisse de l'OTD en ne
+faisant varier que la fenêtre ; KPI : OTD, encours, files, conflits avec retard, consommation
+de tampons (`stocks_pleins`, `blocage`).
