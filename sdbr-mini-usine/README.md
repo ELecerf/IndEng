@@ -28,6 +28,8 @@ sdbr-mini-usine/
 ├── dashboard-u.md                                     ← compte rendu + lecture du U de Goldratt
 ├── scenario-branche-droite-u.json                     ← fenêtres jusqu'à 100×W, délai client 50–150×W
 ├── branche-droite-u.md                                ← branche droite du U (VA ≈ 1 % du lead)
+├── scenario-regroupements-transfer-otd.json           ← croisement fenêtres × (unitaire / lots / bloc / train)
+├── regroupements-transfer-otd.md                      ← OTD à fort encours avec regroupements et transferts par batch
 ├── scripts/
 │   └── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
 └── results/
@@ -38,6 +40,7 @@ sdbr-mini-usine/
     ├── charge-otd-encours/                            ← balayage de charge cv0.3 / cv0 (CSV)
     ├── dashboard-u/                                   ← sweep fenêtres + tableau de bord (PNG, CSV, MD)
     ├── branche-droite-u/                              ← sweep 0,5–100×W + dashboard (PNG, CSV, MD)
+    ├── regroupements-transfer-otd/                    ← fenêtres 48/120/240 h × 5 modes (CSV, otd.png)
     ├── montecarlo_replications.csv                    ← 2700 lignes (30 réplications × 18 scénarios × 5 politiques)
     ├── montecarlo_summary.csv                         ← moyenne ± demi-IC95 par scénario × indicateur
     └── montecarlo_summary.md                          ← tableaux prêts à lire
@@ -273,3 +276,14 @@ fenêtre sature au délai demandé et on reste sur le plateau. Résultat : à 10
 l'encours passe de 0,30 à 6,10 OF et l'indice d'attention de 0,12 à 1,35 (branche
 droite = embouteillages, p. 12) ; W ne vaut alors que 1 % du lead time (p. 13). La
 branche gauche reste visible via l'OTD (0 % à 0,5×W → 100 % dès 2×W).
+
+## 15. OTD à fort encours avec regroupements et transferts par batch
+
+Voir [`regroupements-transfer-otd.md`](regroupements-transfer-otd.md) : croisement de
+fenêtres {48, 120, 240 h} (240 h > délai client max ⇒ lancement immédiat = fort encours)
+× 5 modes (unitaire, lots 8, transfert `bloc` 8, train logistique N=8, lots 8 + train 8),
+20 graines. À 240 h, l'OTD unitaire reste à 81,6 ± 6,5 % mais s'effondre à 50,4 %
+(lots 8), 32,1 % (bloc 8) et 0,0 % (train 8, retard P95 247 h) ; l'encours passe de
+9 à 36 OF (loi de Little). Les attentes structurelles des séries et des trains mangent
+toute la marge de la fenêtre (Goldratt p. 5–6, 12, 13). Règle pratique : à fort encours,
+éviter lots et transferts par batch — jamais les combiner.
