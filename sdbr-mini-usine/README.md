@@ -34,6 +34,8 @@ sdbr-mini-usine/
 ├── courbe-u-otd.md                                    ← le U vu par l'OTD (courte / intermédiaire / longue fenêtre)
 ├── scenario-u-lots-goulot.json                        ← taille de lot réelle au goulot (cap 24 h) vs fenêtre
 ├── u-lots-goulot.md                                   ← lots réels : pic à 7–9×W puis plateau ; conflits en branche droite
+├── scenario-u-20xw.json                               ← test reformulé : lots à tous postes, fenêtres jusqu'à 20×W
+├── u-20xw.md                                          ← lots de facto = min(size, file) ; conflits croissants, écart de niveau à 20×W
 ├── scripts/
 │   ├── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
 │   ├── dashboard_u.py                                 ← tableau de bord du U (attention, OTD vs fenêtre)
@@ -49,6 +51,7 @@ sdbr-mini-usine/
     ├── regroupements-transfer-otd/                    ← fenêtres 48/120/240 h × 5 modes (CSV, otd.png)
     ├── courbe-u-otd/                                  ← sweep 0,5–12×W × 4 variantes (CSV, u_otd.png)
     ├── u-lots-goulot/                                 ← lots au goulot cap 24 h vs fenêtre (CSV, u_otd.png 3 panneaux)
+    ├── u-20xw/                                        ← fenêtres 1–20×W × 4 variantes, pic 1,30 (CSV, u_otd.png)
     ├── montecarlo_replications.csv                    ← 2700 lignes (30 réplications × 18 scénarios × 5 politiques)
     ├── montecarlo_summary.csv                         ← moyenne ± demi-IC95 par scénario × indicateur
     └── montecarlo_summary.md                          ← tableaux prêts à lire
@@ -323,3 +326,14 @@ pas en fonction de la fenêtre car `lancement = max(arrivée, promesse − fenê
 monotone jusqu'à saturation (fenêtre ≥ délai max) ; elle apparaît vs la **charge**
 (96 → 33 %, `charge-otd-encours.md`), en écart de niveau à fort encours selon le mode
 (93,5 / 67,9 / 51,7 / 0,9 % à 12 ×W) et dans les files/attention (`dashboard-u.md`).
+
+## 18. Test reformulé jusqu'à 20 × W : lots à tous les postes, taille réalisée = min(size, file)
+
+Voir [`u-20xw.md`](u-20xw.md) : délai client lognormal (moyenne 12 × W, CV 1,5 — queue
+longue > 20 × W donc pas de saturation), pic ρ = 1,30 / 480 h, 13 fenêtres de 1 à 20 × W ×
+variantes {unitaire, lots 8/16 à tous les postes cap 12 h, lot 16 au goulot cap 24 h}.
+**Mécanisme confirmé** : la taille réalisée du lot croît avec la file, les conflits avec
+retard montent de 0,6 à **52,9** (lots partout) et 0,1 → **27,8** (goulot) quand la fenêtre
+passe de 1 à 20 × W ; encours 22,4 → 24,2 OF. **Résultat** : à 20 × W, OTD unitaire 80,0 %
+vs lot au goulot 72,9 % vs lots partout 45,0 % — la branche droite est un écart de niveau
+(pas une chute de pente, impossible avec `lancement = max(arrivée, promesse − fenêtre)`).
