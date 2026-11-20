@@ -13,6 +13,33 @@ tampons 16, transfert unitaire, `size` = 16, attente bornée 24 h, pic ρ = 1,30
 Variantes : `temoin_size1`, `min2/4/8/16`, `taille_liee_fenetre` (`sizeFromWindow` coef 1
 max 16 → lot = min(16, round(fenêtre/W))).
 
+## Résultats avec `maxBatchWaitHours` = 168 h (phase globale, OTD % ± IC95)
+
+| ×W | temoin | min2 | min4 | min8 | min16 | liée fenêtre | lot pratiqué min16 (moy/max) | encours min16 | traversée min16 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | 57 ± 8 | 2 | 0 | 0 | 0 | 2 | 5,1 / 16 | 63,5 | 1717 h |
+| 8 | 100 | 99 | 82 ± 3 | 0 | 0 | 0 | 5,9 / 16 | 89,5 | 1717 h |
+| 16 | 100 | 100 | 98 ± 1 | 34 ± 13 | 0 | 0 | 7,3 / 16 | 124 | 1724 h |
+| 24 | 100 | 100 | 99 | 63 ± 9 | 0 | 0 | 9,2 / 16 | 152 | 1766 h |
+| 30 | 100 | 100 | 100 | **74 ± 6** | 4 ± 2 | 4 ± 2 | 10,0 / 16 | 166 | 1773 h |
+| 40–45 | 100 | 100 | 100 | **65 ± 8** | **13 ± 2** | **13 ± 2** | 11,6 / 16 | 175 | 1780 h ≈ 33 × W |
+
+**Lecture (cap 168 h)** : les lots se remplissent vraiment (taille pratiquée 5 → 11,6,
+max 16), l'attente gonfle la traversée jusqu'à ~33 × W et l'encours jusqu'à 175 OF.
+Conséquences : `min16` fait **s'effondrer l'OTD à 13 %** dès 40–45 × W (0 % avant) ;
+`min8` trace un **U** : 0 % → pic 74 % à 30 × W → 65 % à 40–45 × W (lancement immédiat),
+avec 222 conflits retardés au point extrême. `taille_liee_fenetre` reproduit min16 à
+haute fenêtre (lot demandé = min(16, fenêtre/W)) : preuve que « plus la fenêtre est
+longue, plus regrouper pénalise l'OTD ». Le témoin reste à 100 %.
+
+## Comparaison avec la borne 24 h (run précédent, commit 1295d8a)
+
+Avec `maxBatchWaitHours` = 24 h, la file par famille (4 familles, λ/4 ≈ 0,03 OF/h)
+n'atteignait jamais 4–16 OF en 24 h : les lots partaient au cap avec 1–2 OF (taille
+pratiquée max 3,7), la traversée restait ≤ 6,3 × W < lead min 10 × W → OTD 100 % dès
+8 × W pour toutes les variantes. **C'est la borne d'attente qui limitait les lots**, pas
+`minLotSize` : à 168 h, les mêmes `minLotSize` font chuter l'OTD.
+
 ## Résultats (phase globale, OTD % ± IC95)
 
 | ×W | temoin | min2 | min4 | min8 | min16 | liée fenêtre | lot pratiqué (min8) | encours (min8) | traversée (min8) |

@@ -396,8 +396,10 @@ CV 0,6 lognormal ; lead [10, 40]×W, fenêtres 2–45×W (45×W > lead max = lan
 pic ρ = 1,30 ; tampons 16. Variante `sizeFromWindow` : taille de lot = min(16, fenêtre/W) —
 plus la fenêtre est longue, plus on regroupe. Nouveautés moteur testées (51 tests OK).
 
-Résultats lancés (10 graines, ~4 min, [`lot-min-40xw.md`](lot-min-40xw.md)) : branche
-gauche accentuée par les lots minimum (OTD 0 % à 2–4 × W pour min ≥ 4, vs 57 % témoin),
-plateau 100 % dès 8–12 × W jusqu'à 45 × W (traversée max ≈ 6,3 × W < lead min 10 × W) —
-l'encours, lui, explose avec la fenêtre quand on attend les lots (23 → 49 OF à 45 × W,
-contre 28 pour le témoin) : la branche droite est là, en encours, pas en OTD.
+Résultats lancés (10 graines, ~4 min, [`lot-min-40xw.md`](lot-min-40xw.md)) : avec
+`maxBatchWaitHours` = 168 h, les lots se remplissent vraiment (taille pratiquée 11,6/16,
+traversée ~33×W, encours 175 OF) et **l'OTD s'effondre** : min16 → **13 %** à 40–45×W,
+min8 trace un **U** (0 % → 74 % à 30×W → 65 % à 40–45×W, 222 conflits) ; la variante
+`taille_liee_fenetre` reproduit min16 à haute fenêtre. (Avec la borne 24 h, les lots ne se
+formaient pas — taille pratiquée 3,7 — et l'OTD restait à 100 % : c'est la borne d'attente
+qui limite les lots, pas `minLotSize`.)

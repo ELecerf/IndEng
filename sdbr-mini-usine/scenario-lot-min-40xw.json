@@ -33,7 +33,7 @@
   "size": 16,
   "minLotSize": 1,
   "transfer": 1,
-  "maxBatchWaitHours": 24,
+  "maxBatchWaitHours": 168,
   "warmup": 400,
   "seed": 42,
   "replications": 10,
