@@ -51,6 +51,9 @@ def validate(c):
                 or not isinstance(spec.get("coef"), (int, float)) or spec["coef"] <= 0
                 or type(spec.get("max")) is not int or spec["max"] < 1):
             raise ValueError("sizeFromWindow exige size entier, workContentHours, et {coef>0, max>=1}")
+        if type(spec.get("minimumOnly", False)) is not bool or (
+                spec.get("minimumOnly") and spec["max"] > c["size"]):
+            raise ValueError("minimumOnly exige un booléen et un minimum borné par size")
 
 
 from indicators import indicators
@@ -60,13 +63,14 @@ def effective_lot_sizes(c, window):
     """Taille de lot (plafond size, minimum minLotSize) pour une fenêtre donnée.
 
     sizeFromWindow = {"coef": k, "max": M} : size = min(M, max(1, round(k * fenêtre / W))),
-    et minLotSize = size — plus la fenêtre est longue, plus on demande à regrouper.
+    Par défaut, cette valeur fixe le minimum et le plafond.
+    Avec minimumOnly, elle fixe uniquement le minimum et le plafond reste c["size"].
     """
     if "sizeFromWindow" not in c:
         return c["size"], c.get("minLotSize", 1)
     spec = c["sizeFromWindow"]
     s = max(1, min(spec["max"], round(spec["coef"]*window/c["workContentHours"])))
-    return s, s
+    return (c["size"] if spec.get("minimumOnly", False) else s), s
 
 
 def write_otd_report(means, configs, scenario, path):
@@ -92,6 +96,26 @@ def write_otd_report(means, configs, scenario, path):
             axes[2].set(ylabel="Lot minimum demandé", xlabel="Fenêtre / contenu de travail W")
             for ax in axes:
                 ax.grid(alpha=0.25)
+            pdf.savefig(fig)
+            plt.close(fig)
+        if {"cv_interarrivees", "cv_traversee"} <= set(means.columns):
+            fig, ax = plt.subplots(figsize=(11, 7), layout="constrained")
+            fig.suptitle(f"{scenario} — Variabilité des flux")
+            notes = []
+            for name, c in configs.items():
+                g = means[(means.phase == "global") & (means.variante == name)].sort_values("fenetre")
+                ax.plot(g.fenetre, g.cv_traversee, "o-", label=name)
+                processing = (c.get("processingCV", 0.15) if c.get("processingDistribution") == "lognormal"
+                              else round(c["variation"] / 3**0.5, 3))
+                notes.append(f"{name}   ·   arrivées {c.get('arrivalCV', 1):g}   ·   opérations {processing}"
+                             f"   ·   interarrivées observées {g.cv_interarrivees.mean():.2f}")
+            ax.set(xlabel="Fenêtre de lancement (h)", ylabel="CV du temps entre lancement et expédition",
+                   title="Écart-type / moyenne, calculé par réplication puis moyenné")
+            ax.set_ylim(bottom=0)
+            ax.grid(alpha=0.25)
+            ax.legend()
+            fig.supxlabel("CV des entrées par variante (arrivées à charge constante, opérations hors réglage)"
+                          + "\n" + "\n".join(notes), fontsize=9)
             pdf.savefig(fig)
             plt.close(fig)
         for phase in phases:
@@ -154,6 +178,7 @@ def main():
                 global_metrics=indicators(trace,jobs,a,b,c["stations"])
                 for key in ("encours","charge_usinage","carnet","file"):
                     global_metrics[key]=sum(m[key]*(y-x) for m,(x,y) in zip(metrics,periods))/(b-a)
+                global_metrics["attente_lot_goulot_h"] = sum(m["attente_lot_goulot_h"] for m in metrics)
                 recovery=float("nan")
                 service_recovery=float("nan")
                 if any(load>1 for _,_,load in c["phases"]):

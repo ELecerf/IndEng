@@ -74,7 +74,7 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
     changes = [0]*count
     queue_area = [0.]*count
     start, stop = cfg["warmup"], cfg["arrivalEnd"]
-    phases = [dict(encours=0., carnet=0., goulot_actif=0., goulot_bloque=0., file=0.,
+    phases = [dict(attente_lot_goulot_h=0., encours=0., carnet=0., goulot_actif=0., goulot_bloque=0., file=0.,
                    choix=0, regroupements=0, conflits=0,
                    ruptures=0, ruptures_carnet=0, changements=0) for _ in periods]
     goulot = posts[cfg["bottleneck"]]
@@ -235,6 +235,8 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
             duration = max(0, min(nxt,b)-max(t,a))
             m["encours"] += wip*duration
             m["file"] += sum(len(p.queue) for p in posts)*duration
+            if goulot.queue and goulot.active is None and not goulot.blocked:
+                m["attente_lot_goulot_h"] += duration
             m["goulot_actif"] += (goulot.active is not None)*duration
             m["goulot_bloque"] += goulot.blocked*duration
         area += wip*dt

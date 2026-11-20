@@ -27,6 +27,7 @@
     40,
     45
   ],
+  "arrivalCV": 1.0,
   "processingDistribution": "lognormal",
   "processingCV": 0.6,
   "dispatchRule": "family_fifo",

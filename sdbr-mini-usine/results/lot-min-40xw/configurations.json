@@ -13,6 +13,7 @@
       "bottleneckSetupHours": 2,
       "bufferCapacity": 16
     },
+    "arrivalCV": 1.0,
     "processingDistribution": "lognormal",
     "processingCV": 0.6,
     "dispatchRule": "due",
@@ -169,6 +170,7 @@
       "bottleneckSetupHours": 2,
       "bufferCapacity": 16
     },
+    "arrivalCV": 1.0,
     "processingDistribution": "lognormal",
     "processingCV": 0.6,
     "dispatchRule": "family_fifo",
@@ -325,6 +327,7 @@
       "bottleneckSetupHours": 2,
       "bufferCapacity": 16
     },
+    "arrivalCV": 1.0,
     "processingDistribution": "lognormal",
     "processingCV": 0.6,
     "dispatchRule": "family_fifo",
@@ -481,6 +484,7 @@
       "bottleneckSetupHours": 2,
       "bufferCapacity": 16
     },
+    "arrivalCV": 1.0,
     "processingDistribution": "lognormal",
     "processingCV": 0.6,
     "dispatchRule": "family_fifo",
@@ -637,6 +641,7 @@
       "bottleneckSetupHours": 2,
       "bufferCapacity": 16
     },
+    "arrivalCV": 1.0,
     "processingDistribution": "lognormal",
     "processingCV": 0.6,
     "dispatchRule": "family_fifo",
@@ -793,6 +798,7 @@
       "bottleneckSetupHours": 2,
       "bufferCapacity": 16
     },
+    "arrivalCV": 1.0,
     "processingDistribution": "lognormal",
     "processingCV": 0.6,
     "dispatchRule": "family_fifo",

@@ -63,3 +63,11 @@ Un OF exposé puis tardif justifie un examen événementiel. Un rejeu de la déc
 Une erreur de dimensions signifie généralement une liste de CV, une gamme ou un stock incompatible avec la longueur. Utiliser un CV scalaire pour commencer. Une erreur de blocage impose de vérifier que le transfert tient dans le stock aval. Une période sans promesses produit un OTD vide : augmenter la durée observée ou revoir les délais. Un changement de fenêtre sans variation d’encours appelle la vérification de l’expédition anticipée et des dates de lancement.
 
 Les anciennes campagnes du dossier fournissent des résultats pour leurs propres horizons, règles et graines. Comparer directement les politiques dans une même campagne appariée. Ajouter une nouvelle famille, un calendrier ou une politique demande de documenter les conventions et de vérifier la chronologie.
+
+## Régler et lire la variabilité
+
+Le coefficient de variation (CV) est le rapport entre l’écart-type et la moyenne. À charge constante, `arrivalCV` règle le CV des intervalles entre commandes. La valeur par défaut de 1 donne des intervalles exponentiels. Une valeur de 0 espace régulièrement les commandes. Toute autre valeur positive utilise une loi gamma de même moyenne. Le profil de charge par phase continue de fixer le débit moyen.
+
+Avec `processingDistribution: "lognormal"`, `processingCV` règle la variabilité de la durée opératoire pour une famille et un poste donnés. Il accepte un nombre ou une valeur par poste. Avec la loi uniforme, le CV opératoire vaut `variation / √3`.
+
+Le lanceur écrit dans `replications.csv` le CV observé des intervalles entre arrivées (`cv_interarrivees`) et celui du temps entre lancement et expédition des commandes dues dans la période (`cv_traversee`). Ce dernier inclut les attentes. Chaque calcul utilise l’écart-type d’échantillon et nécessite deux observations et une moyenne positive. Le PDF et `synthese.csv` présentent la moyenne des CV disponibles sur les réplications. Sur la période globale, le CV des interarrivées inclut les changements de charge.

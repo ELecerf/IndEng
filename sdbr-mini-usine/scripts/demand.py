@@ -20,14 +20,27 @@ def orders(cfg, load, seed, profile=None):
     hours = sum(s * cfg["processingHours"][f][bottleneck] for f, s in zip(families, shares))
     hours += cfg["setupHours"][bottleneck] * (1 - sum(s*s for s in shares))
     result = []
+    arrival_cv = cfg.get("arrivalCV", 1.0)
+    if not isfinite(arrival_cv) or arrival_cv < 0:
+        raise ValueError("arrivalCV doit être positif ou nul")
+
+    def arrival_budget():
+        # Intervalle en unités de demande cumulée, de moyenne 1.
+        if arrival_cv == 1:
+            return arrivals.expovariate(1)
+        if arrival_cv == 0:
+            return 1.0
+        variance = arrival_cv ** 2
+        return arrivals.gammavariate(1 / variance, variance)
+
     def arrival_times():
-        t, budget = 0., arrivals.expovariate(1)
+        t, budget = 0., arrival_budget()
         for end, level in profile or [(cfg["arrivalEnd"], load)]:
             rate = level / hours
             while budget < (end-t)*rate:
                 t += budget/rate
                 yield t
-                budget = arrivals.expovariate(1)
+                budget = arrival_budget()
             budget -= (end-t)*rate
             t = end
 

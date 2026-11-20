@@ -174,7 +174,8 @@ def test_simulation_attend_la_taille_minimale():
         warmup=0,arrivalEnd=300,maxBatchWaitHours=50,minLotSize=4,requestedLead=[100,100]))
     jobs=[(0,150,"A",c["processingHours"]["A"]) for _ in range(3)]
     trace=defaultdict(list)
-    simulate(c,jobs,200,[],8,1,[(0,300)],trace)
+    phases = simulate(c,jobs,200,[],8,1,[(0,300)],trace)
+    assert phases[0]["attente_lot_goulot_h"] == 50
     ind=indicators(trace,jobs,0,300,c["stations"])
     assert trace["lots"][0][0]==50          # départ à l'expiration de l'attente
     assert ind["taille_lot_moy_poste_1"]==3  # lot incomplet (3 < minLotSize=4)
@@ -197,3 +198,25 @@ def test_size_from_window():
     assert effective_lot_sizes(c,84)==(2,2)     # 2xW -> lot 2
     assert effective_lot_sizes(c,336)==(8,8)    # 8xW -> lot 8
     assert effective_lot_sizes(c,1470)==(16,16) # 35xW -> plafonné à 16
+
+
+@pytest.mark.parametrize("cv", [0, 0.5, 1, 1.5])
+def test_arrival_cv_preserves_mean_interval(cv):
+    from statistics import mean, stdev
+    from demand import orders
+
+    config = dict(line=dict(stationCount=1, bottleneckIndex=0,
+                            families={"A": dict(regularHours=1, bottleneckHours=1)}),
+                  familyWeights=[1], requestedLead=[50], arrivalEnd=10000,
+                  processingDistribution="lognormal", processingCV=0, arrivalCV=cv)
+    times = [job[0] for job in orders(config, 1, 42)]
+    intervals = [b - a for a, b in zip(times, times[1:])]
+    assert mean(intervals) == pytest.approx(1, abs=0.05)
+    assert stdev(intervals) / mean(intervals) == pytest.approx(cv, abs=0.06)
+
+def test_minimum_variable_a_plafond_constant():
+    from run_hypotheses import effective_lot_sizes
+    config = {"size": 16, "workContentHours": 50,
+              "sizeFromWindow": {"coef": 0.25, "max": 16, "minimumOnly": True}}
+    assert effective_lot_sizes(config, 400) == (16, 2)
+    assert effective_lot_sizes(config, 4000) == (16, 16)

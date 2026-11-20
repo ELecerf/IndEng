@@ -6,6 +6,7 @@ def indicators(trace, jobs, a, b, stations):
     ids = [i for i,j in enumerate(jobs) if a <= j[1] < b]
     late = pd.Series([max(0,shipped[i]-jobs[i][1]) for i in ids],dtype=float)
     cycle = pd.Series([shipped[i]-trace["releases"][i] for i in ids],dtype=float)
+    arrivals = pd.Series([j[0] for j in jobs if a <= j[0] < b], dtype=float).diff().dropna()
     lots = [lot for lot in trace["lots"] if a<=lot[0]<b]
     intervals = [row for row in trace["intervals"] if overlap(*row[:2])]
     series = [row for row in trace["series_sizes"] if a<=row[0]<b] if "series_sizes" in trace else []
@@ -19,6 +20,8 @@ def indicators(trace, jobs, a, b, stations):
                   retard_p50=late.median(),retard_p95=late.quantile(.95),
                   traversee=cycle.mean(),traversee_p50=cycle.median(),traversee_p95=cycle.quantile(.95),
                   conflits_avec_retard=0)
+    result["cv_interarrivees"] = arrivals.std() / arrivals.mean() if len(arrivals) >= 2 and arrivals.mean() > 0 else float("nan")
+    result["cv_traversee"] = cycle.std() / cycle.mean() if len(cycle) >= 2 and cycle.mean() > 0 else float("nan")
     result["ruptures"] = sum(a<=t<b for t,_,_ in trace["starv"])
     result["ruptures_carnet"] = sum(a<=t<b and c for t,_,c in trace["starv"])
     result["changements"] = sum(a<=t<b for t,_ in trace["changes"])
