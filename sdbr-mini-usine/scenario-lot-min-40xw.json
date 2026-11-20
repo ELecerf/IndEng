@@ -19,15 +19,11 @@
   "windowsWorkMultiple": [
     2,
     4,
-    6,
     8,
-    10,
     12,
     16,
-    20,
     24,
     30,
-    35,
     40,
     45
   ],
@@ -80,54 +76,6 @@
     },
     "min16": {
       "minLotSize": 16
-    },
-    "fam2_min8": {
-      "minLotSize": 8,
-      "line": {
-        "stationCount": 10,
-        "bottleneckIndex": 4,
-        "familyCount": 2,
-        "bottleneckHours": [
-          5,
-          7
-        ],
-        "overCapacity": 1.25,
-        "regularSetupHours": 1,
-        "bottleneckSetupHours": 2,
-        "bufferCapacity": 16
-      }
-    },
-    "fam8_min8": {
-      "minLotSize": 8,
-      "line": {
-        "stationCount": 10,
-        "bottleneckIndex": 4,
-        "familyCount": 8,
-        "bottleneckHours": [
-          5,
-          7
-        ],
-        "overCapacity": 1.25,
-        "regularSetupHours": 1,
-        "bottleneckSetupHours": 2,
-        "bufferCapacity": 16
-      }
-    },
-    "fam16_min8": {
-      "minLotSize": 8,
-      "line": {
-        "stationCount": 10,
-        "bottleneckIndex": 4,
-        "familyCount": 16,
-        "bottleneckHours": [
-          5,
-          7
-        ],
-        "overCapacity": 1.25,
-        "regularSetupHours": 1,
-        "bottleneckSetupHours": 2,
-        "bufferCapacity": 16
-      }
     },
     "taille_liee_fenetre": {
       "sizeFromWindow": {

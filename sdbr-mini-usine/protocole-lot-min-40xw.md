@@ -29,12 +29,14 @@ Scénario validé : `scenario-lot-min-40xw.json` — **campagne non exécutée**
    (`minLotSize`, `sizeFromWindow`, `requestedLeadWorkMultiple`, `windowsWorkMultiple`...),
    résolu par `resolve_line` ; validation explicite dans `run_hypotheses.validate`.
 
-## Config retenue (validée, 9 variantes × 13 fenêtres × 20 graines)
+## Config retenue (validée, simplifiée : 6 variantes × 9 fenêtres × 20 graines = 1080 sims)
 
-Ligne 10 postes, goulot poste 5, W ≈ 54,4 h ; fenêtres [2,4,6,8,10,12,16,20,24,30,35,40,45]×W ;
-transfert unitaire ; tampons 16 ; pic ρ = 1,30 / 480 h (congestion pour la branche droite) ;
-warmup 400 h. Variantes : `temoin_size1`, `min2/min4/min8/min16`, `fam2/fam8/fam16_min8`,
-`taille_liee_fenetre`.
+Ligne 10 postes, goulot poste 5, W ≈ 54,4 h ; fenêtres [2,4,8,12,16,24,30,40,45]×W
+(45×W > lead max 40×W = lancement immédiat) ; transfert unitaire ; tampons 16 ;
+pic ρ = 1,30 / 480 h (congestion pour la branche droite) ; warmup 400 h.
+Variantes : `temoin_size1`, `min2/min4/min8/min16`, `taille_liee_fenetre`.
+Les variantes `fam2/fam8/fam16` (nombre de familles) sont retirées de cette campagne
+(combinatoire trop forte) et prévues en campagne séparée à lot min fixé.
 
 ## Nouveautés moteur (testées, 51 tests OK)
 
