@@ -12,5 +12,5 @@ def test_local_strategy_cannot_read_deadline(rule,expected):
     def forbidden(_):
         raise AssertionError("consultation de la date promise")
     result=select_batch([(i,i) for i in range(4)], ["A","B","A","B"].__getitem__,
-                        forbidden,"B",2,rule)
+                        forbidden,"B",2,1,0,0,rule)
     assert [i for _,i in result]==expected

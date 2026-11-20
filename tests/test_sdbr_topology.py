@@ -6,6 +6,7 @@ import pytest
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"sdbr-mini-usine"/"scripts"))
 from indicators import indicators
 from line_config import resolve_line
+from policies import select_batch
 from run_congestion import simulate
 
 
@@ -157,3 +158,42 @@ def test_arrivee_rejoint_la_serie_en_cours_jusqu_a_size():
     simulate(c,jobs,200,[],3,1,[(0,300)],trace)
     ind=indicators(trace,jobs,0,300,c["stations"])
     assert ind["taille_lot_max"]==3 and ind["taille_lot_moy_poste_1"]==2.5
+
+
+def test_taille_lot_minimum_avec_attente():
+    # minLotSize=3, 2 OF présents, wait=10 : pas de départ avant t=10 (borne d'attente)
+    queue=[(0,0),(0,1)]
+    fam=lambda j: "A"
+    assert select_batch(queue,fam,lambda j:j,None,8,3,10,5,"family_fifo")==[]
+    assert len(select_batch(queue,fam,lambda j:j,None,8,3,10,10,"family_fifo"))==2
+
+
+def test_simulation_attend_la_taille_minimale():
+    c=resolve_line(dict(line=dict(stationCount=1,bottleneckIndex=0,
+        families={"A":dict(regularHours=1,bottleneckHours=1)}),
+        warmup=0,arrivalEnd=300,maxBatchWaitHours=50,minLotSize=4,requestedLead=[100,100]))
+    jobs=[(0,150,"A",c["processingHours"]["A"]) for _ in range(3)]
+    trace=defaultdict(list)
+    simulate(c,jobs,200,[],8,1,[(0,300)],trace)
+    ind=indicators(trace,jobs,0,300,c["stations"])
+    assert trace["lots"][0][0]==50          # départ à l'expiration de l'attente
+    assert ind["taille_lot_moy_poste_1"]==3  # lot incomplet (3 < minLotSize=4)
+
+
+def test_family_count_et_overcapacity():
+    c=resolve_line(dict(line=dict(stationCount=3,bottleneckIndex=1,familyCount=8,
+        bottleneckHours=[5,7],overCapacity=1.25,regularSetupHours=1,bottleneckSetupHours=2),
+        warmup=0,arrivalEnd=100))
+    fams=list(c["processingHours"])
+    assert len(fams)==8 and all(f.startswith("F") for f in fams)
+    # regularHours visé = (6+2)/1.25 - 1 = 5.4 pour toutes les familles
+    assert all(abs(c["processingHours"][f][0]-5.4)<1e-9 for f in fams)
+    assert all(c["processingHours"][f][1] >= c["processingHours"][f][0] for f in fams)
+
+
+def test_size_from_window():
+    from run_hypotheses import effective_lot_sizes
+    c={"size":16,"minLotSize":1,"workContentHours":42,"sizeFromWindow":{"coef":1,"max":16}}
+    assert effective_lot_sizes(c,84)==(2,2)     # 2xW -> lot 2
+    assert effective_lot_sizes(c,336)==(8,8)    # 8xW -> lot 8
+    assert effective_lot_sizes(c,1470)==(16,16) # 35xW -> plafonné à 16

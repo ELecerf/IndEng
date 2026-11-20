@@ -1,0 +1,139 @@
+{
+  "line": {
+    "stationCount": 10,
+    "bottleneckIndex": 4,
+    "familyCount": 4,
+    "bottleneckHours": [
+      5,
+      7
+    ],
+    "overCapacity": 1.25,
+    "regularSetupHours": 1,
+    "bottleneckSetupHours": 2,
+    "bufferCapacity": 16
+  },
+  "requestedLeadWorkMultiple": [
+    10,
+    40
+  ],
+  "windowsWorkMultiple": [
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    16,
+    20,
+    24,
+    30,
+    35,
+    40,
+    45
+  ],
+  "processingDistribution": "lognormal",
+  "processingCV": 0.6,
+  "dispatchRule": "family_fifo",
+  "size": 16,
+  "minLotSize": 1,
+  "transfer": 1,
+  "maxBatchWaitHours": 24,
+  "warmup": 400,
+  "seed": 42,
+  "replications": 20,
+  "phases": [
+    [
+      "creux",
+      480,
+      0.7
+    ],
+    [
+      "normal",
+      720,
+      0.95
+    ],
+    [
+      "pic",
+      480,
+      1.3
+    ],
+    [
+      "reprise",
+      720,
+      0.85
+    ]
+  ],
+  "variants": {
+    "temoin_size1": {
+      "size": 1,
+      "minLotSize": 1,
+      "dispatchRule": "due"
+    },
+    "min2": {
+      "minLotSize": 2
+    },
+    "min4": {
+      "minLotSize": 4
+    },
+    "min8": {
+      "minLotSize": 8
+    },
+    "min16": {
+      "minLotSize": 16
+    },
+    "fam2_min8": {
+      "minLotSize": 8,
+      "line": {
+        "stationCount": 10,
+        "bottleneckIndex": 4,
+        "familyCount": 2,
+        "bottleneckHours": [
+          5,
+          7
+        ],
+        "overCapacity": 1.25,
+        "regularSetupHours": 1,
+        "bottleneckSetupHours": 2,
+        "bufferCapacity": 16
+      }
+    },
+    "fam8_min8": {
+      "minLotSize": 8,
+      "line": {
+        "stationCount": 10,
+        "bottleneckIndex": 4,
+        "familyCount": 8,
+        "bottleneckHours": [
+          5,
+          7
+        ],
+        "overCapacity": 1.25,
+        "regularSetupHours": 1,
+        "bottleneckSetupHours": 2,
+        "bufferCapacity": 16
+      }
+    },
+    "fam16_min8": {
+      "minLotSize": 8,
+      "line": {
+        "stationCount": 10,
+        "bottleneckIndex": 4,
+        "familyCount": 16,
+        "bottleneckHours": [
+          5,
+          7
+        ],
+        "overCapacity": 1.25,
+        "regularSetupHours": 1,
+        "bottleneckSetupHours": 2,
+        "bufferCapacity": 16
+      }
+    },
+    "taille_liee_fenetre": {
+      "sizeFromWindow": {
+        "coef": 1,
+        "max": 16
+      }
+    }
+  }
+}

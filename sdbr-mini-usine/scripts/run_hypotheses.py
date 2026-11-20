@@ -39,9 +39,33 @@ def validate(c):
             and (c.get("processingDistribution","uniform")!="uniform" or 0 <= c["variation"] < 1)
             and all(h>0 and load>0 for _,h,load in c["phases"])):
         raise ValueError("Vérifier dimensions des postes, stocks, lots, charges, délais et fenêtres")
+    min_lot = c.get("minLotSize", 1)
+    min_sizes = min_lot if isinstance(min_lot, list) else [min_lot]*n
+    if (len(min_sizes) != n or any(type(s) is not int or s < 1 for s in min_sizes)
+            or any(min_sizes[i] > sizes[i] for i in range(n))):
+        raise ValueError("minLotSize invalide (entier >= 1 ou liste par poste, <= size)")
+    if "sizeFromWindow" in c:
+        spec = c["sizeFromWindow"]
+        if (not isinstance(c["size"], int) or "workContentHours" not in c or not isinstance(spec, dict)
+                or not isinstance(spec.get("coef"), (int, float)) or spec["coef"] <= 0
+                or type(spec.get("max")) is not int or spec["max"] < 1):
+            raise ValueError("sizeFromWindow exige size entier, workContentHours, et {coef>0, max>=1}")
 
 
 from indicators import indicators
+
+
+def effective_lot_sizes(c, window):
+    """Taille de lot (plafond size, minimum minLotSize) pour une fenêtre donnée.
+
+    sizeFromWindow = {"coef": k, "max": M} : size = min(M, max(1, round(k * fenêtre / W))),
+    et minLotSize = size — plus la fenêtre est longue, plus on demande à regrouper.
+    """
+    if "sizeFromWindow" not in c:
+        return c["size"], c.get("minLotSize", 1)
+    spec = c["sizeFromWindow"]
+    s = max(1, min(spec["max"], round(spec["coef"]*window/c["workContentHours"])))
+    return s, s
 
 
 def main():
@@ -76,8 +100,9 @@ def main():
             jobs=orders(c,None,seed,schedule)
             for window in sorted(c["windows"]):
                 trace=defaultdict(list)
-                metrics=simulate(c,jobs,window,[inf if v is None else v for v in c["capacity"]],
-                                 c["size"],c["transfer"],periods,trace)
+                size_w, min_w = effective_lot_sizes(c, window)
+                metrics=simulate(c|{"minLotSize":min_w},jobs,window,[inf if v is None else v for v in c["capacity"]],
+                                 size_w,c["transfer"],periods,trace)
                 for (label,_,_), (a,b), m in zip(c["phases"],periods,metrics):
                     rows.append(dict(variante=name,graine=seed,fenetre=window,phase=label,
                                      **(m | indicators(trace,jobs,a,b,c["stations"]))))

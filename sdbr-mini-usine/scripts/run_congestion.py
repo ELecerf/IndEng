@@ -35,6 +35,11 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
     sizes = [size]*count if isinstance(size, int) else list(size)
     if len(sizes) != count or any(type(s) is not int or s < 1 for s in sizes):
         raise ValueError("size doit être un entier >= 1 ou une liste d'une taille de lot par poste")
+    min_lot = cfg.get("minLotSize", 1)
+    min_sizes = [min_lot]*count if isinstance(min_lot, int) else list(min_lot)
+    if (len(min_sizes) != count or any(type(s) is not int or s < 1 for s in min_sizes)
+            or any(min_sizes[p] > sizes[p] for p in range(count))):
+        raise ValueError("minLotSize doit être un entier >= 1 (ou une liste par poste) et <= size")
     if isinstance(transfer, bool) or not (transfer in ("bloc", "unitaire")
             or (isinstance(transfer, int) and transfer >= 1)):
         raise ValueError("transfer vaut 'bloc', 'unitaire' ou un entier N >= 1 (train logistique de N OF, toutes familles)")
@@ -145,11 +150,11 @@ def simulate(cfg, jobs, window, capacity, size, transfer, periods=(), trace=None
                             local_queue = same
                         elif other:
                             local_queue = other
-                        selected_rule = "batch_fifo"
+                        selected_rule, wait = "batch_fifo", 0
                     else:
-                        selected_rule = rule
+                        selected_rule, wait = rule, cfg["maxBatchWaitHours"]
                     post.pending = select_batch(local_queue, lambda i: jobs[i][2], lambda i: jobs[i][1],
-                                                post.family, sizes[p], selected_rule)
+                                                post.family, sizes[p], min_sizes[p], wait, t, selected_rule)
                     if not post.pending:
                         continue
                     post.lot_size = len(post.pending)

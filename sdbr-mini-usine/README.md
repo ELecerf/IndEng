@@ -42,6 +42,8 @@ sdbr-mini-usine/
 ├── configs-demande-lead-20xw.md                       ← pourquoi le carnet absorbe + 3 configs de demande lead ≈ 20–30×W (proposées)
 ├── scenario-demande-a-20xw.json                       ← config A lancée : lead uniforme [10,30]×W, fenêtres 2–35×W
 ├── demande-a-20xw.md                                  ← résultats A : plateau 100 % dès 3×W, carnet → 0 à 30×W, pas de branche droite
+├── scenario-lot-min-40xw.json                         ← protocole validé (NON lancé) : lot min 2/4/8/16, lead ≤ 40×W, fenêtres ≤ 45×W
+├── protocole-lot-min-40xw.md                          ← demande améliorée + nouveautés moteur (minLotSize, familyCount, overCapacity, sizeFromWindow)
 ├── scripts/
 │   ├── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
 │   ├── dashboard_u.py                                 ← tableau de bord du U (attention, OTD vs fenêtre)
@@ -381,3 +383,13 @@ unitaire, `size` = 1/4/8/16, pas de pic. Résultat : **OTD 100 % dès 3–5 × W
 ~9,8 OF (λ × traversée). La taille pratiquée croît un peu (1,34 → 1,47) mais les conflits
 restent ~0. **Pas de branche droite en OTD à lead 20 × W sans surcharge** : il faudrait une
 traversée > 10 × W à fort encours, donc un pic de charge (piste : config A + pic ρ = 1,30).
+
+## 22. Protocole préparé (non lancé) : lot minimum 2/4/8/16, CV 0,6, surcapacité +25 %, lead ≤ 40 × W
+
+Voir [`protocole-lot-min-40xw.md`](protocole-lot-min-40xw.md) et `scenario-lot-min-40xw.json`
+(9 variantes validées, **campagne non lancée**) : `minLotSize` 2/4/8/16 avec attente bornée
+(`maxBatchWaitHours` = 24 h) et plafond `size` = 16 ; `line.familyCount` pour 2/4/8/16
+familles (même gamme) ; `line.overCapacity: 1.25` (réguliers 5,4 h vs goulot 6 h + 2 h) ;
+CV 0,6 lognormal ; lead [10, 40]×W, fenêtres 2–45×W (45×W > lead max = lancement immédiat) ;
+pic ρ = 1,30 ; tampons 16. Variante `sizeFromWindow` : taille de lot = min(16, fenêtre/W) —
+plus la fenêtre est longue, plus on regroupe. Nouveautés moteur testées (51 tests OK).
