@@ -1,0 +1,94 @@
+{
+  "line": {
+    "stationCount": 10,
+    "bottleneckIndex": 4,
+    "familyCount": 4,
+    "bottleneckHours": [
+      5,
+      7
+    ],
+    "overCapacity": 1.25,
+    "regularSetupHours": 1,
+    "bottleneckSetupHours": 2,
+    "bufferCapacity": 16
+  },
+  "requestedLeadWorkMultiple": [
+    10,
+    40
+  ],
+  "windowsWorkMultiple": [
+    2,
+    4,
+    8,
+    12,
+    16,
+    24,
+    30,
+    40,
+    45
+  ],
+  "arrivalCV": 1.0,
+  "processingDistribution": "lognormal",
+  "processingCV": 0.6,
+  "dispatchRule": "family_fifo",
+  "size": 16,
+  "minLotSize": 1,
+  "transfer": 1,
+  "maxBatchWaitHours": 168,
+  "warmup": 400,
+  "seed": 42,
+  "replications": 10,
+  "phases": [
+    [
+      "creux",
+      480,
+      0.7
+    ],
+    [
+      "normal",
+      720,
+      0.95
+    ],
+    [
+      "pic",
+      480,
+      1.3
+    ],
+    [
+      "reprise",
+      720,
+      0.85
+    ]
+  ],
+  "variants": {
+    "fixe1": {
+      "minLotSize": 1
+    },
+    "fixe2": {
+      "minLotSize": 2
+    },
+    "fixe4": {
+      "minLotSize": 4
+    },
+    "fixe8": {
+      "minLotSize": 8
+    },
+    "fixe16": {
+      "minLotSize": 16
+    },
+    "progressif": {
+      "sizeFromWindow": {
+        "coef": 0.25,
+        "max": 16,
+        "minimumOnly": true
+      }
+    },
+    "rapide": {
+      "sizeFromWindow": {
+        "coef": 1,
+        "max": 16,
+        "minimumOnly": true
+      }
+    }
+  }
+}

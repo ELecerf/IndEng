@@ -1,0 +1,181 @@
+{
+  "stations": [
+    "poste_1",
+    "poste_2",
+    "poste_3",
+    "poste_4",
+    "poste_5",
+    "poste_6",
+    "poste_7",
+    "poste_8",
+    "poste_9",
+    "poste_10"
+  ],
+  "bottleneck": 4,
+  "processingHours": {
+    "A": [
+      2,
+      2,
+      2,
+      2,
+      6,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "B": [
+      2,
+      2,
+      2,
+      2,
+      6,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  "familyWeights": [
+    1,
+    1
+  ],
+  "setupHours": [
+    1,
+    1,
+    1,
+    1,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "requestedLeadWorkMultiple": [
+    2,
+    7
+  ],
+  "windowsWorkMultiple": [
+    0.5,
+    1,
+    1.5,
+    2,
+    2.5,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    10,
+    14
+  ],
+  "processingDistribution": "lognormal",
+  "processingCV": 0.3,
+  "dispatchRule": "due",
+  "size": 1,
+  "transfer": 1,
+  "maxBatchWaitHours": 6,
+  "capacity": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "warmup": 400,
+  "seed": 42,
+  "replications": 20,
+  "phases": [
+    [
+      "creux",
+      480,
+      0.7
+    ],
+    [
+      "normal",
+      480,
+      0.95
+    ],
+    [
+      "pic",
+      240,
+      1.15
+    ],
+    [
+      "gros_pic",
+      240,
+      1.3
+    ],
+    [
+      "reprise",
+      720,
+      0.85
+    ]
+  ],
+  "variants": {
+    "temoin_cap_x1": {},
+    "surcap_x1_5": {
+      "processingHours": {
+        "A": [
+          2,
+          2,
+          2,
+          2,
+          4,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "B": [
+          2,
+          2,
+          2,
+          2,
+          4,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      "phases": [
+        [
+          "creux",
+          480,
+          0.5
+        ],
+        [
+          "normal",
+          480,
+          0.6785714285714286
+        ],
+        [
+          "pic",
+          240,
+          0.8214285714285714
+        ],
+        [
+          "gros_pic",
+          240,
+          0.9285714285714286
+        ],
+        [
+          "reprise",
+          720,
+          0.6071428571428571
+        ]
+      ]
+    }
+  }
+}

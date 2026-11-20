@@ -1,0 +1,456 @@
+# Simulateur S-DBR « mini-usine » — analyse Monte-Carlo à la lumière de Goldratt
+
+Ce dossier est dédié à l'analyse du simulateur HTML autonome **S-DBR mini-usine**
+(Drum-Buffer-Rope) et à la vérification expérimentale des écrits d'Eliyahu Goldratt,
+en particulier son article *Standing on the Shoulders of Giants — Production concepts
+versus production applications: The Hitachi Tool Engineering Example* (2006), fourni
+à côté de ce README.
+
+## Contenu du dossier
+
+```
+sdbr-mini-usine/
+├── README.md                                          ← ce fichier (analyse)
+├── simulateur-sdbr-mini-usine.html                    ← la simulation autonome (ressource d'origine)
+├── goldratt-standing-on-the-shoulders-of-giants.pdf   ← article de Goldratt (2006, 19 p.)
+├── pistes-extension.md                                ← limites reformulées + pistes d'extension
+├── scenario-surcharge-10-postes.json                  ← campagne 10 postes / pics / surcapacités goulot
+├── surcharge-10-postes.md                             ← analyse de cette campagne (lancer tôt vs OTD)
+├── scenario-lots-series.json                          ← campagne lots/séries au goulot (transfert unitaire)
+├── lots-series.md                                     ← analyse : séries bloquant les OF urgents
+├── scenario-lots-par-poste.json                       ← lots à taille par poste (size = liste)
+├── lots-par-poste.md                                  ← analyse : regrouper au goulot vs hors goulot
+├── scenario-train-logistique.json                     ← train logistique : un seul paramètre transfer = N
+├── train-logistique.md                                ← analyse : l'OTD s'effondre quand le train grossit
+├── scenario-charge-otd-encours.json                   ← balayage de charge (OTD vs encours)
+├── charge-otd-encours.md                              ← analyse : OTD s'effondre à fort encours (corr −0,99)
+├── scenario-dashboard-u.json                          ← sweep 13 fenêtres (0,5–14 ×W), 2 variantes
+├── dashboard-u.md                                     ← compte rendu + lecture du U de Goldratt
+├── scenario-branche-droite-u.json                     ← fenêtres jusqu'à 100×W, délai client 50–150×W
+├── branche-droite-u.md                                ← branche droite du U (VA ≈ 1 % du lead)
+├── scenario-regroupements-transfer-otd.json           ← croisement fenêtres × (unitaire / lots / bloc / train)
+├── regroupements-transfer-otd.md                      ← OTD à fort encours avec regroupements et transferts par batch
+├── scenario-courbe-u-otd.json                         ← sweep 12 fenêtres (0,5–12×W) × 4 variantes pour voir le U
+├── courbe-u-otd.md                                    ← le U vu par l'OTD (courte / intermédiaire / longue fenêtre)
+├── scenario-u-lots-goulot.json                        ← taille de lot réelle au goulot (cap 24 h) vs fenêtre
+├── u-lots-goulot.md                                   ← lots réels : pic à 7–9×W puis plateau ; conflits en branche droite
+├── scenario-u-20xw.json                               ← test reformulé : lots à tous postes, fenêtres jusqu'à 20×W
+├── u-20xw.md                                          ← lots de facto = min(size, file) ; conflits croissants, écart de niveau à 20×W
+├── scenario-u-fenetre-immediate.json                  ← protocole validé (NON lancé) : fenêtre seule jusqu'à > lead
+├── protocole-u-fenetre-immediate.md                   ← choix de paramétrage pour viser hausse → plateau → baisse de l'OTD
+├── u-fenetre-immediate.md                             ← résultats lancés : pic à 3–5×W, taille pratiquée ↑, conflits ↑ à 15×W
+├── configs-demande-lead-20xw.md                       ← pourquoi le carnet absorbe + 3 configs de demande lead ≈ 20–30×W (proposées)
+├── scenario-demande-a-20xw.json                       ← config A lancée : lead uniforme [10,30]×W, fenêtres 2–35×W
+├── demande-a-20xw.md                                  ← résultats A : plateau 100 % dès 3×W, carnet → 0 à 30×W, pas de branche droite
+├── scenario-lot-min-40xw.json                         ← protocole validé (NON lancé) : lot min 2/4/8/16, lead ≤ 40×W, fenêtres ≤ 45×W
+├── protocole-lot-min-40xw.md                          ← demande améliorée + nouveautés moteur (minLotSize, familyCount, overCapacity, sizeFromWindow)
+├── lot-min-40xw.md                                    ← résultats lancés (10 graines) : branche gauche accentuée par minLot, encours ×5 à 45×W
+├── protocole-figure-u-publiable.md                    ← prompt amélioré exécuté : figure académique du U (10 graines, axe log₂)
+├── scenario-figure-u.json                             ← campagne figure U : 5 variantes × 18 fenêtres × 10 graines
+├── figure-u.md                                        ← figure publiable du U (log₂) : progressif 98,5 % à 8×W → 17,2 % à 45×W
+├── scenario-lot-fenetre-coef.json                     ← campagne lot min = k × fenêtre/W : k ∈ {0,25 ; 0,5 ; 1 ; 2} × 18 fenêtres × 10 graines
+├── lot-fenetre-coef.md                                ← résultats : k=0,25 trace le U complet (pic 98,8 % à 5×W → 17,2 % à 45×W) ; k=1 (fenêtre/W) trop agressif (OTD ≈ 0)
+├── rapport-manager.tex                                ← présentation beamer 14 slides pour un manager (compile : pdflatex depuis sdbr-mini-usine/)
+└── rapport-manager.html                               ← rapport HTML autonome généré ici (rapport_html.py, figures en base64) : s'ouvre tel quel
+├── scripts/
+│   ├── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
+│   ├── dashboard_u.py                                 ← tableau de bord du U (attention, OTD vs fenêtre)
+│   ├── courbe_u.py                                    ← figure du U : OTD ± IC95 vs fenêtre/W
+│   ├── zones_couleur.py                               ← zones vert/jaune/rouge/noir des OF selon la fenêtre (lot mini progressif)
+│   ├── figure_u.py                                     ← figure 3 panneaux vectorielle du U (axe log₂, PDF/SVG/PNG 300 dpi + panneaux PNG séparés)
+│   ├── figure_slides.py                                ← figures paysage par panneau pour le beamer (slide_otd/zones/meca.png)
+│   └── rapport_html.py                                 ← génère rapport-manager.html (rapport manager autonome, images en base64)
+└── results/
+    ├── surcharge-10-postes/                           ← campagne 10 postes (CSV, IC95, otd.png)
+    ├── lots-series/                                   ← campagne lots/séries (CSV, conflits.csv, otd.png)
+    ├── lots-par-poste/                                ← campagne lots par poste (CSV, otd.png)
+    ├── train-logistique/                              ← campagne train logistique N=1..16 (CSV, otd.png)
+    ├── charge-otd-encours/                            ← balayage de charge cv0.3 / cv0 (CSV)
+    ├── dashboard-u/                                   ← sweep fenêtres + tableau de bord (PNG, CSV, MD)
+    ├── branche-droite-u/                              ← sweep 0,5–100×W + dashboard (PNG, CSV, MD)
+    ├── regroupements-transfer-otd/                    ← fenêtres 48/120/240 h × 5 modes (CSV, otd.png)
+    ├── courbe-u-otd/                                  ← sweep 0,5–12×W × 4 variantes (CSV, u_otd.png)
+    ├── u-lots-goulot/                                 ← lots au goulot cap 24 h vs fenêtre (CSV, u_otd.png 3 panneaux)
+    ├── u-20xw/                                        ← fenêtres 1–20×W × 4 variantes, pic 1,30 (CSV, u_otd.png)
+    ├── u-fenetre-immediate/                           ← fenêtres 1–15×W × size 1/4/8/16, tampons finis (CSV, u_otd.png 4 panneaux)
+    ├── demande-a-20xw/                                ← config A : lead [10,30]×W, fenêtres 2–35×W (CSV, u_otd.png)
+    ├── lot-min-40xw/                                  ← lot min 2/4/8/16, lead [10,40]×W, fenêtres 2–45×W, 10 graines (CSV, u_otd.png)
+    ├── figure-u/                                      ← figure publiable du U : 5 variantes × 18 fenêtres × 10 graines (PDF/SVG/PNG/CSV/TeX)
+    ├── lot-fenetre-coef/                              ← lot min = k × fenêtre/W : 5 variantes × 18 fenêtres × 10 graines (CSV, figure_u.*, zones_couleur.*, slide_*.png)
+    ├── montecarlo_replications.csv                    ← 2700 lignes (30 réplications × 18 scénarios × 5 politiques)
+    ├── montecarlo_summary.csv                         ← moyenne ± demi-IC95 par scénario × indicateur
+    └── montecarlo_summary.md                          ← tableaux prêts à lire
+```
+
+## 1. Le modèle du simulateur HTML
+
+Fichier autonome (aucune ressource externe) : trois postes en série —
+**Préparation → Usinage → Finition** — capacité 1 chacun.
+
+- **Gammes** : deux familles (● = [2, 5, 2] h ; □ = [1,5, 5,5, 2] h), soit ~9 h nominal
+  par OF sur les trois postes ; les durées réelles varient de ±25 % ; changement de
+  famille = 1 h de réglage.
+- **Arrivées** : processus de Poisson (taux réglé par la charge offerte cible au poste
+  choisi) ; délai demandé par le client ~ uniforme autour d'une moyenne (120 h dans le
+  panneau Monte-Carlo).
+- **Promesse** : `échéance = max(demandé client, arrivée + tampon S-DBR)` ;
+  **lancement (corde) = échéance − tampon**.
+- **Priorités par tampon** (buffer management) : pénétration = 1 − (reste/tampon) ;
+  vert < 1/3, jaune < 2/3, rouge ≥ 2/3, noir passé l'échéance — exactement le code
+  couleur de Goldratt (p. 15).
+- **Politiques comparées** : A = lancement immédiat + FIFO, B = fenêtre (corde) + FIFO,
+  C = fenêtre + priorité au tampon restant croissant.
+- **Panneau Monte-Carlo** : N réplications × 120 OF mesurés (cohorte = 120 derniers OF,
+  warm-up 150 h), indicateurs : OTD promis, service demandé, % de rouges parmi les
+  expédiés, encours moyen atelier, débit, files et occupation par poste, quantiles de
+  traversée ; moyenne ± demi-largeur d'IC 95 % (approximation de la loi de Student
+  utilisée par le HTML).
+
+## 2. Protocole de reproduction
+
+Le script `scripts/run_montecarlo.mjs` extrait le `<script>` du HTML **tel quel**
+(source unique de vérité) et rejoue la campagne Monte-Carlo sous Node :
+
+```bash
+node sdbr-mini-usine/scripts/run_montecarlo.mjs --reps 30
+# options : --html <chemin> --out <dir> --reps N
+```
+
+Trois familles de scénarios (graine 42, 30 réplications × 120 OF, warm-up 150 h,
+tampon 90 h sauf mention contraire, goulot = Usinage) :
+
+1. **Balayage de charge** : charge offerte au poste Usinage de 60 % à 99 % ;
+2. **Balayage du tampon S-DBR** : 30 → 180 h à charge 90 % ;
+3. **Balayage du poste ciblé** : 90 % sur Préparation / Usinage / Finition.
+
+À chaque réplication, les 5 politiques (C, FIFO-fenêtre, A, B, C appariées) sont
+jouées avec la même graine, comme dans le panneau du HTML.
+
+## 3. Résultats (moyenne ± demi-IC95, politique C · Fenêtre/tampon)
+
+### 3.1 Charge offerte au poste Usinage (tampon 90 h)
+
+| Charge | Occ. Usinage | OTD promis | Service | Rouges | Encours atelier | Débit | Traversée P50 | Traversée P90 | Délai client P50 | % dans 2/3 tampon |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 60 % | 62,5 % | 100,0 % | 100,0 % | 0,0 % | 1,66 OF | 0,11 OF/h | 13,5 h | 23,3 h | 44,4 h | 100 % |
+| 80 % | 83,0 % | 100,0 % | 100,0 % | 1,4 % | 3,29 OF | 0,14 OF/h | 20,8 h | 36,6 h | 51,5 h | 98,6 % |
+| 85 % | 87,3 % | 99,3 % | 99,2 % | 5,4 % | 4,20 OF | 0,15 OF/h | 25,3 h | 44,8 h | 56,9 h | 94,6 % |
+| 90 % | 91,2 % | 96,8 % | 96,4 % | 12,6 % | 5,44 OF | 0,16 OF/h | 32,7 h | 55,4 h | 63,8 h | 87,4 % |
+| 95 % | 94,1 % | 92,9 % | 92,1 % | 23,7 % | 7,03 OF | 0,16 OF/h | 42,4 h | 68,9 h | 73,5 h | 76,3 % |
+| 99 % | 95,9 % | **87,3 %** | 86,4 % | 35,7 % | 8,60 OF | 0,17 OF/h | 51,9 h | 80,9 h | 82,7 h | 64,3 % |
+
+### 3.2 Taille du tampon S-DBR (charge 90 % sur Usinage)
+
+| Tampon | OTD promis | % rouges | % expédiés dans 1er 1/3 | % dans 2/3 | Verdict règle 5–10 % (comme `bufferRule()` du HTML) |
+| --- | --- | --- | --- | --- | --- |
+| 30 h | 53,3 % | 67,8 % | 4,6 % | 32,2 % | Allonger le tampon |
+| 60 h | 87,9 % | 32,2 % | 32,2 % | 67,8 % | Allonger le tampon |
+| 90 h | 96,8 % | 12,6 % | 53,2 % | 87,4 % | Allonger le tampon |
+| 120 h | 99,9 % | 4,7 % | 68,3 % | 95,3 % | Réduire le tampon |
+| 150 h | 100,0 % | 1,8 % | 81,4 % | 98,2 % | Réduire le tampon |
+| 180 h | 100,0 % | 0,1 % | 88,1 % | 99,9 % | Réduire le tampon |
+
+### 3.3 Poste ciblé à 90 % (la vraie contrainte est le poste le plus chargé)
+
+| Poste ciblé | Charge offerte P/U/F | Occupation P/U/F | OTD promis | Encours atelier | File moyenne Usinage |
+| --- | --- | --- | --- | --- | --- |
+| Préparation | 94 / **239** / 104 % | 91 / **100** / 43 % | **0,1 %** | 61,2 OF | 54,5 OF |
+| Usinage | 37 / 94 / 41 % | 37 / 91 / 40 % | 96,8 % | 5,44 OF | 3,66 OF |
+| Finition | 84 / **217** / 94 % | 84 / **100** / 43 % | **0,2 %** | 53,6 OF | 49,2 OF |
+
+### 3.4 Politiques de lancement (mêmes promesses, mêmes graines appariées)
+
+| Scénario | Politique | OTD | Encours atelier | Encours total (carnet inclus) | Débit | Délai client P50 |
+| --- | --- | --- | --- | --- | --- | --- |
+| Charge 90 % Usinage | A · Immédiat/FIFO | 98,9 % | 5,39 OF | 5,39 OF (carnet 0) | 0,16 OF/h | 31,4 h |
+| Charge 90 % Usinage | B · Fenêtre/FIFO | 96,8 % | 5,45 OF | 10,54 OF (carnet 5,1) | 0,16 OF/h | 63,8 h |
+| Charge 90 % Usinage | C · Fenêtre/tampon | 96,8 % | 5,44 OF | 10,53 OF (carnet 5,1) | 0,16 OF/h | 63,8 h |
+| Surcharge réelle (Préparation ciblée, Usinage à 239 %) | A · Immédiat/FIFO | 0,0 % | **71,9 OF** | 71,9 OF | 0,17 OF/h | 416,6 h |
+| Surcharge réelle | C · Fenêtre/tampon | 0,1 % | 61,2 OF | 74,3 OF (carnet 13,1) | 0,17 OF/h | 431,1 h |
+
+Données complètes : `results/montecarlo_summary.md` et `results/montecarlo_summary.csv`.
+
+## 4. Les écrits de Goldratt se vérifient-ils ? (article de 2006, pages entre parenthèses)
+
+| # | Affirmation de Goldratt (PDF) | Prédiction | Mesure Monte-Carlo | Verdict |
+| --- | --- | --- | --- | --- |
+| 1 | En surcharge, la performance de dates chute « < 90 % » (p. 9) | OTD < 90 % quand la charge offerte approche 100 % du goulot | OTD = **87,3 %** à 99 % de charge sur Usinage ; 92,9 % à 95 % ; > 99 % jusqu'à 85 % | **Confirmé** |
+| 2 | Améliorer le flux révèle de la capacité excédentaire, « jusqu'à 50 % » (p. 10) | Hors goulot, l'occupation doit rester bien sous 100 % (capacité protectrice) | À 90 % sur Usinage : Préparation 36,6 %, Finition 39,6 % d'occupation | **Confirmé** (~60 % de marge) |
+| 3 | Le débit est fixé par la contrainte, pas par les efficacités locales (p. 3, 16–17) | Débit identique quelle que soit la politique de lancement | Débit = 0,16 OF/h pour A, B et C à 90 % ; 0,17 OF/h en surcharge pour toutes | **Confirmé** |
+| 4 | Libérer tôt « pour occuper les postes amont » allonge les files sans gain de débit, et pousse vers la pente droite de la courbe (embouteillages) (p. 14) | Politique A : encours/délai client plus élevés en surcharge, débit inchangé | En surcharge : encours atelier A = 71,9 OF vs 61,2 (fenêtre), délai client 417 h vs 431 h, débit identique | **Confirmé** (la corde borne l'encours atelier) |
+| 5 | Le temps opératoire ne représente qu'environ 10 % du délai ; le reste est de l'attente en file (p. 11) | touch ≪ traversée | touch moyen = **9,51 h/OF** ; à 90 % de charge, traversée P50 = 32,7 h (dont ~70 % d'attente) et délai client P50 = 63,8 h → touch ≈ 15,7 % du délai client ; vs la promesse (~120 h) : **7,9 %** | **Confirmé** (ordre de grandeur 10 %) |
+| 6 | Hypothèse du DBR : touch < 10 % du délai promis, sinon CCPM (p. 18 ; seuils 10 %/30 % du widget du HTML) | DBR applicable ici | 9,51 / 120 ≈ 7,9 % < 10 % → zone « DBR » du simulateur | **Confirmé** (à la limite, comme le widget 90 h → 10,6 % = zone jaune) |
+| 7 | Zones du tampon : vert < 1/3, jaune < 2/3, rouge ≥ 2/3, noir après échéance (p. 15) | « beaucoup » d'OF terminés dans le 1er tiers, « la majorité » dans les 2 premiers tiers | À 90 h / 90 % de charge : **53 %** dans le 1er tiers, **87 %** dans les 2/3 ; 100 % à faible charge | **Confirmé** |
+| 8 | Règle de gestion du tampon : réduire si rouges < 5 %, allonger si > 10 % (p. 16) | La bande 5–10 % encadre le tampon utile | 90 h → 12,6 % de rouges (« allonger ») ; 120 h → 4,7 % (« réduire ») : la bande 5–10 % se situe entre 90 et 120 h, et l'OTD n'atteint les hautes 90 % que quand les rouges passent sous ~10 % | **Confirmé** |
+| 9 | Tampon trop court → alésas non absorbés, retards massifs ; tampon très long → lancements précoces, encours élevés, « embouteillages » (p. 12–13, Fig. 1) | OTD effondré côté court, rendements décroissants côté long | OTD 53,3 % à 30 h → 100 % à 150 h ; mais débit constant (0,16 OF/h) et carnet nul à 180 h : au-delà du plateau, allonger le tampon n'achète plus rien | **Confirmé** (plateau visible entre 90 et 150 h) |
+| 10 | Le tambour = la ressource la plus chargée pilote l'usine ; les promesses ne se donnent que sur la capacité non allouée du goulot (p. 16–17) | Cibler un poste non contraint à 90 % doit déplacer la contrainte vers Usinage et faire s'effondrer l'OTD | Préparation à 90 % → charge offerte Usinage 239 %, occupation 100 %, OTD **0,1 %**, encours 61 OF, traversée P50 ~400 h | **Confirmé** |
+| 11 | Fluctuations statistiques + événements dépendants : les files s'accumulent de façon non linéaire près de 100 % (jeu de dés, p. 14 note) | Encours et traversée explosent quand ρ → 1 | Encours atelier 1,66 → 8,60 OF et traversée P50 13,5 → 51,9 h de 60 % à 99 % de charge (loi de Little vérifiée : encours ≈ débit × traversée) | **Confirmé** |
+| 12 | Rochers et eau : un encours élevé masque les problèmes (p. 6) | À forte charge, la file devant le goulot rend la surcharge visible | File moyenne Usinage : 0,47 OF à 60 % → 6,70 OF à 99 % ; en ciblant le mauvais poste, 54 OF s'accumulent devant Usinage | **Confirmé** (le widget « eau/rochers » illustre la même idée) |
+| 13 | Résultats Hitachi : DDP 40 % → 85 %, WIP et délais divisés par deux, +20 % expédié avec la même main-d'œuvre (p. 17) | Ordres de grandeur reproductibles en jouant sur le tampon seul | Même capacité, tampon 30 h → 120 h : OTD 53 % → 99,9 % (+47 points) sans ajouter de ressource | **Confirmé** (même direction, mêmes ordres de grandeur) |
+| 14 | « Ne pas chercher à être plus précis que le bruit » dans la séquence au sein d'une même couleur (p. 14–15) | La priorité fine (tampon vs FIFO) ne change guère l'OTD quand la fenêtre est bonne | B (FIFO) vs C (tampon) : OTD 96,81 % toutes deux à 90 % — le gain vient de la fenêtre et de la taille du tampon, pas du réordonnancement fin | **Confirmé** (nuance : avec un seul goulot et une gamme unique, les deux règles coïncident presque) |
+
+**Conclusion** : les mécanismes centraux de l'article — tambour = ressource la plus
+chargée, corde = lancement à échéance − tampon, gestion des zones vert/jaune/rouge/noir,
+règle des 5–10 % de rouges, capacité protectrice hors goulot, effet non linéaire des
+fluctuations près de 100 % de charge, hypothèse touch < 10 % du délai pour le DBR —
+sont **tous reproduits quantitativement** par les scénarios Monte-Carlo du simulateur.
+
+## 5. Limites du modèle (et donc de la vérification)
+
+- Trois postes en série, capacité 1, une gamme commune : pas de ressource CCR multiple,
+  pas d'assemblage (voir l'archétype A du package `indeng` pour cela), pas de pannes
+  (seules les durées varient, ±25 %, et les arrivées sont Poisson) — la divergence près
+  de 100 % de charge est donc moins brutale que dans un système à forte variance.
+- La promesse vaut `max(demandé client, arrivée + tampon)` : avec une demande moyenne
+  de 120 h > tampon de 90 h, la corde ne limite l'encours atelier que partiellement
+  (le carnet absorbe le reste — d'où l'écart encours atelier 5,4 OF vs encours total
+  10,5 OF en politique B/C). En mode « délai commercial minimal » (promesse fixée),
+  la corde borne exactement le temps passé en atelier à la taille du tampon.
+- Politiques B et C quasi indiscernables ici (goulot unique) : la priorité par tampon
+  prend tout son sens avec plusieurs ressources en concurrence.
+- La cohorte mesurée est les 120 derniers OF après 150 h de warm-up ; les IC 95 %
+  utilisent l'approximation de Student embarquée dans le HTML.
+- Ces limites sont reformulées et assorties de propositions d'extension (attention
+  managériale et surcharges, regroupements/tailles de lot, passage à une grande
+  usine dans `indeng`) dans [`pistes-extension.md`](pistes-extension.md).
+
+## 6. Reproduction
+
+```bash
+# ouvrez la simulation dans un navigateur
+xdg-open sdbr-mini-usine/simulateur-sdbr-mini-usine.html   # ou double-clic
+
+# rejouez la campagne Monte-Carlo hors navigateur (Node >= 18, aucune dépendance)
+node sdbr-mini-usine/scripts/run_montecarlo.mjs --reps 30
+# sorties : sdbr-mini-usine/results/montecarlo_{replications.csv,summary.csv,summary.md}
+```
+
+## 7. Campagne « surcharge » — ligne de 10 postes à goulot central
+
+Voir [`surcharge-10-postes.md`](surcharge-10-postes.md) : ligne de 10 postes, goulot
+central, demande par paliers avec pics (charge 0,70 → 1,30 du goulot), fenêtres de
+lancement 36–168 h (168 h = lancement immédiat) croisées avec 3 niveaux de
+surcapacité du goulot (×1 / ×1,25 / ×1,5), 20 graines appariées. Résultat : en
+promesse client, lancer plus tôt n'abîme pas l'OTD (+5 à +32 points par pas) — le
+coût passe par l'encours/attention ; c'est la **surcharge du goulot** qui fait
+s'effondrer l'OTD en pic (1–45 %) et la **surcapacité du goulot** qui la restaure
+(100 % à ×1,5), conformément à Goldratt p. 9 et 16–17.
+
+## 8. Campagne « lots et séries au goulot » (transfert unitaire)
+
+Voir [`lots-series.md`](lots-series.md) : avec `transfer: unitaire`, des variantes
+`size` = 4/8/16 + règle `family_fifo` créent au goulot des **séries** (lots d'une même
+famille traités en bloc) qui bloquent les OF urgents de l'autre famille — mesuré par
+`conflits_avec_retard` (510/517 rouges bloqués livrés en retard). Résultat : les lots
+économisent 45 % de réglages au goulot (247 → 137 h) mais coûtent **−33 points d'OTD**
+(84,6 → 51,6 %) et un retard P95 ×2,5 — conforme à Goldratt p. 5–6 et 13 (petits lots,
+flux d'une pièce) et p. 15–17 (au CCR, l'urgence rouge prime sur la série).
+
+## 9. Lots à taille par poste (`size` = liste)
+
+Le moteur accepte désormais **`size` comme liste d'une taille de lot par poste**
+(`run_congestion.py`, test `test_lot_a_taille_par_poste`). Campagne
+[`lots-par-poste.md`](lots-par-poste.md) : regrouper **uniquement au goulot** donne la
+meilleure OTD (91,9 % vs 84,6 % en unitaire, réglages CCR −45 %), tandis que
+regrouper **hors goulot** la dégrade (56,5 %, P95 ×2,3) — l'économie de réglage locale
+ne rapporte de la capacité que si elle s'applique à la contrainte (TOC p. 3, 10, 16–17).
+
+## 10. Train logistique — un seul paramètre `transfer` = N
+
+`transfer` accepte un entier N : les OF finis partent **par trains de N, toutes
+familles confondues** (départ au plein de N, ou vidange quand le poste amont est
+inactif). Campagne [`train-logistique.md`](train-logistique.md) : sur la ligne
+10 postes avec pic, l'OTD chute de **84,6 % (N=1) à 0 % (N≥8, mode strict)**, traversée P95
+144 → 620 h — la contrainte logistique pénalise d'autant plus que le train est
+gros ; N=1 (unitaire) domine, conforme à Goldratt p. 5–6. La **vidange** d'un train
+incomplet est optionnelle (`trainVidange`, défaut `false`) sauf en fin de simulation
+(dernière pièce, sinon blocage) : avec vidange, N=8 → OTD 8,6 % au lieu de 0 %.
+
+## 11. Échelles relatives : délai client et fenêtres en multiples du temps opératoire
+
+`requestedLeadWorkMultiple: [a,b]` règle le délai client à [a, b] × W, où W est la
+somme des temps opératoires (pondérée par `familyWeights`, tracée dans
+`workContentHours`) ; `windowsWorkMultiple` / `windowsLeadFraction` font de même pour
+les fenêtres de lancement (multiples de W, ou fractions du délai client moyen —
+ex. 0,5 = tampon = moitié du délai, règle de Goldratt p. 14). Exemple : W = 24 h,
+`[2,7]` → délai [48, 168] h ; `[3,5,7]` → fenêtres [72, 120, 168] h. Test :
+`test_echelles_relatilles_somme_temps_operatoires`.
+
+Par défaut le délai client est **uniforme** entre les bornes de `requestedLead`
+(loi symétrique). Pour une loi **asymétrique à droite de moyenne fixée** :
+`requestedLead: [m]` + `requestedLeadDistribution: "lognormal"` +
+`requestedLeadCV: c` (moyenne m, CV c, médiane < moyenne). Test :
+`test_delai_client_lognormal_moyenne_preservee`.
+
+## 12. Balayage de charge : OTD vs encours sous distributions statistiques
+
+Voir [`charge-otd-encours.md`](charge-otd-encours.md) : arrivées Poisson, durées
+lognormales CV 0,3, délai client lognormal (moyenne 108 h, CV 0,6), fenêtre fixe
+120 h, charge du goulot 0,60 → 0,99 (20 graines). **Oui, la dégradation est retrouvée**
+: OTD 96 % → 33 % quand l'encours passe de 3 à 18 OF (corrélation OTD/encours −0,99),
+coude marqué au-delà de ρ ≈ 0,90 (OTD < 90 %, conforme à Goldratt p. 9 ; mécanisme
+fluctuations + dépendance p. 14). La fenêtre étant constante, la dégradation vient
+des files, pas du tampon.
+
+## 13. Tableau de bord du U de Goldratt (sweep de fenêtres)
+
+Voir [`dashboard-u.md`](dashboard-u.md) : 13 tailles de fenêtres (0,5–14 ×W) × 2
+variantes × 20 graines, avec nouveaux indicateurs (`file_moy`, `opportunites`) et
+compteurs (ruptures, changements). Tableau de bord produit par
+`scripts/dashboard_u.py` (`results/dashboard-u/u_*.png`, `dashboard_*.md/csv`) :
+**indice d'attention en nuage de points** = groupe flux (ruptures carnet, changements)
++ groupe ordonnancement (opportunités de regroupement, taille des files). Lecture :
+branche gauche du U très nette via l'OTD (0 % à 12 h → plateau 61,6 % à ≥ 5×W ;
+99,3 % en creux), branche droite sur les files en pic (+43 % de 12 h à 168 h) ;
+surcapacité ×1,5 du goulot → plateau à 99,8 % et encours ~5 OF.
+
+## 14. Branche droite du U : fenêtres jusqu'à 100 × W
+
+Voir [`branche-droite-u.md`](branche-droite-u.md) : pour atteindre la branche droite,
+le délai client doit être du même ordre que la fenêtre (ici 50–150×W) — sinon la
+fenêtre sature au délai demandé et on reste sur le plateau. Résultat : à 100×W,
+l'encours passe de 0,30 à 6,10 OF et l'indice d'attention de 0,12 à 1,35 (branche
+droite = embouteillages, p. 12) ; W ne vaut alors que 1 % du lead time (p. 13). La
+branche gauche reste visible via l'OTD (0 % à 0,5×W → 100 % dès 2×W).
+
+## 15. OTD à fort encours avec regroupements et transferts par batch
+
+Voir [`regroupements-transfer-otd.md`](regroupements-transfer-otd.md) : croisement de
+fenêtres {48, 120, 240 h} (240 h > délai client max ⇒ lancement immédiat = fort encours)
+× 5 modes (unitaire, lots 8, transfert `bloc` 8, train logistique N=8, lots 8 + train 8),
+20 graines. À 240 h, l'OTD unitaire reste à 81,6 ± 6,5 % mais s'effondre à 50,4 %
+(lots 8), 32,1 % (bloc 8) et 0,0 % (train 8, retard P95 247 h) ; l'encours passe de
+9 à 36 OF (loi de Little). Les attentes structurelles des séries et des trains mangent
+toute la marge de la fenêtre (Goldratt p. 5–6, 12, 13). Règle pratique : à fort encours,
+éviter lots et transferts par batch — jamais les combiner.
+
+## 16. Le U vu par l'OTD : sweep de fenêtres × variantes avec/sans regroupements
+
+Voir [`courbe-u-otd.md`](courbe-u-otd.md) : 12 fenêtres de 0,5 à 12 × W (W = 24 h) ×
+4 variantes (unitaire, lots 8, transfert bloc 8, train 8), délai client 2–10 × W, 20 graines ;
+figure `results/courbe-u-otd/u_otd.png` (axe en × W, bande grise = zone W ≈ 10–15 % de la
+fenêtre) produite par `scripts/courbe_u.py`. **Branche gauche** : OTD = 0 % tant que la
+fenêtre ≤ 3 × W. **Zone intermédiaire** : pic à ~8 × W (W ≈ 12 % de la fenêtre) pour les
+variantes regroupées (lots8 68,2 %, bloc8 51,8 % ; en pic 65,6 % puis repli). **Branche
+droite** : à fenêtre ≥ 10 × W (lancement immédiat, fort encours) le témoin unitaire atteint
+93,5 % mais lots8 67,9 %, bloc8 51,7 %, train8 0,9 % — les attentes de lots/trains mangent la
+marge (retard P95 ×6 à ×22). Note : avec des promesses client, l'OTD est monotone en la
+fenêtre jusqu'à saturation ; la branche droite apparaît comme écart de niveau à fort encours
+(cf. aussi `regroupements-transfer-otd.md` : 81,6 → 50,4 → 32,1 → 0,0 % à 240 h) et comme
+dégradation vs la charge (`charge-otd-encours.md`).
+
+## 17. Taille de lot réelle au goulot : pourquoi le U ne "baisse" pas en OTD vs fenêtre
+
+Voir [`u-lots-goulot.md`](u-lots-goulot.md) : avec un plafond d'attente de 6 h, la taille
+de lot ne se déclenchait jamais (lots 8 ≡ lots 16) ; avec 24 h au goulot seul, de vraies
+séries se forment. Résultat : OTD monte jusqu'à un pic à **7–9 × W (W ≈ 11–14 % de la
+fenêtre)** — 88,5 % pour lot_goulot8, 68,2 % pour lots-partout — puis **plateau**
+(87,9 % vs 93,5 % unitaire à 10–12 ×W), tandis que les conflits avec retard croissent
+(0,9 → 11,8) : c'est la branche droite, visible en niveau. La baisse franche n'apparaît
+pas en fonction de la fenêtre car `lancement = max(arrivée, promesse − fenêtre)` la rend
+monotone jusqu'à saturation (fenêtre ≥ délai max) ; elle apparaît vs la **charge**
+(96 → 33 %, `charge-otd-encours.md`), en écart de niveau à fort encours selon le mode
+(93,5 / 67,9 / 51,7 / 0,9 % à 12 ×W) et dans les files/attention (`dashboard-u.md`).
+
+## 18. Test reformulé jusqu'à 20 × W : lots à tous les postes, taille réalisée = min(size, file)
+
+Voir [`u-20xw.md`](u-20xw.md) : délai client lognormal (moyenne 12 × W, CV 1,5 — queue
+longue > 20 × W donc pas de saturation), pic ρ = 1,30 / 480 h, 13 fenêtres de 1 à 20 × W ×
+variantes {unitaire, lots 8/16 à tous les postes cap 12 h, lot 16 au goulot cap 24 h}.
+**Mécanisme confirmé** : la taille réalisée du lot croît avec la file, les conflits avec
+retard montent de 0,6 à **52,9** (lots partout) et 0,1 → **27,8** (goulot) quand la fenêtre
+passe de 1 à 20 × W ; encours 22,4 → 24,2 OF. **Résultat** : à 20 × W, OTD unitaire 80,0 %
+vs lot au goulot 72,9 % vs lots partout 45,0 % — la branche droite est un écart de niveau
+(pas une chute de pente, impossible avec `lancement = max(arrivée, promesse − fenêtre)`).
+
+## 19. Fenêtre seule jusqu'à 15 × W, lots sans attente plafonnés à `size` (résultats)
+
+Voir [`u-fenetre-immediate.md`](u-fenetre-immediate.md) (protocole dans
+`protocole-u-fenetre-immediate.md`) : nouvelle sémantique des lots — `size` = plafond de
+série, **pas d'attente** (le poste regroupe ce qu'il a), les arrivées de même famille
+pendant le traitement rejoignent la série jusqu'à `size` ; nouvelle métrique
+`taille_lot_moy`/`taille_lot_max`. Config : réguliers 4 h vs goulot 6 h, tampons finis
+`capacity` = 4, délai lognormal moyenne 8 × W CV 1,5, fenêtres 1–15 × W, `size` = 1/4/8/16,
+transfert unitaire. Résultat : pic d'OTD à 3–5 × W (85,4 % size1) puis légère baisse à
+15 × W (84,1 %) ; taille pratiquée au goulot 2,16 → 2,38, conflits 0,5 → 6,0, P95 34 → 40 h.
+L'encours ligne ne grossit que modérément (8 → 9,6 OF, le carnet absorbe le reste), donc
+les files restent courtes et les lots pratiqués petits — l'effet de `size` à iso-fenêtre
+vient de la taille pratiquée, pas du plafond.
+
+## 20. Configurations de demande proposées (non lancées) : lead ≈ 20–30 × W
+
+Voir [`configs-demande-lead-20xw.md`](configs-demande-lead-20xw.md). Réponse à « pourquoi le
+carnet absorbe à fenêtre croissante » : `release = max(arrivée, promesse − fenêtre)` —
+l'encours ligne vaut λ × traversée (Little), fixé par la charge du goulot ; le surplus reste
+dans le carnet (données : carnet 32 → 7,5 OF quand la fenêtre passe de 1 à 15 × W, encours
+8,0 → 9,7 OF seulement). L'encours max n'est atteint qu'à fenêtre ≥ lead (lancement
+immédiat). 3 configs de demande proposées : A uniforme [10,30]×W, B lognormale moyenne
+20×W CV 0,25, C lognormale centrée 30×W CV 0,3 (touch ≈ 5 % puis 3,3 % du lead — régime
+« usine par lots », Goldratt p. 11/13), avec tampons finis `capacity` et sweep de fenêtres
+incluant le point fenêtre > lead.
+
+## 21. Config A lancée : lead uniforme [10, 30] × W, fenêtres 2–35 × W
+
+Voir [`demande-a-20xw.md`](demande-a-20xw.md) : tampons finis `capacity` = 4, transfert
+unitaire, `size` = 1/4/8/16, pas de pic. Résultat : **OTD 100 % dès 3–5 × W jusqu'à 35 × W**
+(lancement immédiat) — la traversée à encours max vaut ~62 h ≈ 1,5 × W, très < lead min
+10 × W ; le carnet se vide (84 → 0 OF à 30 × W = saturation) et l'encours plafonne à
+~9,8 OF (λ × traversée). La taille pratiquée croît un peu (1,34 → 1,47) mais les conflits
+restent ~0. **Pas de branche droite en OTD à lead 20 × W sans surcharge** : il faudrait une
+traversée > 10 × W à fort encours, donc un pic de charge (piste : config A + pic ρ = 1,30).
+
+## 22. Protocole préparé (non lancé) : lot minimum 2/4/8/16, CV 0,6, surcapacité +25 %, lead ≤ 40 × W
+
+Voir [`protocole-lot-min-40xw.md`](protocole-lot-min-40xw.md) et `scenario-lot-min-40xw.json`
+(9 variantes validées, **campagne non lancée**) : `minLotSize` 2/4/8/16 avec attente bornée
+(`maxBatchWaitHours` = 24 h) et plafond `size` = 16 ; `line.familyCount` pour 2/4/8/16
+familles (même gamme) ; `line.overCapacity: 1.25` (réguliers 5,4 h vs goulot 6 h + 2 h) ;
+CV 0,6 lognormal ; lead [10, 40]×W, fenêtres 2–45×W (45×W > lead max = lancement immédiat) ;
+pic ρ = 1,30 ; tampons 16. Variante `sizeFromWindow` : taille de lot = min(16, fenêtre/W) —
+plus la fenêtre est longue, plus on regroupe. Nouveautés moteur testées (51 tests OK).
+
+Résultats lancés (10 graines, ~4 min, [`lot-min-40xw.md`](lot-min-40xw.md)) : avec
+`maxBatchWaitHours` = 168 h, les lots se remplissent vraiment (taille pratiquée 11,6/16,
+traversée ~33×W, encours 175 OF) et **l'OTD s'effondre** : min16 → **13 %** à 40–45×W,
+min8 trace un **U** (0 % → 74 % à 30×W → 65 % à 40–45×W, 222 conflits) ; la variante
+`taille_liee_fenetre` reproduit min16 à haute fenêtre. (Avec la borne 24 h, les lots ne se
+formaient pas — taille pratiquée 3,7 — et l'OTD restait à 100 % : c'est la borne d'attente
+qui limite les lots, pas `minLotSize`.)
+
+## 23. Campagne « lot min dimensionné par la fenêtre » : lot min = k × fenêtre/W
+
+[`scenario-lot-fenetre-coef.json`](scenario-lot-fenetre-coef.json) + résultats
+[`lot-fenetre-coef.md`](lot-fenetre-coef.md) + `results/lot-fenetre-coef/` : 5 variantes
+(`temoin` min 1 ; `k025`/`k05`/`k1`/`k2` = `sizeFromWindow` coef 0,25/0,5/1/2, max 16,
+`minimumOnly`) × 18 fenêtres 1–45×W × 10 graines appariées = 900 sims. **k = 0,25 trace le
+U complet** (pic 98,8 % à 5×W, plateau ~96 % jusqu'à 24×W, puis 17,2 % à 45×W, 83 % d'OF
+noirs, encours ×8, 171 conflits) ; **k = 1 — la règle « lot min = fenêtre/W » — est ~4× trop
+agressive** (OTD 1,9 % dès 2×W, ≈ 0–4 % partout, puis convergence vers min16 = 13,1 % quand
+le lot min atteint le plafond 16) ; k = 2 → OTD ≈ 0. À la fenêtre optimale, le lot min
+supportable est ≤ 2 OF : W ≈ 12,5–20 % de la fenêtre au pic, cohérent avec la bande
+W ≈ 10–15 % de Goldratt. Figure 3 panneaux régénérée (`figure_u.pdf`, axe log₂, zones de
+couleur de k025).
+
+## 24. Rapport pour un manager : `rapport-manager.html` (autonome) + `rapport-manager.tex` (beamer)
+
+Le rapport HTML est généré ici et s'ouvre tel quel (figures embarquées en base64) :
+`.venv/bin/python sdbr-mini-usine/scripts/rapport_html.py` → `sdbr-mini-usine/rapport-manager.html`
+(13 sections : contexte, vérification de Goldratt 2006, modèle, 7 résultats commentés avec
+figures, 6 leçons managériales, pistes/limites, reproduction). Le tableau « lot min = k × fenêtre/W »
+y est recalculé depuis `results/lot-fenetre-coef/figure_u_stats.csv`. Le PDF iso-lot est rendu en
+PNG (`results/iso-lot/otd-fenetre.png`) pour l'embarquement.
+
+Version beamer équivalente (14 slides 16:9, thème Boadilla ; utf8/T1 + lmodern + graphicx + booktabs, pas de babel) : `rapport-manager.tex`, à compiler avec `cd sdbr-mini-usine && pdflatex -interaction=nonstopmode rapport-manager.tex` (×2).
+
+La version beamer reprend les mêmes contenus :
+contexte, vérification des écrits de Goldratt (2006), modèle, puis les figures clés commentées —
+U de l'OTD (`results/figure-u/slide_otd.png`), zones vert/jaune/rouge/noir
+(`results/lot-fenetre-coef/slide_zones.png`), mécanisme lots/encours (`slide_meca.png`), lots min
+fixes 2/4/8/16 (`results/lot-min-40xw/u_otd.png`), lot min = k × fenêtre/W
+(`results/lot-fenetre-coef/slide_otd.png`), comparaison appariée iso-lot
+(`results/iso-lot/otd-fenetre.pdf`), surcharge ρ→1 (`results/surcharge-10-postes/otd.png` +
+tableau de bord `results/dashboard-u/u_surcap_x1_5.png`) — puis 6 leçons managériales, pistes
+d'amélioration et limites, reproduction. Figures paysage produites par `scripts/figure_slides.py`
+(`slide_*.png` dans `results/figure-u/` et `results/lot-fenetre-coef/`) ; `figure_u.py` exporte
+aussi chaque panneau séparément (`figure_u_panel_{a,b,c}.png`). Compilation :
+`cd sdbr-mini-usine && pdflatex -interaction=nonstopmode rapport-manager.tex` (×2).

@@ -125,3 +125,11 @@ Monte-Carlo et agrège moyenne / écart-type.
 ```bash
 pytest
 ```
+
+## Simulateur S-DBR autonome (HTML)
+
+Le dossier [`sdbr-mini-usine/`](sdbr-mini-usine/) est dédié à un simulateur HTML
+autonome de mini-usine S-DBR (Drum-Buffer-Rope) : analyse du modèle, campagne
+Monte-Carlo rejouée sous Node (`scripts/run_montecarlo.mjs`) et vérification des
+résultats contre l'article de Goldratt, *Standing on the Shoulders of Giants* (2006),
+ dont le PDF est inclus dans le dossier. Voir [`sdbr-mini-usine/README.md`](sdbr-mini-usine/README.md).

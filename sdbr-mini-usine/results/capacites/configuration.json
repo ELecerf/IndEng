@@ -1,0 +1,167 @@
+{
+  "profiles": {
+    "reserve_forte": [
+      1,
+      5,
+      1
+    ],
+    "reserve_50": [
+      3,
+      5,
+      3
+    ],
+    "reserve_20": [
+      4,
+      5,
+      4
+    ],
+    "reserve_5": [
+      4.7,
+      5,
+      4.7
+    ],
+    "amont_serre": [
+      4.7,
+      5,
+      1
+    ],
+    "aval_serre": [
+      1,
+      5,
+      4.7
+    ]
+  },
+  "base": {
+    "stations": [
+      "pr\u00e9paration",
+      "usinage",
+      "finition"
+    ],
+    "bottleneck": 1,
+    "processingHours": {
+      "A": [
+        1,
+        5,
+        1
+      ],
+      "B": [
+        1,
+        5,
+        1
+      ]
+    },
+    "familyWeights": [
+      1,
+      1
+    ],
+    "setupHours": [
+      1,
+      2,
+      1
+    ],
+    "requestedLead": [
+      36,
+      168
+    ],
+    "processingDistribution": "lognormal",
+    "processingCV": 1,
+    "maxBatchWaitHours": 6,
+    "dispatchRule": "family_fifo",
+    "windows": [
+      72,
+      144,
+      240
+    ],
+    "size": 4,
+    "transfer": "bloc",
+    "capacity": [
+      4,
+      4
+    ],
+    "warmup": 1600,
+    "seed": 42,
+    "replications": 20,
+    "phases": [
+      [
+        "avant",
+        360,
+        0.8
+      ],
+      [
+        "pic",
+        180,
+        1.35
+      ],
+      [
+        "reprise",
+        360,
+        0.8
+      ]
+    ],
+    "variants": {
+      "temoin": {},
+      "traine": {
+        "processingCV": 1
+      },
+      "surcharge": {
+        "phases": [
+          [
+            "avant",
+            360,
+            0.8
+          ],
+          [
+            "pic",
+            180,
+            1.35
+          ],
+          [
+            "reprise",
+            360,
+            0.8
+          ]
+        ]
+      },
+      "famille": {
+        "dispatchRule": "family_fifo"
+      },
+      "stocks": {
+        "capacity": [
+          4,
+          4
+        ]
+      },
+      "combinaison": {
+        "capacity": [
+          4,
+          4
+        ],
+        "processingCV": 1,
+        "dispatchRule": "family_fifo",
+        "phases": [
+          [
+            "avant",
+            360,
+            0.8
+          ],
+          [
+            "pic",
+            180,
+            1.35
+          ],
+          [
+            "reprise",
+            360,
+            0.8
+          ]
+        ]
+      }
+    },
+    "arrivalEnd": 3868,
+    "seriesScope": "all"
+  },
+  "seeds": [
+    3000,
+    3059
+  ]
+}

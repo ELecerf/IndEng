@@ -1,0 +1,132 @@
+{
+  "stations": [
+    "poste_1",
+    "poste_2",
+    "poste_3",
+    "poste_4",
+    "poste_5",
+    "poste_6",
+    "poste_7",
+    "poste_8",
+    "poste_9",
+    "poste_10"
+  ],
+  "bottleneck": 4,
+  "processingHours": {
+    "A": [
+      2,
+      2,
+      2,
+      2,
+      6,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "B": [
+      2,
+      2,
+      2,
+      2,
+      6,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  "familyWeights": [
+    1,
+    1
+  ],
+  "setupHours": [
+    1,
+    1,
+    1,
+    1,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "requestedLeadWorkMultiple": [
+    2,
+    10
+  ],
+  "windowsWorkMultiple": [
+    0.5,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    12
+  ],
+  "processingDistribution": "lognormal",
+  "processingCV": 0.3,
+  "dispatchRule": "due",
+  "size": 1,
+  "transfer": 1,
+  "maxBatchWaitHours": 6,
+  "capacity": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "warmup": 400,
+  "seed": 42,
+  "replications": 20,
+  "phases": [
+    [
+      "creux",
+      480,
+      0.7
+    ],
+    [
+      "normal",
+      480,
+      0.95
+    ],
+    [
+      "pic",
+      240,
+      1.15
+    ],
+    [
+      "reprise",
+      720,
+      0.85
+    ]
+  ],
+  "variants": {
+    "unitaire": {},
+    "lots8": {
+      "size": 8,
+      "dispatchRule": "family_fifo"
+    },
+    "transfert_bloc8": {
+      "size": 8,
+      "dispatchRule": "family_fifo",
+      "transfer": "bloc"
+    },
+    "train8": {
+      "transfer": 8
+    }
+  }
+}

@@ -1,0 +1,1657 @@
+scenario;policy;indicateur;moyenne;demi_ic95;n
+charge_60pct_usinage;C · Fenêtre/tampon;OTD promis (%);100;0;60
+charge_60pct_usinage;C · Fenêtre/tampon;Service demandé (%);100;0;60
+charge_60pct_usinage;C · Fenêtre/tampon;% rouges parmi expédiés;0;0;60
+charge_60pct_usinage;C · Fenêtre/tampon;Encours moyen atelier (OF);1.659;0.09;60
+charge_60pct_usinage;C · Fenêtre/tampon;Encours total carnet+atelier (OF);5.059;0.158;60
+charge_60pct_usinage;C · Fenêtre/tampon;Carnet moyen (OF);3.4;0.09;60
+charge_60pct_usinage;C · Fenêtre/tampon;Débit (OF/h);0.108;0.003;60
+charge_60pct_usinage;C · Fenêtre/tampon;Traversée P50 (h);13.535;0.31;60
+charge_60pct_usinage;C · Fenêtre/tampon;Traversée P90 (h);23.335;1.325;60
+charge_60pct_usinage;C · Fenêtre/tampon;Délai client P50 (h);44.369;1.116;60
+charge_60pct_usinage;C · Fenêtre/tampon;Délai client P90 (h);82.904;1.08;60
+charge_60pct_usinage;C · Fenêtre/tampon;Part du touch dans le délai client P50 (%);21.65;0.563;60
+charge_60pct_usinage;C · Fenêtre/tampon;% expédiés dans le 1er 1/3 du tampon;96.306;1.428;60
+charge_60pct_usinage;C · Fenêtre/tampon;% expédiés dans les 2/3 du tampon;100;0;60
+charge_60pct_usinage;C · Fenêtre/tampon;Charge offerte Préparation (%);24.336;0.523;60
+charge_60pct_usinage;C · Fenêtre/tampon;Charge offerte Usinage (%);62.625;1.373;60
+charge_60pct_usinage;C · Fenêtre/tampon;Charge offerte Finition (%);27.056;0.596;60
+charge_60pct_usinage;C · Fenêtre/tampon;Occupation Préparation (%);24.474;0.573;60
+charge_60pct_usinage;C · Fenêtre/tampon;Occupation Usinage (%);62.455;1.459;60
+charge_60pct_usinage;C · Fenêtre/tampon;Occupation Finition (%);27.108;0.649;60
+charge_60pct_usinage;C · Fenêtre/tampon;File moyenne Préparation (OF);0.043;0.004;60
+charge_60pct_usinage;C · Fenêtre/tampon;File moyenne Usinage (OF);0.471;0.064;60
+charge_60pct_usinage;C · Fenêtre/tampon;File moyenne Finition (OF);0;0;60
+charge_60pct_usinage;Fenêtre/FIFO (référence);OTD promis (%);100;0;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);Service demandé (%);100;0;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);% rouges parmi expédiés;0;0;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);Encours moyen atelier (OF);1.66;0.131;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);Encours total carnet+atelier (OF);5.059;0.231;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);Carnet moyen (OF);3.4;0.13;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);Débit (OF/h);0.108;0.004;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);Traversée P50 (h);13.546;0.458;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);Traversée P90 (h);23.417;1.931;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);Délai client P50 (h);44.375;1.627;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);Délai client P90 (h);82.843;1.578;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);Part du touch dans le délai client P50 (%);21.647;0.821;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);% expédiés dans le 1er 1/3 du tampon;96.306;2.081;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);% expédiés dans les 2/3 du tampon;100;0;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);Charge offerte Préparation (%);24.336;0.762;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);Charge offerte Usinage (%);62.625;2.001;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);Charge offerte Finition (%);27.056;0.869;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);Occupation Préparation (%);24.481;0.842;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);Occupation Usinage (%);62.462;2.133;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);Occupation Finition (%);27.115;0.951;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);File moyenne Préparation (OF);0.044;0.006;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);File moyenne Usinage (OF);0.471;0.094;30
+charge_60pct_usinage;Fenêtre/FIFO (référence);File moyenne Finition (OF);0;0;30
+charge_60pct_usinage;A · Immédiat/FIFO;OTD promis (%);100;0;30
+charge_60pct_usinage;A · Immédiat/FIFO;Service demandé (%);100;0;30
+charge_60pct_usinage;A · Immédiat/FIFO;% rouges parmi expédiés;0.028;0.057;30
+charge_60pct_usinage;A · Immédiat/FIFO;Encours moyen atelier (OF);1.681;0.118;30
+charge_60pct_usinage;A · Immédiat/FIFO;Encours total carnet+atelier (OF);1.681;0.118;30
+charge_60pct_usinage;A · Immédiat/FIFO;Carnet moyen (OF);0;0;30
+charge_60pct_usinage;A · Immédiat/FIFO;Débit (OF/h);0.108;0.004;30
+charge_60pct_usinage;A · Immédiat/FIFO;Traversée P50 (h);13.312;0.319;30
+charge_60pct_usinage;A · Immédiat/FIFO;Traversée P90 (h);24.749;2.364;30
+charge_60pct_usinage;A · Immédiat/FIFO;Délai client P50 (h);13.312;0.319;30
+charge_60pct_usinage;A · Immédiat/FIFO;Délai client P90 (h);24.749;2.364;30
+charge_60pct_usinage;A · Immédiat/FIFO;Part du touch dans le délai client P50 (%);71.7;1.592;30
+charge_60pct_usinage;A · Immédiat/FIFO;% expédiés dans le 1er 1/3 du tampon;94.917;2.403;30
+charge_60pct_usinage;A · Immédiat/FIFO;% expédiés dans les 2/3 du tampon;99.944;0.114;30
+charge_60pct_usinage;A · Immédiat/FIFO;Charge offerte Préparation (%);24.336;0.762;30
+charge_60pct_usinage;A · Immédiat/FIFO;Charge offerte Usinage (%);62.625;2.001;30
+charge_60pct_usinage;A · Immédiat/FIFO;Charge offerte Finition (%);27.056;0.869;30
+charge_60pct_usinage;A · Immédiat/FIFO;Occupation Préparation (%);24.224;0.765;30
+charge_60pct_usinage;A · Immédiat/FIFO;Occupation Usinage (%);62.25;2.01;30
+charge_60pct_usinage;A · Immédiat/FIFO;Occupation Finition (%);26.991;0.902;30
+charge_60pct_usinage;A · Immédiat/FIFO;File moyenne Préparation (OF);0.042;0.005;30
+charge_60pct_usinage;A · Immédiat/FIFO;File moyenne Usinage (OF);0.504;0.091;30
+charge_60pct_usinage;A · Immédiat/FIFO;File moyenne Finition (OF);0;0;30
+charge_60pct_usinage;B · Fenêtre/FIFO;OTD promis (%);100;0;30
+charge_60pct_usinage;B · Fenêtre/FIFO;Service demandé (%);100;0;30
+charge_60pct_usinage;B · Fenêtre/FIFO;% rouges parmi expédiés;0;0;30
+charge_60pct_usinage;B · Fenêtre/FIFO;Encours moyen atelier (OF);1.66;0.131;30
+charge_60pct_usinage;B · Fenêtre/FIFO;Encours total carnet+atelier (OF);5.059;0.231;30
+charge_60pct_usinage;B · Fenêtre/FIFO;Carnet moyen (OF);3.4;0.13;30
+charge_60pct_usinage;B · Fenêtre/FIFO;Débit (OF/h);0.108;0.004;30
+charge_60pct_usinage;B · Fenêtre/FIFO;Traversée P50 (h);13.546;0.458;30
+charge_60pct_usinage;B · Fenêtre/FIFO;Traversée P90 (h);23.417;1.931;30
+charge_60pct_usinage;B · Fenêtre/FIFO;Délai client P50 (h);44.375;1.627;30
+charge_60pct_usinage;B · Fenêtre/FIFO;Délai client P90 (h);82.843;1.578;30
+charge_60pct_usinage;B · Fenêtre/FIFO;Part du touch dans le délai client P50 (%);21.647;0.821;30
+charge_60pct_usinage;B · Fenêtre/FIFO;% expédiés dans le 1er 1/3 du tampon;96.306;2.081;30
+charge_60pct_usinage;B · Fenêtre/FIFO;% expédiés dans les 2/3 du tampon;100;0;30
+charge_60pct_usinage;B · Fenêtre/FIFO;Charge offerte Préparation (%);24.336;0.762;30
+charge_60pct_usinage;B · Fenêtre/FIFO;Charge offerte Usinage (%);62.625;2.001;30
+charge_60pct_usinage;B · Fenêtre/FIFO;Charge offerte Finition (%);27.056;0.869;30
+charge_60pct_usinage;B · Fenêtre/FIFO;Occupation Préparation (%);24.481;0.842;30
+charge_60pct_usinage;B · Fenêtre/FIFO;Occupation Usinage (%);62.462;2.133;30
+charge_60pct_usinage;B · Fenêtre/FIFO;Occupation Finition (%);27.115;0.951;30
+charge_60pct_usinage;B · Fenêtre/FIFO;File moyenne Préparation (OF);0.044;0.006;30
+charge_60pct_usinage;B · Fenêtre/FIFO;File moyenne Usinage (OF);0.471;0.094;30
+charge_60pct_usinage;B · Fenêtre/FIFO;File moyenne Finition (OF);0;0;30
+charge_70pct_usinage;C · Fenêtre/tampon;OTD promis (%);100;0;60
+charge_70pct_usinage;C · Fenêtre/tampon;Service demandé (%);100;0;60
+charge_70pct_usinage;C · Fenêtre/tampon;% rouges parmi expédiés;0.056;0.078;60
+charge_70pct_usinage;C · Fenêtre/tampon;Encours moyen atelier (OF);2.256;0.149;60
+charge_70pct_usinage;C · Fenêtre/tampon;Encours total carnet+atelier (OF);6.213;0.225;60
+charge_70pct_usinage;C · Fenêtre/tampon;Carnet moyen (OF);3.957;0.103;60
+charge_70pct_usinage;C · Fenêtre/tampon;Débit (OF/h);0.126;0.003;60
+charge_70pct_usinage;C · Fenêtre/tampon;Traversée P50 (h);15.57;0.595;60
+charge_70pct_usinage;C · Fenêtre/tampon;Traversée P90 (h);28.547;1.986;60
+charge_70pct_usinage;C · Fenêtre/tampon;Délai client P50 (h);46.962;1.286;60
+charge_70pct_usinage;C · Fenêtre/tampon;Délai client P90 (h);85.8;1.466;60
+charge_70pct_usinage;C · Fenêtre/tampon;Part du touch dans le délai client P50 (%);20.493;0.624;60
+charge_70pct_usinage;C · Fenêtre/tampon;% expédiés dans le 1er 1/3 du tampon;91.027;2.312;60
+charge_70pct_usinage;C · Fenêtre/tampon;% expédiés dans les 2/3 du tampon;99.944;0.078;60
+charge_70pct_usinage;C · Fenêtre/tampon;Charge offerte Préparation (%);28.435;0.633;60
+charge_70pct_usinage;C · Fenêtre/tampon;Charge offerte Usinage (%);73.093;1.668;60
+charge_70pct_usinage;C · Fenêtre/tampon;Charge offerte Finition (%);31.606;0.722;60
+charge_70pct_usinage;C · Fenêtre/tampon;Occupation Préparation (%);28.373;0.667;60
+charge_70pct_usinage;C · Fenêtre/tampon;Occupation Usinage (%);72.925;1.715;60
+charge_70pct_usinage;C · Fenêtre/tampon;Occupation Finition (%);31.584;0.769;60
+charge_70pct_usinage;C · Fenêtre/tampon;File moyenne Préparation (OF);0.058;0.006;60
+charge_70pct_usinage;C · Fenêtre/tampon;File moyenne Usinage (OF);0.866;0.119;60
+charge_70pct_usinage;C · Fenêtre/tampon;File moyenne Finition (OF);0;0;60
+charge_70pct_usinage;Fenêtre/FIFO (référence);OTD promis (%);100;0;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);Service demandé (%);100;0;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);% rouges parmi expédiés;0.056;0.114;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);Encours moyen atelier (OF);2.257;0.216;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);Encours total carnet+atelier (OF);6.214;0.327;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);Carnet moyen (OF);3.957;0.151;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);Débit (OF/h);0.126;0.004;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);Traversée P50 (h);15.574;0.87;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);Traversée P90 (h);28.58;2.884;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);Délai client P50 (h);46.962;1.875;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);Délai client P90 (h);85.8;2.138;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);Part du touch dans le délai client P50 (%);20.493;0.91;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);% expédiés dans le 1er 1/3 du tampon;91;3.362;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);% expédiés dans les 2/3 du tampon;99.944;0.114;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);Charge offerte Préparation (%);28.435;0.923;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);Charge offerte Usinage (%);73.093;2.431;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);Charge offerte Finition (%);31.606;1.053;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);Occupation Préparation (%);28.379;0.969;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);Occupation Usinage (%);72.944;2.497;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);Occupation Finition (%);31.598;1.118;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);File moyenne Préparation (OF);0.059;0.008;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);File moyenne Usinage (OF);0.866;0.173;30
+charge_70pct_usinage;Fenêtre/FIFO (référence);File moyenne Finition (OF);0;0;30
+charge_70pct_usinage;A · Immédiat/FIFO;OTD promis (%);100;0;30
+charge_70pct_usinage;A · Immédiat/FIFO;Service demandé (%);100;0;30
+charge_70pct_usinage;A · Immédiat/FIFO;% rouges parmi expédiés;0.222;0.455;30
+charge_70pct_usinage;A · Immédiat/FIFO;Encours moyen atelier (OF);2.292;0.195;30
+charge_70pct_usinage;A · Immédiat/FIFO;Encours total carnet+atelier (OF);2.292;0.195;30
+charge_70pct_usinage;A · Immédiat/FIFO;Carnet moyen (OF);0;0;30
+charge_70pct_usinage;A · Immédiat/FIFO;Débit (OF/h);0.126;0.004;30
+charge_70pct_usinage;A · Immédiat/FIFO;Traversée P50 (h);15.265;0.59;30
+charge_70pct_usinage;A · Immédiat/FIFO;Traversée P90 (h);31.224;3.455;30
+charge_70pct_usinage;A · Immédiat/FIFO;Délai client P50 (h);15.265;0.59;30
+charge_70pct_usinage;A · Immédiat/FIFO;Délai client P90 (h);31.224;3.455;30
+charge_70pct_usinage;A · Immédiat/FIFO;Part du touch dans le délai client P50 (%);62.93;2.379;30
+charge_70pct_usinage;A · Immédiat/FIFO;% expédiés dans le 1er 1/3 du tampon;89.666;2.991;30
+charge_70pct_usinage;A · Immédiat/FIFO;% expédiés dans les 2/3 du tampon;99.361;1.052;30
+charge_70pct_usinage;A · Immédiat/FIFO;Charge offerte Préparation (%);28.435;0.923;30
+charge_70pct_usinage;A · Immédiat/FIFO;Charge offerte Usinage (%);73.093;2.431;30
+charge_70pct_usinage;A · Immédiat/FIFO;Charge offerte Finition (%);31.606;1.053;30
+charge_70pct_usinage;A · Immédiat/FIFO;Occupation Préparation (%);28.258;0.926;30
+charge_70pct_usinage;A · Immédiat/FIFO;Occupation Usinage (%);72.656;2.382;30
+charge_70pct_usinage;A · Immédiat/FIFO;Occupation Finition (%);31.417;1.055;30
+charge_70pct_usinage;A · Immédiat/FIFO;File moyenne Préparation (OF);0.062;0.007;30
+charge_70pct_usinage;A · Immédiat/FIFO;File moyenne Usinage (OF);0.907;0.161;30
+charge_70pct_usinage;A · Immédiat/FIFO;File moyenne Finition (OF);0;0;30
+charge_70pct_usinage;B · Fenêtre/FIFO;OTD promis (%);100;0;30
+charge_70pct_usinage;B · Fenêtre/FIFO;Service demandé (%);100;0;30
+charge_70pct_usinage;B · Fenêtre/FIFO;% rouges parmi expédiés;0.056;0.114;30
+charge_70pct_usinage;B · Fenêtre/FIFO;Encours moyen atelier (OF);2.257;0.216;30
+charge_70pct_usinage;B · Fenêtre/FIFO;Encours total carnet+atelier (OF);6.214;0.327;30
+charge_70pct_usinage;B · Fenêtre/FIFO;Carnet moyen (OF);3.957;0.151;30
+charge_70pct_usinage;B · Fenêtre/FIFO;Débit (OF/h);0.126;0.004;30
+charge_70pct_usinage;B · Fenêtre/FIFO;Traversée P50 (h);15.574;0.87;30
+charge_70pct_usinage;B · Fenêtre/FIFO;Traversée P90 (h);28.58;2.884;30
+charge_70pct_usinage;B · Fenêtre/FIFO;Délai client P50 (h);46.962;1.875;30
+charge_70pct_usinage;B · Fenêtre/FIFO;Délai client P90 (h);85.8;2.138;30
+charge_70pct_usinage;B · Fenêtre/FIFO;Part du touch dans le délai client P50 (%);20.493;0.91;30
+charge_70pct_usinage;B · Fenêtre/FIFO;% expédiés dans le 1er 1/3 du tampon;91;3.362;30
+charge_70pct_usinage;B · Fenêtre/FIFO;% expédiés dans les 2/3 du tampon;99.944;0.114;30
+charge_70pct_usinage;B · Fenêtre/FIFO;Charge offerte Préparation (%);28.435;0.923;30
+charge_70pct_usinage;B · Fenêtre/FIFO;Charge offerte Usinage (%);73.093;2.431;30
+charge_70pct_usinage;B · Fenêtre/FIFO;Charge offerte Finition (%);31.606;1.053;30
+charge_70pct_usinage;B · Fenêtre/FIFO;Occupation Préparation (%);28.379;0.969;30
+charge_70pct_usinage;B · Fenêtre/FIFO;Occupation Usinage (%);72.944;2.497;30
+charge_70pct_usinage;B · Fenêtre/FIFO;Occupation Finition (%);31.598;1.118;30
+charge_70pct_usinage;B · Fenêtre/FIFO;File moyenne Préparation (OF);0.059;0.008;30
+charge_70pct_usinage;B · Fenêtre/FIFO;File moyenne Usinage (OF);0.866;0.173;30
+charge_70pct_usinage;B · Fenêtre/FIFO;File moyenne Finition (OF);0;0;30
+charge_80pct_usinage;C · Fenêtre/tampon;OTD promis (%);100;0;60
+charge_80pct_usinage;C · Fenêtre/tampon;Service demandé (%);100;0;60
+charge_80pct_usinage;C · Fenêtre/tampon;% rouges parmi expédiés;1.389;1.1;60
+charge_80pct_usinage;C · Fenêtre/tampon;Encours moyen atelier (OF);3.286;0.317;60
+charge_80pct_usinage;C · Fenêtre/tampon;Encours total carnet+atelier (OF);7.823;0.39;60
+charge_80pct_usinage;C · Fenêtre/tampon;Carnet moyen (OF);4.537;0.118;60
+charge_80pct_usinage;C · Fenêtre/tampon;Débit (OF/h);0.144;0.003;60
+charge_80pct_usinage;C · Fenêtre/tampon;Traversée P50 (h);20.79;1.669;60
+charge_80pct_usinage;C · Fenêtre/tampon;Traversée P90 (h);36.608;2.787;60
+charge_80pct_usinage;C · Fenêtre/tampon;Délai client P50 (h);51.512;1.865;60
+charge_80pct_usinage;C · Fenêtre/tampon;Délai client P90 (h);91.977;2.416;60
+charge_80pct_usinage;C · Fenêtre/tampon;Part du touch dans le délai client P50 (%);18.827;0.692;60
+charge_80pct_usinage;C · Fenêtre/tampon;% expédiés dans le 1er 1/3 du tampon;76.277;5.062;60
+charge_80pct_usinage;C · Fenêtre/tampon;% expédiés dans les 2/3 du tampon;98.611;1.1;60
+charge_80pct_usinage;C · Fenêtre/tampon;Charge offerte Préparation (%);32.543;0.739;60
+charge_80pct_usinage;C · Fenêtre/tampon;Charge offerte Usinage (%);83.578;1.907;60
+charge_80pct_usinage;C · Fenêtre/tampon;Charge offerte Finition (%);36.168;0.828;60
+charge_80pct_usinage;C · Fenêtre/tampon;Occupation Préparation (%);32.361;0.779;60
+charge_80pct_usinage;C · Fenêtre/tampon;Occupation Usinage (%);82.953;1.97;60
+charge_80pct_usinage;C · Fenêtre/tampon;Occupation Finition (%);35.965;0.909;60
+charge_80pct_usinage;C · Fenêtre/tampon;File moyenne Préparation (OF);0.078;0.006;60
+charge_80pct_usinage;C · Fenêtre/tampon;File moyenne Usinage (OF);1.693;0.283;60
+charge_80pct_usinage;C · Fenêtre/tampon;File moyenne Finition (OF);0;0;60
+charge_80pct_usinage;Fenêtre/FIFO (référence);OTD promis (%);100;0;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);Service demandé (%);100;0;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);% rouges parmi expédiés;1.306;1.461;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);Encours moyen atelier (OF);3.282;0.454;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);Encours total carnet+atelier (OF);7.818;0.563;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);Carnet moyen (OF);4.537;0.172;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);Débit (OF/h);0.144;0.005;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);Traversée P50 (h);20.77;2.426;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);Traversée P90 (h);36.541;3.987;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);Délai client P50 (h);51.463;2.67;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);Délai client P90 (h);91.918;3.47;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);Part du touch dans le délai client P50 (%);18.833;1.004;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);% expédiés dans le 1er 1/3 du tampon;76.333;7.317;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);% expédiés dans les 2/3 du tampon;98.694;1.461;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);Charge offerte Préparation (%);32.543;1.078;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);Charge offerte Usinage (%);83.578;2.78;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);Charge offerte Finition (%);36.168;1.208;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);Occupation Préparation (%);32.351;1.127;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);Occupation Usinage (%);82.965;2.88;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);Occupation Finition (%);35.969;1.327;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);File moyenne Préparation (OF);0.078;0.009;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);File moyenne Usinage (OF);1.688;0.406;30
+charge_80pct_usinage;Fenêtre/FIFO (référence);File moyenne Finition (OF);0;0;30
+charge_80pct_usinage;A · Immédiat/FIFO;OTD promis (%);100;0;30
+charge_80pct_usinage;A · Immédiat/FIFO;Service demandé (%);99.944;0.114;30
+charge_80pct_usinage;A · Immédiat/FIFO;% rouges parmi expédiés;0.722;0.909;30
+charge_80pct_usinage;A · Immédiat/FIFO;Encours moyen atelier (OF);3.318;0.433;30
+charge_80pct_usinage;A · Immédiat/FIFO;Encours total carnet+atelier (OF);3.318;0.433;30
+charge_80pct_usinage;A · Immédiat/FIFO;Carnet moyen (OF);0;0;30
+charge_80pct_usinage;A · Immédiat/FIFO;Débit (OF/h);0.143;0.005;30
+charge_80pct_usinage;A · Immédiat/FIFO;Traversée P50 (h);20.213;2.455;30
+charge_80pct_usinage;A · Immédiat/FIFO;Traversée P90 (h);39.476;4.557;30
+charge_80pct_usinage;A · Immédiat/FIFO;Délai client P50 (h);20.213;2.455;30
+charge_80pct_usinage;A · Immédiat/FIFO;Délai client P90 (h);39.476;4.557;30
+charge_80pct_usinage;A · Immédiat/FIFO;Part du touch dans le délai client P50 (%);50.223;4.063;30
+charge_80pct_usinage;A · Immédiat/FIFO;% expédiés dans le 1er 1/3 du tampon;77.389;5.902;30
+charge_80pct_usinage;A · Immédiat/FIFO;% expédiés dans les 2/3 du tampon;98.055;2.132;30
+charge_80pct_usinage;A · Immédiat/FIFO;Charge offerte Préparation (%);32.543;1.078;30
+charge_80pct_usinage;A · Immédiat/FIFO;Charge offerte Usinage (%);83.578;2.78;30
+charge_80pct_usinage;A · Immédiat/FIFO;Charge offerte Finition (%);36.168;1.208;30
+charge_80pct_usinage;A · Immédiat/FIFO;Occupation Préparation (%);32.333;1.067;30
+charge_80pct_usinage;A · Immédiat/FIFO;Occupation Usinage (%);82.59;2.686;30
+charge_80pct_usinage;A · Immédiat/FIFO;Occupation Finition (%);35.756;1.187;30
+charge_80pct_usinage;A · Immédiat/FIFO;File moyenne Préparation (OF);0.088;0.011;30
+charge_80pct_usinage;A · Immédiat/FIFO;File moyenne Usinage (OF);1.723;0.39;30
+charge_80pct_usinage;A · Immédiat/FIFO;File moyenne Finition (OF);0;0;30
+charge_80pct_usinage;B · Fenêtre/FIFO;OTD promis (%);100;0;30
+charge_80pct_usinage;B · Fenêtre/FIFO;Service demandé (%);100;0;30
+charge_80pct_usinage;B · Fenêtre/FIFO;% rouges parmi expédiés;1.306;1.461;30
+charge_80pct_usinage;B · Fenêtre/FIFO;Encours moyen atelier (OF);3.282;0.454;30
+charge_80pct_usinage;B · Fenêtre/FIFO;Encours total carnet+atelier (OF);7.818;0.563;30
+charge_80pct_usinage;B · Fenêtre/FIFO;Carnet moyen (OF);4.537;0.172;30
+charge_80pct_usinage;B · Fenêtre/FIFO;Débit (OF/h);0.144;0.005;30
+charge_80pct_usinage;B · Fenêtre/FIFO;Traversée P50 (h);20.77;2.426;30
+charge_80pct_usinage;B · Fenêtre/FIFO;Traversée P90 (h);36.541;3.987;30
+charge_80pct_usinage;B · Fenêtre/FIFO;Délai client P50 (h);51.463;2.67;30
+charge_80pct_usinage;B · Fenêtre/FIFO;Délai client P90 (h);91.918;3.47;30
+charge_80pct_usinage;B · Fenêtre/FIFO;Part du touch dans le délai client P50 (%);18.833;1.004;30
+charge_80pct_usinage;B · Fenêtre/FIFO;% expédiés dans le 1er 1/3 du tampon;76.333;7.317;30
+charge_80pct_usinage;B · Fenêtre/FIFO;% expédiés dans les 2/3 du tampon;98.694;1.461;30
+charge_80pct_usinage;B · Fenêtre/FIFO;Charge offerte Préparation (%);32.543;1.078;30
+charge_80pct_usinage;B · Fenêtre/FIFO;Charge offerte Usinage (%);83.578;2.78;30
+charge_80pct_usinage;B · Fenêtre/FIFO;Charge offerte Finition (%);36.168;1.208;30
+charge_80pct_usinage;B · Fenêtre/FIFO;Occupation Préparation (%);32.351;1.127;30
+charge_80pct_usinage;B · Fenêtre/FIFO;Occupation Usinage (%);82.965;2.88;30
+charge_80pct_usinage;B · Fenêtre/FIFO;Occupation Finition (%);35.969;1.327;30
+charge_80pct_usinage;B · Fenêtre/FIFO;File moyenne Préparation (OF);0.078;0.009;30
+charge_80pct_usinage;B · Fenêtre/FIFO;File moyenne Usinage (OF);1.688;0.406;30
+charge_80pct_usinage;B · Fenêtre/FIFO;File moyenne Finition (OF);0;0;30
+charge_85pct_usinage;C · Fenêtre/tampon;OTD promis (%);99.306;0.857;60
+charge_85pct_usinage;C · Fenêtre/tampon;Service demandé (%);99.222;0.9;60
+charge_85pct_usinage;C · Fenêtre/tampon;% rouges parmi expédiés;5.416;3.287;60
+charge_85pct_usinage;C · Fenêtre/tampon;Encours moyen atelier (OF);4.202;0.522;60
+charge_85pct_usinage;C · Fenêtre/tampon;Encours total carnet+atelier (OF);9.013;0.595;60
+charge_85pct_usinage;C · Fenêtre/tampon;Carnet moyen (OF);4.81;0.124;60
+charge_85pct_usinage;C · Fenêtre/tampon;Débit (OF/h);0.151;0.003;60
+charge_85pct_usinage;C · Fenêtre/tampon;Traversée P50 (h);25.278;2.878;60
+charge_85pct_usinage;C · Fenêtre/tampon;Traversée P90 (h);44.779;4.035;60
+charge_85pct_usinage;C · Fenêtre/tampon;Délai client P50 (h);56.856;2.923;60
+charge_85pct_usinage;C · Fenêtre/tampon;Délai client P90 (h);97.832;3.72;60
+charge_85pct_usinage;C · Fenêtre/tampon;Part du touch dans le délai client P50 (%);17.303;0.805;60
+charge_85pct_usinage;C · Fenêtre/tampon;% expédiés dans le 1er 1/3 du tampon;65.389;6.155;60
+charge_85pct_usinage;C · Fenêtre/tampon;% expédiés dans les 2/3 du tampon;94.584;3.287;60
+charge_85pct_usinage;C · Fenêtre/tampon;Charge offerte Préparation (%);34.575;0.745;60
+charge_85pct_usinage;C · Fenêtre/tampon;Charge offerte Usinage (%);88.768;1.913;60
+charge_85pct_usinage;C · Fenêtre/tampon;Charge offerte Finition (%);38.41;0.837;60
+charge_85pct_usinage;C · Fenêtre/tampon;Occupation Préparation (%);34.322;0.856;60
+charge_85pct_usinage;C · Fenêtre/tampon;Occupation Usinage (%);87.315;1.873;60
+charge_85pct_usinage;C · Fenêtre/tampon;Occupation Finition (%);37.845;0.867;60
+charge_85pct_usinage;C · Fenêtre/tampon;File moyenne Préparation (OF);0.086;0.007;60
+charge_85pct_usinage;C · Fenêtre/tampon;File moyenne Usinage (OF);2.518;0.491;60
+charge_85pct_usinage;C · Fenêtre/tampon;File moyenne Finition (OF);0;0;60
+charge_85pct_usinage;Fenêtre/FIFO (référence);OTD promis (%);99.306;1.25;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);Service demandé (%);99.222;1.313;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);% rouges parmi expédiés;5.416;4.792;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);Encours moyen atelier (OF);4.205;0.761;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);Encours total carnet+atelier (OF);9.015;0.866;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);Carnet moyen (OF);4.81;0.181;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);Débit (OF/h);0.151;0.005;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);Traversée P50 (h);25.282;4.194;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);Traversée P90 (h);44.808;5.868;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);Délai client P50 (h);56.828;4.275;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);Délai client P90 (h);97.826;5.408;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);Part du touch dans le délai client P50 (%);17.317;1.182;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);% expédiés dans le 1er 1/3 du tampon;65.362;8.959;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);% expédiés dans les 2/3 du tampon;94.584;4.792;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);Charge offerte Préparation (%);34.575;1.086;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);Charge offerte Usinage (%);88.768;2.789;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);Charge offerte Finition (%);38.41;1.22;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);Occupation Préparation (%);34.322;1.248;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);Occupation Usinage (%);87.323;2.731;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);Occupation Finition (%);37.845;1.263;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);File moyenne Préparation (OF);0.086;0.011;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);File moyenne Usinage (OF);2.52;0.715;30
+charge_85pct_usinage;Fenêtre/FIFO (référence);File moyenne Finition (OF);0;0;30
+charge_85pct_usinage;A · Immédiat/FIFO;OTD promis (%);99.917;0.17;30
+charge_85pct_usinage;A · Immédiat/FIFO;Service demandé (%);99.861;0.284;30
+charge_85pct_usinage;A · Immédiat/FIFO;% rouges parmi expédiés;1.917;1.653;30
+charge_85pct_usinage;A · Immédiat/FIFO;Encours moyen atelier (OF);4.156;0.667;30
+charge_85pct_usinage;A · Immédiat/FIFO;Encours total carnet+atelier (OF);4.156;0.667;30
+charge_85pct_usinage;A · Immédiat/FIFO;Carnet moyen (OF);0;0;30
+charge_85pct_usinage;A · Immédiat/FIFO;Débit (OF/h);0.151;0.005;30
+charge_85pct_usinage;A · Immédiat/FIFO;Traversée P50 (h);24.274;3.676;30
+charge_85pct_usinage;A · Immédiat/FIFO;Traversée P90 (h);45.369;5.383;30
+charge_85pct_usinage;A · Immédiat/FIFO;Délai client P50 (h);24.274;3.676;30
+charge_85pct_usinage;A · Immédiat/FIFO;Délai client P90 (h);45.369;5.383;30
+charge_85pct_usinage;A · Immédiat/FIFO;Part du touch dans le délai client P50 (%);43.407;4.344;30
+charge_85pct_usinage;A · Immédiat/FIFO;% expédiés dans le 1er 1/3 du tampon;66.75;8.514;30
+charge_85pct_usinage;A · Immédiat/FIFO;% expédiés dans les 2/3 du tampon;94.861;4.09;30
+charge_85pct_usinage;A · Immédiat/FIFO;Charge offerte Préparation (%);34.575;1.086;30
+charge_85pct_usinage;A · Immédiat/FIFO;Charge offerte Usinage (%);88.768;2.789;30
+charge_85pct_usinage;A · Immédiat/FIFO;Charge offerte Finition (%);38.41;1.22;30
+charge_85pct_usinage;A · Immédiat/FIFO;Occupation Préparation (%);34.33;1.099;30
+charge_85pct_usinage;A · Immédiat/FIFO;Occupation Usinage (%);87.145;2.733;30
+charge_85pct_usinage;A · Immédiat/FIFO;Occupation Finition (%);37.76;1.206;30
+charge_85pct_usinage;A · Immédiat/FIFO;File moyenne Préparation (OF);0.102;0.012;30
+charge_85pct_usinage;A · Immédiat/FIFO;File moyenne Usinage (OF);2.461;0.621;30
+charge_85pct_usinage;A · Immédiat/FIFO;File moyenne Finition (OF);0;0;30
+charge_85pct_usinage;B · Fenêtre/FIFO;OTD promis (%);99.306;1.25;30
+charge_85pct_usinage;B · Fenêtre/FIFO;Service demandé (%);99.222;1.313;30
+charge_85pct_usinage;B · Fenêtre/FIFO;% rouges parmi expédiés;5.416;4.792;30
+charge_85pct_usinage;B · Fenêtre/FIFO;Encours moyen atelier (OF);4.205;0.761;30
+charge_85pct_usinage;B · Fenêtre/FIFO;Encours total carnet+atelier (OF);9.015;0.866;30
+charge_85pct_usinage;B · Fenêtre/FIFO;Carnet moyen (OF);4.81;0.181;30
+charge_85pct_usinage;B · Fenêtre/FIFO;Débit (OF/h);0.151;0.005;30
+charge_85pct_usinage;B · Fenêtre/FIFO;Traversée P50 (h);25.282;4.194;30
+charge_85pct_usinage;B · Fenêtre/FIFO;Traversée P90 (h);44.808;5.868;30
+charge_85pct_usinage;B · Fenêtre/FIFO;Délai client P50 (h);56.828;4.275;30
+charge_85pct_usinage;B · Fenêtre/FIFO;Délai client P90 (h);97.826;5.408;30
+charge_85pct_usinage;B · Fenêtre/FIFO;Part du touch dans le délai client P50 (%);17.317;1.182;30
+charge_85pct_usinage;B · Fenêtre/FIFO;% expédiés dans le 1er 1/3 du tampon;65.362;8.959;30
+charge_85pct_usinage;B · Fenêtre/FIFO;% expédiés dans les 2/3 du tampon;94.584;4.792;30
+charge_85pct_usinage;B · Fenêtre/FIFO;Charge offerte Préparation (%);34.575;1.086;30
+charge_85pct_usinage;B · Fenêtre/FIFO;Charge offerte Usinage (%);88.768;2.789;30
+charge_85pct_usinage;B · Fenêtre/FIFO;Charge offerte Finition (%);38.41;1.22;30
+charge_85pct_usinage;B · Fenêtre/FIFO;Occupation Préparation (%);34.322;1.248;30
+charge_85pct_usinage;B · Fenêtre/FIFO;Occupation Usinage (%);87.323;2.731;30
+charge_85pct_usinage;B · Fenêtre/FIFO;Occupation Finition (%);37.845;1.263;30
+charge_85pct_usinage;B · Fenêtre/FIFO;File moyenne Préparation (OF);0.086;0.011;30
+charge_85pct_usinage;B · Fenêtre/FIFO;File moyenne Usinage (OF);2.52;0.715;30
+charge_85pct_usinage;B · Fenêtre/FIFO;File moyenne Finition (OF);0;0;30
+charge_90pct_usinage;C · Fenêtre/tampon;OTD promis (%);96.806;2.779;60
+charge_90pct_usinage;C · Fenêtre/tampon;Service demandé (%);96.445;2.923;60
+charge_90pct_usinage;C · Fenêtre/tampon;% rouges parmi expédiés;12.556;5.497;60
+charge_90pct_usinage;C · Fenêtre/tampon;Encours moyen atelier (OF);5.443;0.721;60
+charge_90pct_usinage;C · Fenêtre/tampon;Encours total carnet+atelier (OF);10.533;0.793;60
+charge_90pct_usinage;C · Fenêtre/tampon;Carnet moyen (OF);5.091;0.131;60
+charge_90pct_usinage;C · Fenêtre/tampon;Débit (OF/h);0.158;0.003;60
+charge_90pct_usinage;C · Fenêtre/tampon;Traversée P50 (h);32.652;4.487;60
+charge_90pct_usinage;C · Fenêtre/tampon;Traversée P90 (h);55.361;5.476;60
+charge_90pct_usinage;C · Fenêtre/tampon;Délai client P50 (h);63.805;4.166;60
+charge_90pct_usinage;C · Fenêtre/tampon;Délai client P90 (h);106.531;5.112;60
+charge_90pct_usinage;C · Fenêtre/tampon;Part du touch dans le délai client P50 (%);15.69;0.862;60
+charge_90pct_usinage;C · Fenêtre/tampon;% expédiés dans le 1er 1/3 du tampon;53.194;6.379;60
+charge_90pct_usinage;C · Fenêtre/tampon;% expédiés dans les 2/3 du tampon;87.444;5.497;60
+charge_90pct_usinage;C · Fenêtre/tampon;Charge offerte Préparation (%);36.734;0.795;60
+charge_90pct_usinage;C · Fenêtre/tampon;Charge offerte Usinage (%);94.265;1.998;60
+charge_90pct_usinage;C · Fenêtre/tampon;Charge offerte Finition (%);40.77;0.876;60
+charge_90pct_usinage;C · Fenêtre/tampon;Occupation Préparation (%);36.593;0.919;60
+charge_90pct_usinage;C · Fenêtre/tampon;Occupation Usinage (%);91.224;1.657;60
+charge_90pct_usinage;C · Fenêtre/tampon;Occupation Finition (%);39.568;0.789;60
+charge_90pct_usinage;C · Fenêtre/tampon;File moyenne Préparation (OF);0.102;0.01;60
+charge_90pct_usinage;C · Fenêtre/tampon;File moyenne Usinage (OF);3.664;0.692;60
+charge_90pct_usinage;C · Fenêtre/tampon;File moyenne Finition (OF);0;0;60
+charge_90pct_usinage;Fenêtre/FIFO (référence);OTD promis (%);96.806;4.051;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);Service demandé (%);96.445;4.261;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);% rouges parmi expédiés;12.556;8.013;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);Encours moyen atelier (OF);5.449;1.05;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);Encours total carnet+atelier (OF);10.54;1.155;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);Carnet moyen (OF);5.09;0.191;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);Débit (OF/h);0.158;0.004;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);Traversée P50 (h);32.741;6.529;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);Traversée P90 (h);55.467;7.957;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);Délai client P50 (h);63.839;6.069;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);Délai client P90 (h);106.597;7.45;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);Part du touch dans le délai client P50 (%);15.68;1.256;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);% expédiés dans le 1er 1/3 du tampon;53.166;9.287;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);% expédiés dans les 2/3 du tampon;87.444;8.013;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);Charge offerte Préparation (%);36.734;1.159;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);Charge offerte Usinage (%);94.265;2.912;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);Charge offerte Finition (%);40.77;1.278;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);Occupation Préparation (%);36.593;1.335;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);Occupation Usinage (%);91.241;2.411;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);Occupation Finition (%);39.572;1.147;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);File moyenne Préparation (OF);0.102;0.014;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);File moyenne Usinage (OF);3.67;1.008;30
+charge_90pct_usinage;Fenêtre/FIFO (référence);File moyenne Finition (OF);0;0;30
+charge_90pct_usinage;A · Immédiat/FIFO;OTD promis (%);98.916;1.545;30
+charge_90pct_usinage;A · Immédiat/FIFO;Service demandé (%);98.694;1.688;30
+charge_90pct_usinage;A · Immédiat/FIFO;% rouges parmi expédiés;4.472;3.693;30
+charge_90pct_usinage;A · Immédiat/FIFO;Encours moyen atelier (OF);5.39;1.014;30
+charge_90pct_usinage;A · Immédiat/FIFO;Encours total carnet+atelier (OF);5.39;1.014;30
+charge_90pct_usinage;A · Immédiat/FIFO;Carnet moyen (OF);0;0;30
+charge_90pct_usinage;A · Immédiat/FIFO;Débit (OF/h);0.158;0.004;30
+charge_90pct_usinage;A · Immédiat/FIFO;Traversée P50 (h);31.428;6.239;30
+charge_90pct_usinage;A · Immédiat/FIFO;Traversée P90 (h);54.546;7.416;30
+charge_90pct_usinage;A · Immédiat/FIFO;Délai client P50 (h);31.428;6.239;30
+charge_90pct_usinage;A · Immédiat/FIFO;Délai client P90 (h);54.546;7.416;30
+charge_90pct_usinage;A · Immédiat/FIFO;Part du touch dans le délai client P50 (%);35.747;4.523;30
+charge_90pct_usinage;A · Immédiat/FIFO;% expédiés dans le 1er 1/3 du tampon;54.222;8.596;30
+charge_90pct_usinage;A · Immédiat/FIFO;% expédiés dans les 2/3 du tampon;88.556;7.412;30
+charge_90pct_usinage;A · Immédiat/FIFO;Charge offerte Préparation (%);36.734;1.159;30
+charge_90pct_usinage;A · Immédiat/FIFO;Charge offerte Usinage (%);94.265;2.912;30
+charge_90pct_usinage;A · Immédiat/FIFO;Charge offerte Finition (%);40.77;1.278;30
+charge_90pct_usinage;A · Immédiat/FIFO;Occupation Préparation (%);36.496;1.164;30
+charge_90pct_usinage;A · Immédiat/FIFO;Occupation Usinage (%);91.09;2.398;30
+charge_90pct_usinage;A · Immédiat/FIFO;Occupation Finition (%);39.393;1.066;30
+charge_90pct_usinage;A · Immédiat/FIFO;File moyenne Préparation (OF);0.119;0.014;30
+charge_90pct_usinage;A · Immédiat/FIFO;File moyenne Usinage (OF);3.601;0.973;30
+charge_90pct_usinage;A · Immédiat/FIFO;File moyenne Finition (OF);0;0;30
+charge_90pct_usinage;B · Fenêtre/FIFO;OTD promis (%);96.806;4.051;30
+charge_90pct_usinage;B · Fenêtre/FIFO;Service demandé (%);96.445;4.261;30
+charge_90pct_usinage;B · Fenêtre/FIFO;% rouges parmi expédiés;12.556;8.013;30
+charge_90pct_usinage;B · Fenêtre/FIFO;Encours moyen atelier (OF);5.449;1.05;30
+charge_90pct_usinage;B · Fenêtre/FIFO;Encours total carnet+atelier (OF);10.54;1.155;30
+charge_90pct_usinage;B · Fenêtre/FIFO;Carnet moyen (OF);5.09;0.191;30
+charge_90pct_usinage;B · Fenêtre/FIFO;Débit (OF/h);0.158;0.004;30
+charge_90pct_usinage;B · Fenêtre/FIFO;Traversée P50 (h);32.741;6.529;30
+charge_90pct_usinage;B · Fenêtre/FIFO;Traversée P90 (h);55.467;7.957;30
+charge_90pct_usinage;B · Fenêtre/FIFO;Délai client P50 (h);63.839;6.069;30
+charge_90pct_usinage;B · Fenêtre/FIFO;Délai client P90 (h);106.597;7.45;30
+charge_90pct_usinage;B · Fenêtre/FIFO;Part du touch dans le délai client P50 (%);15.68;1.256;30
+charge_90pct_usinage;B · Fenêtre/FIFO;% expédiés dans le 1er 1/3 du tampon;53.166;9.287;30
+charge_90pct_usinage;B · Fenêtre/FIFO;% expédiés dans les 2/3 du tampon;87.444;8.013;30
+charge_90pct_usinage;B · Fenêtre/FIFO;Charge offerte Préparation (%);36.734;1.159;30
+charge_90pct_usinage;B · Fenêtre/FIFO;Charge offerte Usinage (%);94.265;2.912;30
+charge_90pct_usinage;B · Fenêtre/FIFO;Charge offerte Finition (%);40.77;1.278;30
+charge_90pct_usinage;B · Fenêtre/FIFO;Occupation Préparation (%);36.593;1.335;30
+charge_90pct_usinage;B · Fenêtre/FIFO;Occupation Usinage (%);91.241;2.411;30
+charge_90pct_usinage;B · Fenêtre/FIFO;Occupation Finition (%);39.572;1.147;30
+charge_90pct_usinage;B · Fenêtre/FIFO;File moyenne Préparation (OF);0.102;0.014;30
+charge_90pct_usinage;B · Fenêtre/FIFO;File moyenne Usinage (OF);3.67;1.008;30
+charge_90pct_usinage;B · Fenêtre/FIFO;File moyenne Finition (OF);0;0;30
+charge_95pct_usinage;C · Fenêtre/tampon;OTD promis (%);92.861;4.526;60
+charge_95pct_usinage;C · Fenêtre/tampon;Service demandé (%);92.139;4.638;60
+charge_95pct_usinage;C · Fenêtre/tampon;% rouges parmi expédiés;23.694;6.902;60
+charge_95pct_usinage;C · Fenêtre/tampon;Encours moyen atelier (OF);7.034;0.951;60
+charge_95pct_usinage;C · Fenêtre/tampon;Encours total carnet+atelier (OF);12.407;1.023;60
+charge_95pct_usinage;C · Fenêtre/tampon;Carnet moyen (OF);5.372;0.136;60
+charge_95pct_usinage;C · Fenêtre/tampon;Débit (OF/h);0.163;0.002;60
+charge_95pct_usinage;C · Fenêtre/tampon;Traversée P50 (h);42.348;6.309;60
+charge_95pct_usinage;C · Fenêtre/tampon;Traversée P90 (h);68.865;6.996;60
+charge_95pct_usinage;C · Fenêtre/tampon;Délai client P50 (h);73.494;5.673;60
+charge_95pct_usinage;C · Fenêtre/tampon;Délai client P90 (h);118.632;6.708;60
+charge_95pct_usinage;C · Fenêtre/tampon;Part du touch dans le délai client P50 (%);13.857;0.871;60
+charge_95pct_usinage;C · Fenêtre/tampon;% expédiés dans le 1er 1/3 du tampon;39.195;6.566;60
+charge_95pct_usinage;C · Fenêtre/tampon;% expédiés dans les 2/3 du tampon;76.306;6.902;60
+charge_95pct_usinage;C · Fenêtre/tampon;Charge offerte Préparation (%);38.705;0.827;60
+charge_95pct_usinage;C · Fenêtre/tampon;Charge offerte Usinage (%);99.342;2.078;60
+charge_95pct_usinage;C · Fenêtre/tampon;Charge offerte Finition (%);42.955;0.911;60
+charge_95pct_usinage;C · Fenêtre/tampon;Occupation Préparation (%);38.54;0.916;60
+charge_95pct_usinage;C · Fenêtre/tampon;Occupation Usinage (%);94.107;1.391;60
+charge_95pct_usinage;C · Fenêtre/tampon;Occupation Finition (%);40.765;0.684;60
+charge_95pct_usinage;C · Fenêtre/tampon;File moyenne Préparation (OF);0.113;0.012;60
+charge_95pct_usinage;C · Fenêtre/tampon;File moyenne Usinage (OF);5.185;0.924;60
+charge_95pct_usinage;C · Fenêtre/tampon;File moyenne Finition (OF);0;0;60
+charge_95pct_usinage;Fenêtre/FIFO (référence);OTD promis (%);92.833;6.595;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);Service demandé (%);92.111;6.758;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);% rouges parmi expédiés;23.778;10.069;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);Encours moyen atelier (OF);7.043;1.386;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);Encours total carnet+atelier (OF);12.415;1.491;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);Carnet moyen (OF);5.372;0.198;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);Débit (OF/h);0.163;0.003;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);Traversée P50 (h);42.367;9.201;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);Traversée P90 (h);68.952;10.176;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);Délai client P50 (h);73.56;8.269;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);Délai client P90 (h);118.642;9.781;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);Part du touch dans le délai client P50 (%);13.843;1.27;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);% expédiés dans le 1er 1/3 du tampon;39.001;9.622;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);% expédiés dans les 2/3 du tampon;76.222;10.069;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);Charge offerte Préparation (%);38.705;1.205;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);Charge offerte Usinage (%);99.342;3.03;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);Charge offerte Finition (%);42.955;1.328;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);Occupation Préparation (%);38.55;1.339;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);Occupation Usinage (%);94.115;2.028;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);Occupation Finition (%);40.78;1.001;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);File moyenne Préparation (OF);0.114;0.018;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);File moyenne Usinage (OF);5.193;1.347;30
+charge_95pct_usinage;Fenêtre/FIFO (référence);File moyenne Finition (OF);0;0;30
+charge_95pct_usinage;A · Immédiat/FIFO;OTD promis (%);97.084;3.351;30
+charge_95pct_usinage;A · Immédiat/FIFO;Service demandé (%);96.445;3.534;30
+charge_95pct_usinage;A · Immédiat/FIFO;% rouges parmi expédiés;9.361;5.779;30
+charge_95pct_usinage;A · Immédiat/FIFO;Encours moyen atelier (OF);7.1;1.351;30
+charge_95pct_usinage;A · Immédiat/FIFO;Encours total carnet+atelier (OF);7.1;1.351;30
+charge_95pct_usinage;A · Immédiat/FIFO;Carnet moyen (OF);0;0;30
+charge_95pct_usinage;A · Immédiat/FIFO;Débit (OF/h);0.163;0.003;30
+charge_95pct_usinage;A · Immédiat/FIFO;Traversée P50 (h);41.12;8.557;30
+charge_95pct_usinage;A · Immédiat/FIFO;Traversée P90 (h);67.221;9.321;30
+charge_95pct_usinage;A · Immédiat/FIFO;Délai client P50 (h);41.12;8.557;30
+charge_95pct_usinage;A · Immédiat/FIFO;Délai client P90 (h);67.221;9.321;30
+charge_95pct_usinage;A · Immédiat/FIFO;Part du touch dans le délai client P50 (%);28.523;4.414;30
+charge_95pct_usinage;A · Immédiat/FIFO;% expédiés dans le 1er 1/3 du tampon;39.389;8.705;30
+charge_95pct_usinage;A · Immédiat/FIFO;% expédiés dans les 2/3 du tampon;78.639;9.267;30
+charge_95pct_usinage;A · Immédiat/FIFO;Charge offerte Préparation (%);38.705;1.205;30
+charge_95pct_usinage;A · Immédiat/FIFO;Charge offerte Usinage (%);99.342;3.03;30
+charge_95pct_usinage;A · Immédiat/FIFO;Charge offerte Finition (%);42.955;1.328;30
+charge_95pct_usinage;A · Immédiat/FIFO;Occupation Préparation (%);38.446;1.2;30
+charge_95pct_usinage;A · Immédiat/FIFO;Occupation Usinage (%);94.387;1.905;30
+charge_95pct_usinage;A · Immédiat/FIFO;Occupation Finition (%);40.77;0.86;30
+charge_95pct_usinage;A · Immédiat/FIFO;File moyenne Préparation (OF);0.137;0.017;30
+charge_95pct_usinage;A · Immédiat/FIFO;File moyenne Usinage (OF);5.227;1.315;30
+charge_95pct_usinage;A · Immédiat/FIFO;File moyenne Finition (OF);0;0;30
+charge_95pct_usinage;B · Fenêtre/FIFO;OTD promis (%);92.833;6.595;30
+charge_95pct_usinage;B · Fenêtre/FIFO;Service demandé (%);92.111;6.758;30
+charge_95pct_usinage;B · Fenêtre/FIFO;% rouges parmi expédiés;23.778;10.069;30
+charge_95pct_usinage;B · Fenêtre/FIFO;Encours moyen atelier (OF);7.043;1.386;30
+charge_95pct_usinage;B · Fenêtre/FIFO;Encours total carnet+atelier (OF);12.415;1.491;30
+charge_95pct_usinage;B · Fenêtre/FIFO;Carnet moyen (OF);5.372;0.198;30
+charge_95pct_usinage;B · Fenêtre/FIFO;Débit (OF/h);0.163;0.003;30
+charge_95pct_usinage;B · Fenêtre/FIFO;Traversée P50 (h);42.367;9.201;30
+charge_95pct_usinage;B · Fenêtre/FIFO;Traversée P90 (h);68.952;10.176;30
+charge_95pct_usinage;B · Fenêtre/FIFO;Délai client P50 (h);73.56;8.269;30
+charge_95pct_usinage;B · Fenêtre/FIFO;Délai client P90 (h);118.642;9.781;30
+charge_95pct_usinage;B · Fenêtre/FIFO;Part du touch dans le délai client P50 (%);13.843;1.27;30
+charge_95pct_usinage;B · Fenêtre/FIFO;% expédiés dans le 1er 1/3 du tampon;39.001;9.622;30
+charge_95pct_usinage;B · Fenêtre/FIFO;% expédiés dans les 2/3 du tampon;76.222;10.069;30
+charge_95pct_usinage;B · Fenêtre/FIFO;Charge offerte Préparation (%);38.705;1.205;30
+charge_95pct_usinage;B · Fenêtre/FIFO;Charge offerte Usinage (%);99.342;3.03;30
+charge_95pct_usinage;B · Fenêtre/FIFO;Charge offerte Finition (%);42.955;1.328;30
+charge_95pct_usinage;B · Fenêtre/FIFO;Occupation Préparation (%);38.55;1.339;30
+charge_95pct_usinage;B · Fenêtre/FIFO;Occupation Usinage (%);94.115;2.028;30
+charge_95pct_usinage;B · Fenêtre/FIFO;Occupation Finition (%);40.78;1.001;30
+charge_95pct_usinage;B · Fenêtre/FIFO;File moyenne Préparation (OF);0.114;0.018;30
+charge_95pct_usinage;B · Fenêtre/FIFO;File moyenne Usinage (OF);5.193;1.347;30
+charge_95pct_usinage;B · Fenêtre/FIFO;File moyenne Finition (OF);0;0;30
+charge_99pct_usinage;C · Fenêtre/tampon;OTD promis (%);87.25;5.351;60
+charge_99pct_usinage;C · Fenêtre/tampon;Service demandé (%);86.389;5.433;60
+charge_99pct_usinage;C · Fenêtre/tampon;% rouges parmi expédiés;35.694;7.064;60
+charge_99pct_usinage;C · Fenêtre/tampon;Encours moyen atelier (OF);8.604;1.111;60
+charge_99pct_usinage;C · Fenêtre/tampon;Encours total carnet+atelier (OF);14.196;1.185;60
+charge_99pct_usinage;C · Fenêtre/tampon;Carnet moyen (OF);5.592;0.14;60
+charge_99pct_usinage;C · Fenêtre/tampon;Débit (OF/h);0.166;0.002;60
+charge_99pct_usinage;C · Fenêtre/tampon;Traversée P50 (h);51.891;7.285;60
+charge_99pct_usinage;C · Fenêtre/tampon;Traversée P90 (h);80.919;8.075;60
+charge_99pct_usinage;C · Fenêtre/tampon;Délai client P50 (h);82.66;6.674;60
+charge_99pct_usinage;C · Fenêtre/tampon;Délai client P90 (h);130.445;7.945;60
+charge_99pct_usinage;C · Fenêtre/tampon;Part du touch dans le délai client P50 (%);12.483;0.888;60
+charge_99pct_usinage;C · Fenêtre/tampon;% expédiés dans le 1er 1/3 du tampon;30.055;6.787;60
+charge_99pct_usinage;C · Fenêtre/tampon;% expédiés dans les 2/3 du tampon;64.306;7.064;60
+charge_99pct_usinage;C · Fenêtre/tampon;Charge offerte Préparation (%);40.323;0.85;60
+charge_99pct_usinage;C · Fenêtre/tampon;Charge offerte Usinage (%);103.492;2.133;60
+charge_99pct_usinage;C · Fenêtre/tampon;Charge offerte Finition (%);44.74;0.942;60
+charge_99pct_usinage;C · Fenêtre/tampon;Occupation Préparation (%);40.227;0.948;60
+charge_99pct_usinage;C · Fenêtre/tampon;Occupation Usinage (%);95.87;1.162;60
+charge_99pct_usinage;C · Fenêtre/tampon;Occupation Finition (%);41.522;0.59;60
+charge_99pct_usinage;C · Fenêtre/tampon;File moyenne Préparation (OF);0.129;0.012;60
+charge_99pct_usinage;C · Fenêtre/tampon;File moyenne Usinage (OF);6.697;1.085;60
+charge_99pct_usinage;C · Fenêtre/tampon;File moyenne Finition (OF);0;0;60
+charge_99pct_usinage;Fenêtre/FIFO (référence);OTD promis (%);87.195;7.862;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);Service demandé (%);86.362;7.952;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);% rouges parmi expédiés;35.777;10.363;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);Encours moyen atelier (OF);8.626;1.64;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);Encours total carnet+atelier (OF);14.218;1.747;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);Carnet moyen (OF);5.592;0.204;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);Débit (OF/h);0.166;0.003;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);Traversée P50 (h);52.031;10.765;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);Traversée P90 (h);81.055;11.908;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);Délai client P50 (h);82.796;9.877;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);Délai client P90 (h);130.647;11.692;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);Part du touch dans le délai client P50 (%);12.477;1.3;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);% expédiés dans le 1er 1/3 du tampon;29.972;9.855;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);% expédiés dans les 2/3 du tampon;64.223;10.363;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);Charge offerte Préparation (%);40.323;1.24;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);Charge offerte Usinage (%);103.492;3.11;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);Charge offerte Finition (%);44.74;1.373;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);Occupation Préparation (%);40.249;1.397;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);Occupation Usinage (%);95.879;1.691;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);Occupation Finition (%);41.53;0.854;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);File moyenne Préparation (OF);0.129;0.018;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);File moyenne Usinage (OF);6.718;1.602;30
+charge_99pct_usinage;Fenêtre/FIFO (référence);File moyenne Finition (OF);0;0;30
+charge_99pct_usinage;A · Immédiat/FIFO;OTD promis (%);94.639;4.766;30
+charge_99pct_usinage;A · Immédiat/FIFO;Service demandé (%);93.64;4.797;30
+charge_99pct_usinage;A · Immédiat/FIFO;% rouges parmi expédiés;16.973;7.201;30
+charge_99pct_usinage;A · Immédiat/FIFO;Encours moyen atelier (OF);8.791;1.62;30
+charge_99pct_usinage;A · Immédiat/FIFO;Encours total carnet+atelier (OF);8.791;1.62;30
+charge_99pct_usinage;A · Immédiat/FIFO;Carnet moyen (OF);0;0;30
+charge_99pct_usinage;A · Immédiat/FIFO;Débit (OF/h);0.167;0.003;30
+charge_99pct_usinage;A · Immédiat/FIFO;Traversée P50 (h);51.275;10.203;30
+charge_99pct_usinage;A · Immédiat/FIFO;Traversée P90 (h);80.278;11.038;30
+charge_99pct_usinage;A · Immédiat/FIFO;Délai client P50 (h);51.275;10.203;30
+charge_99pct_usinage;A · Immédiat/FIFO;Délai client P90 (h);80.278;11.038;30
+charge_99pct_usinage;A · Immédiat/FIFO;Part du touch dans le délai client P50 (%);23.29;4.03;30
+charge_99pct_usinage;A · Immédiat/FIFO;% expédiés dans le 1er 1/3 du tampon;30.362;8.432;30
+charge_99pct_usinage;A · Immédiat/FIFO;% expédiés dans les 2/3 du tampon;64.75;10.676;30
+charge_99pct_usinage;A · Immédiat/FIFO;Charge offerte Préparation (%);40.323;1.24;30
+charge_99pct_usinage;A · Immédiat/FIFO;Charge offerte Usinage (%);103.492;3.11;30
+charge_99pct_usinage;A · Immédiat/FIFO;Charge offerte Finition (%);44.74;1.373;30
+charge_99pct_usinage;A · Immédiat/FIFO;Occupation Préparation (%);40.066;1.212;30
+charge_99pct_usinage;A · Immédiat/FIFO;Occupation Usinage (%);96.376;1.493;30
+charge_99pct_usinage;A · Immédiat/FIFO;Occupation Finition (%);41.62;0.706;30
+charge_99pct_usinage;A · Immédiat/FIFO;File moyenne Préparation (OF);0.152;0.019;30
+charge_99pct_usinage;A · Immédiat/FIFO;File moyenne Usinage (OF);6.859;1.587;30
+charge_99pct_usinage;A · Immédiat/FIFO;File moyenne Finition (OF);0;0;30
+charge_99pct_usinage;B · Fenêtre/FIFO;OTD promis (%);87.195;7.862;30
+charge_99pct_usinage;B · Fenêtre/FIFO;Service demandé (%);86.362;7.952;30
+charge_99pct_usinage;B · Fenêtre/FIFO;% rouges parmi expédiés;35.777;10.363;30
+charge_99pct_usinage;B · Fenêtre/FIFO;Encours moyen atelier (OF);8.626;1.64;30
+charge_99pct_usinage;B · Fenêtre/FIFO;Encours total carnet+atelier (OF);14.218;1.747;30
+charge_99pct_usinage;B · Fenêtre/FIFO;Carnet moyen (OF);5.592;0.204;30
+charge_99pct_usinage;B · Fenêtre/FIFO;Débit (OF/h);0.166;0.003;30
+charge_99pct_usinage;B · Fenêtre/FIFO;Traversée P50 (h);52.031;10.765;30
+charge_99pct_usinage;B · Fenêtre/FIFO;Traversée P90 (h);81.055;11.908;30
+charge_99pct_usinage;B · Fenêtre/FIFO;Délai client P50 (h);82.796;9.877;30
+charge_99pct_usinage;B · Fenêtre/FIFO;Délai client P90 (h);130.647;11.692;30
+charge_99pct_usinage;B · Fenêtre/FIFO;Part du touch dans le délai client P50 (%);12.477;1.3;30
+charge_99pct_usinage;B · Fenêtre/FIFO;% expédiés dans le 1er 1/3 du tampon;29.972;9.855;30
+charge_99pct_usinage;B · Fenêtre/FIFO;% expédiés dans les 2/3 du tampon;64.223;10.363;30
+charge_99pct_usinage;B · Fenêtre/FIFO;Charge offerte Préparation (%);40.323;1.24;30
+charge_99pct_usinage;B · Fenêtre/FIFO;Charge offerte Usinage (%);103.492;3.11;30
+charge_99pct_usinage;B · Fenêtre/FIFO;Charge offerte Finition (%);44.74;1.373;30
+charge_99pct_usinage;B · Fenêtre/FIFO;Occupation Préparation (%);40.249;1.397;30
+charge_99pct_usinage;B · Fenêtre/FIFO;Occupation Usinage (%);95.879;1.691;30
+charge_99pct_usinage;B · Fenêtre/FIFO;Occupation Finition (%);41.53;0.854;30
+charge_99pct_usinage;B · Fenêtre/FIFO;File moyenne Préparation (OF);0.129;0.018;30
+charge_99pct_usinage;B · Fenêtre/FIFO;File moyenne Usinage (OF);6.718;1.602;30
+charge_99pct_usinage;B · Fenêtre/FIFO;File moyenne Finition (OF);0;0;30
+tampon_30h_charge90;C · Fenêtre/tampon;OTD promis (%);53.25;6.366;60
+tampon_30h_charge90;C · Fenêtre/tampon;Service demandé (%);53.25;6.366;60
+tampon_30h_charge90;C · Fenêtre/tampon;% rouges parmi expédiés;67.833;4.971;60
+tampon_30h_charge90;C · Fenêtre/tampon;Encours moyen atelier (OF);5.139;0.643;60
+tampon_30h_charge90;C · Fenêtre/tampon;Encours total carnet+atelier (OF);19.664;0.903;60
+tampon_30h_charge90;C · Fenêtre/tampon;Carnet moyen (OF);14.525;0.317;60
+tampon_30h_charge90;C · Fenêtre/tampon;Débit (OF/h);0.156;0.003;60
+tampon_30h_charge90;C · Fenêtre/tampon;Traversée P50 (h);32.417;4.371;60
+tampon_30h_charge90;C · Fenêtre/tampon;Traversée P90 (h);55.387;5.54;60
+tampon_30h_charge90;C · Fenêtre/tampon;Délai client P50 (h);123.192;4.159;60
+tampon_30h_charge90;C · Fenêtre/tampon;Délai client P90 (h);166.894;5.137;60
+tampon_30h_charge90;C · Fenêtre/tampon;Part du touch dans le délai client P50 (%);7.827;0.23;60
+tampon_30h_charge90;C · Fenêtre/tampon;% expédiés dans le 1er 1/3 du tampon;4.639;0.898;60
+tampon_30h_charge90;C · Fenêtre/tampon;% expédiés dans les 2/3 du tampon;32.167;4.971;60
+tampon_30h_charge90;C · Fenêtre/tampon;Charge offerte Préparation (%);36.734;0.795;60
+tampon_30h_charge90;C · Fenêtre/tampon;Charge offerte Usinage (%);94.265;1.998;60
+tampon_30h_charge90;C · Fenêtre/tampon;Charge offerte Finition (%);40.77;0.876;60
+tampon_30h_charge90;C · Fenêtre/tampon;Occupation Préparation (%);36.689;0.904;60
+tampon_30h_charge90;C · Fenêtre/tampon;Occupation Usinage (%);90.309;1.58;60
+tampon_30h_charge90;C · Fenêtre/tampon;Occupation Finition (%);39.116;0.71;60
+tampon_30h_charge90;C · Fenêtre/tampon;File moyenne Préparation (OF);0.107;0.011;60
+tampon_30h_charge90;C · Fenêtre/tampon;File moyenne Usinage (OF);3.371;0.613;60
+tampon_30h_charge90;C · Fenêtre/tampon;File moyenne Finition (OF);0;0;60
+tampon_30h_charge90;Fenêtre/FIFO (référence);OTD promis (%);53.25;9.281;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);Service demandé (%);53.25;9.281;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);% rouges parmi expédiés;67.833;7.248;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);Encours moyen atelier (OF);5.139;0.938;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);Encours total carnet+atelier (OF);19.664;1.316;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);Carnet moyen (OF);14.525;0.462;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);Débit (OF/h);0.156;0.004;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);Traversée P50 (h);32.417;6.372;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);Traversée P90 (h);55.387;8.076;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);Délai client P50 (h);123.192;6.063;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);Délai client P90 (h);166.894;7.489;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);Part du touch dans le délai client P50 (%);7.827;0.336;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);% expédiés dans le 1er 1/3 du tampon;4.639;1.309;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);% expédiés dans les 2/3 du tampon;32.167;7.248;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);Charge offerte Préparation (%);36.734;1.159;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);Charge offerte Usinage (%);94.265;2.912;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);Charge offerte Finition (%);40.77;1.278;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);Occupation Préparation (%);36.689;1.318;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);Occupation Usinage (%);90.309;2.304;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);Occupation Finition (%);39.116;1.036;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);File moyenne Préparation (OF);0.107;0.016;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);File moyenne Usinage (OF);3.371;0.894;30
+tampon_30h_charge90;Fenêtre/FIFO (référence);File moyenne Finition (OF);0;0;30
+tampon_30h_charge90;A · Immédiat/FIFO;OTD promis (%);98.694;1.688;30
+tampon_30h_charge90;A · Immédiat/FIFO;Service demandé (%);98.694;1.688;30
+tampon_30h_charge90;A · Immédiat/FIFO;% rouges parmi expédiés;2.417;2.449;30
+tampon_30h_charge90;A · Immédiat/FIFO;Encours moyen atelier (OF);5.39;1.014;30
+tampon_30h_charge90;A · Immédiat/FIFO;Encours total carnet+atelier (OF);5.39;1.014;30
+tampon_30h_charge90;A · Immédiat/FIFO;Carnet moyen (OF);0;0;30
+tampon_30h_charge90;A · Immédiat/FIFO;Débit (OF/h);0.158;0.004;30
+tampon_30h_charge90;A · Immédiat/FIFO;Traversée P50 (h);31.428;6.239;30
+tampon_30h_charge90;A · Immédiat/FIFO;Traversée P90 (h);54.546;7.416;30
+tampon_30h_charge90;A · Immédiat/FIFO;Délai client P50 (h);31.428;6.239;30
+tampon_30h_charge90;A · Immédiat/FIFO;Délai client P90 (h);54.546;7.416;30
+tampon_30h_charge90;A · Immédiat/FIFO;Part du touch dans le délai client P50 (%);35.747;4.523;30
+tampon_30h_charge90;A · Immédiat/FIFO;% expédiés dans le 1er 1/3 du tampon;4;1.194;30
+tampon_30h_charge90;A · Immédiat/FIFO;% expédiés dans les 2/3 du tampon;32.805;6.424;30
+tampon_30h_charge90;A · Immédiat/FIFO;Charge offerte Préparation (%);36.734;1.159;30
+tampon_30h_charge90;A · Immédiat/FIFO;Charge offerte Usinage (%);94.265;2.912;30
+tampon_30h_charge90;A · Immédiat/FIFO;Charge offerte Finition (%);40.77;1.278;30
+tampon_30h_charge90;A · Immédiat/FIFO;Occupation Préparation (%);36.496;1.164;30
+tampon_30h_charge90;A · Immédiat/FIFO;Occupation Usinage (%);91.09;2.398;30
+tampon_30h_charge90;A · Immédiat/FIFO;Occupation Finition (%);39.393;1.066;30
+tampon_30h_charge90;A · Immédiat/FIFO;File moyenne Préparation (OF);0.119;0.014;30
+tampon_30h_charge90;A · Immédiat/FIFO;File moyenne Usinage (OF);3.601;0.973;30
+tampon_30h_charge90;A · Immédiat/FIFO;File moyenne Finition (OF);0;0;30
+tampon_30h_charge90;B · Fenêtre/FIFO;OTD promis (%);53.25;9.281;30
+tampon_30h_charge90;B · Fenêtre/FIFO;Service demandé (%);53.25;9.281;30
+tampon_30h_charge90;B · Fenêtre/FIFO;% rouges parmi expédiés;67.833;7.248;30
+tampon_30h_charge90;B · Fenêtre/FIFO;Encours moyen atelier (OF);5.139;0.938;30
+tampon_30h_charge90;B · Fenêtre/FIFO;Encours total carnet+atelier (OF);19.664;1.316;30
+tampon_30h_charge90;B · Fenêtre/FIFO;Carnet moyen (OF);14.525;0.462;30
+tampon_30h_charge90;B · Fenêtre/FIFO;Débit (OF/h);0.156;0.004;30
+tampon_30h_charge90;B · Fenêtre/FIFO;Traversée P50 (h);32.417;6.372;30
+tampon_30h_charge90;B · Fenêtre/FIFO;Traversée P90 (h);55.387;8.076;30
+tampon_30h_charge90;B · Fenêtre/FIFO;Délai client P50 (h);123.192;6.063;30
+tampon_30h_charge90;B · Fenêtre/FIFO;Délai client P90 (h);166.894;7.489;30
+tampon_30h_charge90;B · Fenêtre/FIFO;Part du touch dans le délai client P50 (%);7.827;0.336;30
+tampon_30h_charge90;B · Fenêtre/FIFO;% expédiés dans le 1er 1/3 du tampon;4.639;1.309;30
+tampon_30h_charge90;B · Fenêtre/FIFO;% expédiés dans les 2/3 du tampon;32.167;7.248;30
+tampon_30h_charge90;B · Fenêtre/FIFO;Charge offerte Préparation (%);36.734;1.159;30
+tampon_30h_charge90;B · Fenêtre/FIFO;Charge offerte Usinage (%);94.265;2.912;30
+tampon_30h_charge90;B · Fenêtre/FIFO;Charge offerte Finition (%);40.77;1.278;30
+tampon_30h_charge90;B · Fenêtre/FIFO;Occupation Préparation (%);36.689;1.318;30
+tampon_30h_charge90;B · Fenêtre/FIFO;Occupation Usinage (%);90.309;2.304;30
+tampon_30h_charge90;B · Fenêtre/FIFO;Occupation Finition (%);39.116;1.036;30
+tampon_30h_charge90;B · Fenêtre/FIFO;File moyenne Préparation (OF);0.107;0.016;30
+tampon_30h_charge90;B · Fenêtre/FIFO;File moyenne Usinage (OF);3.371;0.894;30
+tampon_30h_charge90;B · Fenêtre/FIFO;File moyenne Finition (OF);0;0;30
+tampon_45h_charge90;C · Fenêtre/tampon;OTD promis (%);73.722;6.496;60
+tampon_45h_charge90;C · Fenêtre/tampon;Service demandé (%);73.722;6.496;60
+tampon_45h_charge90;C · Fenêtre/tampon;% rouges parmi expédiés;46.75;6.366;60
+tampon_45h_charge90;C · Fenêtre/tampon;Encours moyen atelier (OF);5.224;0.664;60
+tampon_45h_charge90;C · Fenêtre/tampon;Encours total carnet+atelier (OF);17.32;0.874;60
+tampon_45h_charge90;C · Fenêtre/tampon;Carnet moyen (OF);12.096;0.265;60
+tampon_45h_charge90;C · Fenêtre/tampon;Débit (OF/h);0.157;0.003;60
+tampon_45h_charge90;C · Fenêtre/tampon;Traversée P50 (h);32.417;4.371;60
+tampon_45h_charge90;C · Fenêtre/tampon;Traversée P90 (h);55.387;5.54;60
+tampon_45h_charge90;C · Fenêtre/tampon;Délai client P50 (h);108.192;4.159;60
+tampon_45h_charge90;C · Fenêtre/tampon;Délai client P90 (h);151.894;5.137;60
+tampon_45h_charge90;C · Fenêtre/tampon;Part du touch dans le délai client P50 (%);8.953;0.301;60
+tampon_45h_charge90;C · Fenêtre/tampon;% expédiés dans le 1er 1/3 du tampon;20;3.315;60
+tampon_45h_charge90;C · Fenêtre/tampon;% expédiés dans les 2/3 du tampon;53.25;6.366;60
+tampon_45h_charge90;C · Fenêtre/tampon;Charge offerte Préparation (%);36.734;0.795;60
+tampon_45h_charge90;C · Fenêtre/tampon;Charge offerte Usinage (%);94.265;1.998;60
+tampon_45h_charge90;C · Fenêtre/tampon;Charge offerte Finition (%);40.77;0.876;60
+tampon_45h_charge90;C · Fenêtre/tampon;Occupation Préparation (%);36.525;0.923;60
+tampon_45h_charge90;C · Fenêtre/tampon;Occupation Usinage (%);90.485;1.643;60
+tampon_45h_charge90;C · Fenêtre/tampon;Occupation Finition (%);39.259;0.75;60
+tampon_45h_charge90;C · Fenêtre/tampon;File moyenne Préparation (OF);0.106;0.011;60
+tampon_45h_charge90;C · Fenêtre/tampon;File moyenne Usinage (OF);3.455;0.634;60
+tampon_45h_charge90;C · Fenêtre/tampon;File moyenne Finition (OF);0;0;60
+tampon_45h_charge90;Fenêtre/FIFO (référence);OTD promis (%);73.722;9.47;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);Service demandé (%);73.722;9.47;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);% rouges parmi expédiés;46.75;9.281;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);Encours moyen atelier (OF);5.224;0.968;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);Encours total carnet+atelier (OF);17.32;1.274;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);Carnet moyen (OF);12.096;0.386;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);Débit (OF/h);0.157;0.004;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);Traversée P50 (h);32.417;6.372;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);Traversée P90 (h);55.387;8.076;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);Délai client P50 (h);108.192;6.063;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);Délai client P90 (h);151.894;7.489;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);Part du touch dans le délai client P50 (%);8.953;0.439;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);% expédiés dans le 1er 1/3 du tampon;20;4.833;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);% expédiés dans les 2/3 du tampon;53.25;9.281;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);Charge offerte Préparation (%);36.734;1.159;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);Charge offerte Usinage (%);94.265;2.912;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);Charge offerte Finition (%);40.77;1.278;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);Occupation Préparation (%);36.525;1.346;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);Occupation Usinage (%);90.485;2.395;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);Occupation Finition (%);39.259;1.094;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);File moyenne Préparation (OF);0.106;0.016;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);File moyenne Usinage (OF);3.455;0.924;30
+tampon_45h_charge90;Fenêtre/FIFO (référence);File moyenne Finition (OF);0;0;30
+tampon_45h_charge90;A · Immédiat/FIFO;OTD promis (%);98.694;1.688;30
+tampon_45h_charge90;A · Immédiat/FIFO;Service demandé (%);98.694;1.688;30
+tampon_45h_charge90;A · Immédiat/FIFO;% rouges parmi expédiés;2.917;2.687;30
+tampon_45h_charge90;A · Immédiat/FIFO;Encours moyen atelier (OF);5.39;1.014;30
+tampon_45h_charge90;A · Immédiat/FIFO;Encours total carnet+atelier (OF);5.39;1.014;30
+tampon_45h_charge90;A · Immédiat/FIFO;Carnet moyen (OF);0;0;30
+tampon_45h_charge90;A · Immédiat/FIFO;Débit (OF/h);0.158;0.004;30
+tampon_45h_charge90;A · Immédiat/FIFO;Traversée P50 (h);31.428;6.239;30
+tampon_45h_charge90;A · Immédiat/FIFO;Traversée P90 (h);54.546;7.416;30
+tampon_45h_charge90;A · Immédiat/FIFO;Délai client P50 (h);31.428;6.239;30
+tampon_45h_charge90;A · Immédiat/FIFO;Délai client P90 (h);54.546;7.416;30
+tampon_45h_charge90;A · Immédiat/FIFO;Part du touch dans le délai client P50 (%);35.747;4.523;30
+tampon_45h_charge90;A · Immédiat/FIFO;% expédiés dans le 1er 1/3 du tampon;19.14;4.23;30
+tampon_45h_charge90;A · Immédiat/FIFO;% expédiés dans les 2/3 du tampon;54.222;8.596;30
+tampon_45h_charge90;A · Immédiat/FIFO;Charge offerte Préparation (%);36.734;1.159;30
+tampon_45h_charge90;A · Immédiat/FIFO;Charge offerte Usinage (%);94.265;2.912;30
+tampon_45h_charge90;A · Immédiat/FIFO;Charge offerte Finition (%);40.77;1.278;30
+tampon_45h_charge90;A · Immédiat/FIFO;Occupation Préparation (%);36.496;1.164;30
+tampon_45h_charge90;A · Immédiat/FIFO;Occupation Usinage (%);91.09;2.398;30
+tampon_45h_charge90;A · Immédiat/FIFO;Occupation Finition (%);39.393;1.066;30
+tampon_45h_charge90;A · Immédiat/FIFO;File moyenne Préparation (OF);0.119;0.014;30
+tampon_45h_charge90;A · Immédiat/FIFO;File moyenne Usinage (OF);3.601;0.973;30
+tampon_45h_charge90;A · Immédiat/FIFO;File moyenne Finition (OF);0;0;30
+tampon_45h_charge90;B · Fenêtre/FIFO;OTD promis (%);73.722;9.47;30
+tampon_45h_charge90;B · Fenêtre/FIFO;Service demandé (%);73.722;9.47;30
+tampon_45h_charge90;B · Fenêtre/FIFO;% rouges parmi expédiés;46.75;9.281;30
+tampon_45h_charge90;B · Fenêtre/FIFO;Encours moyen atelier (OF);5.224;0.968;30
+tampon_45h_charge90;B · Fenêtre/FIFO;Encours total carnet+atelier (OF);17.32;1.274;30
+tampon_45h_charge90;B · Fenêtre/FIFO;Carnet moyen (OF);12.096;0.386;30
+tampon_45h_charge90;B · Fenêtre/FIFO;Débit (OF/h);0.157;0.004;30
+tampon_45h_charge90;B · Fenêtre/FIFO;Traversée P50 (h);32.417;6.372;30
+tampon_45h_charge90;B · Fenêtre/FIFO;Traversée P90 (h);55.387;8.076;30
+tampon_45h_charge90;B · Fenêtre/FIFO;Délai client P50 (h);108.192;6.063;30
+tampon_45h_charge90;B · Fenêtre/FIFO;Délai client P90 (h);151.894;7.489;30
+tampon_45h_charge90;B · Fenêtre/FIFO;Part du touch dans le délai client P50 (%);8.953;0.439;30
+tampon_45h_charge90;B · Fenêtre/FIFO;% expédiés dans le 1er 1/3 du tampon;20;4.833;30
+tampon_45h_charge90;B · Fenêtre/FIFO;% expédiés dans les 2/3 du tampon;53.25;9.281;30
+tampon_45h_charge90;B · Fenêtre/FIFO;Charge offerte Préparation (%);36.734;1.159;30
+tampon_45h_charge90;B · Fenêtre/FIFO;Charge offerte Usinage (%);94.265;2.912;30
+tampon_45h_charge90;B · Fenêtre/FIFO;Charge offerte Finition (%);40.77;1.278;30
+tampon_45h_charge90;B · Fenêtre/FIFO;Occupation Préparation (%);36.525;1.346;30
+tampon_45h_charge90;B · Fenêtre/FIFO;Occupation Usinage (%);90.485;2.395;30
+tampon_45h_charge90;B · Fenêtre/FIFO;Occupation Finition (%);39.259;1.094;30
+tampon_45h_charge90;B · Fenêtre/FIFO;File moyenne Préparation (OF);0.106;0.016;30
+tampon_45h_charge90;B · Fenêtre/FIFO;File moyenne Usinage (OF);3.455;0.924;30
+tampon_45h_charge90;B · Fenêtre/FIFO;File moyenne Finition (OF);0;0;30
+tampon_60h_charge90;C · Fenêtre/tampon;OTD promis (%);87.917;5.349;60
+tampon_60h_charge90;C · Fenêtre/tampon;Service demandé (%);87.917;5.349;60
+tampon_60h_charge90;C · Fenêtre/tampon;% rouges parmi expédiés;32.194;6.739;60
+tampon_60h_charge90;C · Fenêtre/tampon;Encours moyen atelier (OF);5.3;0.684;60
+tampon_60h_charge90;C · Fenêtre/tampon;Encours total carnet+atelier (OF);14.973;0.843;60
+tampon_60h_charge90;C · Fenêtre/tampon;Carnet moyen (OF);9.673;0.215;60
+tampon_60h_charge90;C · Fenêtre/tampon;Débit (OF/h);0.156;0.003;60
+tampon_60h_charge90;C · Fenêtre/tampon;Traversée P50 (h);32.417;4.371;60
+tampon_60h_charge90;C · Fenêtre/tampon;Traversée P90 (h);55.387;5.54;60
+tampon_60h_charge90;C · Fenêtre/tampon;Délai client P50 (h);93.192;4.159;60
+tampon_60h_charge90;C · Fenêtre/tampon;Délai client P90 (h);136.894;5.137;60
+tampon_60h_charge90;C · Fenêtre/tampon;Part du touch dans le délai client P50 (%);10.46;0.401;60
+tampon_60h_charge90;C · Fenêtre/tampon;% expédiés dans le 1er 1/3 du tampon;32.167;4.971;60
+tampon_60h_charge90;C · Fenêtre/tampon;% expédiés dans les 2/3 du tampon;67.806;6.739;60
+tampon_60h_charge90;C · Fenêtre/tampon;Charge offerte Préparation (%);36.734;0.795;60
+tampon_60h_charge90;C · Fenêtre/tampon;Charge offerte Usinage (%);94.265;1.998;60
+tampon_60h_charge90;C · Fenêtre/tampon;Charge offerte Finition (%);40.77;0.876;60
+tampon_60h_charge90;C · Fenêtre/tampon;Occupation Préparation (%);36.572;0.931;60
+tampon_60h_charge90;C · Fenêtre/tampon;Occupation Usinage (%);90.716;1.683;60
+tampon_60h_charge90;C · Fenêtre/tampon;Occupation Finition (%);39.291;0.782;60
+tampon_60h_charge90;C · Fenêtre/tampon;File moyenne Préparation (OF);0.105;0.01;60
+tampon_60h_charge90;C · Fenêtre/tampon;File moyenne Usinage (OF);3.529;0.653;60
+tampon_60h_charge90;C · Fenêtre/tampon;File moyenne Finition (OF);0;0;60
+tampon_60h_charge90;Fenêtre/FIFO (référence);OTD promis (%);87.917;7.797;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);Service demandé (%);87.917;7.797;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);% rouges parmi expédiés;32.194;9.825;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);Encours moyen atelier (OF);5.3;0.998;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);Encours total carnet+atelier (OF);14.973;1.23;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);Carnet moyen (OF);9.673;0.314;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);Débit (OF/h);0.156;0.004;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);Traversée P50 (h);32.417;6.372;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);Traversée P90 (h);55.387;8.076;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);Délai client P50 (h);93.192;6.063;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);Délai client P90 (h);136.894;7.489;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);Part du touch dans le délai client P50 (%);10.46;0.585;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);% expédiés dans le 1er 1/3 du tampon;32.167;7.248;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);% expédiés dans les 2/3 du tampon;67.806;9.825;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);Charge offerte Préparation (%);36.734;1.159;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);Charge offerte Usinage (%);94.265;2.912;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);Charge offerte Finition (%);40.77;1.278;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);Occupation Préparation (%);36.572;1.357;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);Occupation Usinage (%);90.716;2.454;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);Occupation Finition (%);39.291;1.139;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);File moyenne Préparation (OF);0.105;0.015;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);File moyenne Usinage (OF);3.529;0.953;30
+tampon_60h_charge90;Fenêtre/FIFO (référence);File moyenne Finition (OF);0;0;30
+tampon_60h_charge90;A · Immédiat/FIFO;OTD promis (%);98.694;1.688;30
+tampon_60h_charge90;A · Immédiat/FIFO;Service demandé (%);98.694;1.688;30
+tampon_60h_charge90;A · Immédiat/FIFO;% rouges parmi expédiés;3.555;2.95;30
+tampon_60h_charge90;A · Immédiat/FIFO;Encours moyen atelier (OF);5.39;1.014;30
+tampon_60h_charge90;A · Immédiat/FIFO;Encours total carnet+atelier (OF);5.39;1.014;30
+tampon_60h_charge90;A · Immédiat/FIFO;Carnet moyen (OF);0;0;30
+tampon_60h_charge90;A · Immédiat/FIFO;Débit (OF/h);0.158;0.004;30
+tampon_60h_charge90;A · Immédiat/FIFO;Traversée P50 (h);31.428;6.239;30
+tampon_60h_charge90;A · Immédiat/FIFO;Traversée P90 (h);54.546;7.416;30
+tampon_60h_charge90;A · Immédiat/FIFO;Délai client P50 (h);31.428;6.239;30
+tampon_60h_charge90;A · Immédiat/FIFO;Délai client P90 (h);54.546;7.416;30
+tampon_60h_charge90;A · Immédiat/FIFO;Part du touch dans le délai client P50 (%);35.747;4.523;30
+tampon_60h_charge90;A · Immédiat/FIFO;% expédiés dans le 1er 1/3 du tampon;32.805;6.424;30
+tampon_60h_charge90;A · Immédiat/FIFO;% expédiés dans les 2/3 du tampon;69.722;9.529;30
+tampon_60h_charge90;A · Immédiat/FIFO;Charge offerte Préparation (%);36.734;1.159;30
+tampon_60h_charge90;A · Immédiat/FIFO;Charge offerte Usinage (%);94.265;2.912;30
+tampon_60h_charge90;A · Immédiat/FIFO;Charge offerte Finition (%);40.77;1.278;30
+tampon_60h_charge90;A · Immédiat/FIFO;Occupation Préparation (%);36.496;1.164;30
+tampon_60h_charge90;A · Immédiat/FIFO;Occupation Usinage (%);91.09;2.398;30
+tampon_60h_charge90;A · Immédiat/FIFO;Occupation Finition (%);39.393;1.066;30
+tampon_60h_charge90;A · Immédiat/FIFO;File moyenne Préparation (OF);0.119;0.014;30
+tampon_60h_charge90;A · Immédiat/FIFO;File moyenne Usinage (OF);3.601;0.973;30
+tampon_60h_charge90;A · Immédiat/FIFO;File moyenne Finition (OF);0;0;30
+tampon_60h_charge90;B · Fenêtre/FIFO;OTD promis (%);87.917;7.797;30
+tampon_60h_charge90;B · Fenêtre/FIFO;Service demandé (%);87.917;7.797;30
+tampon_60h_charge90;B · Fenêtre/FIFO;% rouges parmi expédiés;32.194;9.825;30
+tampon_60h_charge90;B · Fenêtre/FIFO;Encours moyen atelier (OF);5.3;0.998;30
+tampon_60h_charge90;B · Fenêtre/FIFO;Encours total carnet+atelier (OF);14.973;1.23;30
+tampon_60h_charge90;B · Fenêtre/FIFO;Carnet moyen (OF);9.673;0.314;30
+tampon_60h_charge90;B · Fenêtre/FIFO;Débit (OF/h);0.156;0.004;30
+tampon_60h_charge90;B · Fenêtre/FIFO;Traversée P50 (h);32.417;6.372;30
+tampon_60h_charge90;B · Fenêtre/FIFO;Traversée P90 (h);55.387;8.076;30
+tampon_60h_charge90;B · Fenêtre/FIFO;Délai client P50 (h);93.192;6.063;30
+tampon_60h_charge90;B · Fenêtre/FIFO;Délai client P90 (h);136.894;7.489;30
+tampon_60h_charge90;B · Fenêtre/FIFO;Part du touch dans le délai client P50 (%);10.46;0.585;30
+tampon_60h_charge90;B · Fenêtre/FIFO;% expédiés dans le 1er 1/3 du tampon;32.167;7.248;30
+tampon_60h_charge90;B · Fenêtre/FIFO;% expédiés dans les 2/3 du tampon;67.806;9.825;30
+tampon_60h_charge90;B · Fenêtre/FIFO;Charge offerte Préparation (%);36.734;1.159;30
+tampon_60h_charge90;B · Fenêtre/FIFO;Charge offerte Usinage (%);94.265;2.912;30
+tampon_60h_charge90;B · Fenêtre/FIFO;Charge offerte Finition (%);40.77;1.278;30
+tampon_60h_charge90;B · Fenêtre/FIFO;Occupation Préparation (%);36.572;1.357;30
+tampon_60h_charge90;B · Fenêtre/FIFO;Occupation Usinage (%);90.716;2.454;30
+tampon_60h_charge90;B · Fenêtre/FIFO;Occupation Finition (%);39.291;1.139;30
+tampon_60h_charge90;B · Fenêtre/FIFO;File moyenne Préparation (OF);0.105;0.015;30
+tampon_60h_charge90;B · Fenêtre/FIFO;File moyenne Usinage (OF);3.529;0.953;30
+tampon_60h_charge90;B · Fenêtre/FIFO;File moyenne Finition (OF);0;0;30
+tampon_75h_charge90;C · Fenêtre/tampon;OTD promis (%);93.889;4.014;60
+tampon_75h_charge90;C · Fenêtre/tampon;Service demandé (%);93.889;4.014;60
+tampon_75h_charge90;C · Fenêtre/tampon;% rouges parmi expédiés;20.111;6.051;60
+tampon_75h_charge90;C · Fenêtre/tampon;Encours moyen atelier (OF);5.373;0.702;60
+tampon_75h_charge90;C · Fenêtre/tampon;Encours total carnet+atelier (OF);12.633;0.814;60
+tampon_75h_charge90;C · Fenêtre/tampon;Carnet moyen (OF);7.26;0.169;60
+tampon_75h_charge90;C · Fenêtre/tampon;Débit (OF/h);0.157;0.003;60
+tampon_75h_charge90;C · Fenêtre/tampon;Traversée P50 (h);32.51;4.373;60
+tampon_75h_charge90;C · Fenêtre/tampon;Traversée P90 (h);55.369;5.527;60
+tampon_75h_charge90;C · Fenêtre/tampon;Délai client P50 (h);78.276;4.164;60
+tampon_75h_charge90;C · Fenêtre/tampon;Délai client P90 (h);121.968;5.131;60
+tampon_75h_charge90;C · Fenêtre/tampon;Part du touch dans le délai client P50 (%);12.577;0.572;60
+tampon_75h_charge90;C · Fenêtre/tampon;% expédiés dans le 1er 1/3 du tampon;43.472;5.796;60
+tampon_75h_charge90;C · Fenêtre/tampon;% expédiés dans les 2/3 du tampon;79.889;6.051;60
+tampon_75h_charge90;C · Fenêtre/tampon;Charge offerte Préparation (%);36.734;0.795;60
+tampon_75h_charge90;C · Fenêtre/tampon;Charge offerte Usinage (%);94.265;1.998;60
+tampon_75h_charge90;C · Fenêtre/tampon;Charge offerte Finition (%);40.77;0.876;60
+tampon_75h_charge90;C · Fenêtre/tampon;Occupation Préparation (%);36.484;0.896;60
+tampon_75h_charge90;C · Fenêtre/tampon;Occupation Usinage (%);90.929;1.67;60
+tampon_75h_charge90;C · Fenêtre/tampon;Occupation Finition (%);39.445;0.789;60
+tampon_75h_charge90;C · Fenêtre/tampon;File moyenne Préparation (OF);0.103;0.01;60
+tampon_75h_charge90;C · Fenêtre/tampon;File moyenne Usinage (OF);3.601;0.673;60
+tampon_75h_charge90;C · Fenêtre/tampon;File moyenne Finition (OF);0;0;60
+tampon_75h_charge90;Fenêtre/FIFO (référence);OTD promis (%);93.889;5.852;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);Service demandé (%);93.889;5.852;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);% rouges parmi expédiés;20.111;8.822;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);Encours moyen atelier (OF);5.373;1.024;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);Encours total carnet+atelier (OF);12.633;1.187;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);Carnet moyen (OF);7.26;0.247;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);Débit (OF/h);0.157;0.004;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);Traversée P50 (h);32.528;6.383;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);Traversée P90 (h);55.369;8.057;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);Délai client P50 (h);78.276;6.07;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);Délai client P90 (h);121.968;7.48;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);Part du touch dans le délai client P50 (%);12.577;0.834;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);% expédiés dans le 1er 1/3 du tampon;43.472;8.449;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);% expédiés dans les 2/3 du tampon;79.889;8.822;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);Charge offerte Préparation (%);36.734;1.159;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);Charge offerte Usinage (%);94.265;2.912;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);Charge offerte Finition (%);40.77;1.278;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);Occupation Préparation (%);36.484;1.306;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);Occupation Usinage (%);90.929;2.435;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);Occupation Finition (%);39.445;1.15;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);File moyenne Préparation (OF);0.103;0.014;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);File moyenne Usinage (OF);3.601;0.982;30
+tampon_75h_charge90;Fenêtre/FIFO (référence);File moyenne Finition (OF);0;0;30
+tampon_75h_charge90;A · Immédiat/FIFO;OTD promis (%);98.694;1.688;30
+tampon_75h_charge90;A · Immédiat/FIFO;Service demandé (%);98.694;1.688;30
+tampon_75h_charge90;A · Immédiat/FIFO;% rouges parmi expédiés;4.305;3.463;30
+tampon_75h_charge90;A · Immédiat/FIFO;Encours moyen atelier (OF);5.39;1.014;30
+tampon_75h_charge90;A · Immédiat/FIFO;Encours total carnet+atelier (OF);5.39;1.014;30
+tampon_75h_charge90;A · Immédiat/FIFO;Carnet moyen (OF);0;0;30
+tampon_75h_charge90;A · Immédiat/FIFO;Débit (OF/h);0.158;0.004;30
+tampon_75h_charge90;A · Immédiat/FIFO;Traversée P50 (h);31.428;6.239;30
+tampon_75h_charge90;A · Immédiat/FIFO;Traversée P90 (h);54.546;7.416;30
+tampon_75h_charge90;A · Immédiat/FIFO;Délai client P50 (h);31.428;6.239;30
+tampon_75h_charge90;A · Immédiat/FIFO;Délai client P90 (h);54.546;7.416;30
+tampon_75h_charge90;A · Immédiat/FIFO;Part du touch dans le délai client P50 (%);35.747;4.523;30
+tampon_75h_charge90;A · Immédiat/FIFO;% expédiés dans le 1er 1/3 du tampon;43.695;7.858;30
+tampon_75h_charge90;A · Immédiat/FIFO;% expédiés dans les 2/3 du tampon;81.889;8.7;30
+tampon_75h_charge90;A · Immédiat/FIFO;Charge offerte Préparation (%);36.734;1.159;30
+tampon_75h_charge90;A · Immédiat/FIFO;Charge offerte Usinage (%);94.265;2.912;30
+tampon_75h_charge90;A · Immédiat/FIFO;Charge offerte Finition (%);40.77;1.278;30
+tampon_75h_charge90;A · Immédiat/FIFO;Occupation Préparation (%);36.496;1.164;30
+tampon_75h_charge90;A · Immédiat/FIFO;Occupation Usinage (%);91.09;2.398;30
+tampon_75h_charge90;A · Immédiat/FIFO;Occupation Finition (%);39.393;1.066;30
+tampon_75h_charge90;A · Immédiat/FIFO;File moyenne Préparation (OF);0.119;0.014;30
+tampon_75h_charge90;A · Immédiat/FIFO;File moyenne Usinage (OF);3.601;0.973;30
+tampon_75h_charge90;A · Immédiat/FIFO;File moyenne Finition (OF);0;0;30
+tampon_75h_charge90;B · Fenêtre/FIFO;OTD promis (%);93.889;5.852;30
+tampon_75h_charge90;B · Fenêtre/FIFO;Service demandé (%);93.889;5.852;30
+tampon_75h_charge90;B · Fenêtre/FIFO;% rouges parmi expédiés;20.111;8.822;30
+tampon_75h_charge90;B · Fenêtre/FIFO;Encours moyen atelier (OF);5.373;1.024;30
+tampon_75h_charge90;B · Fenêtre/FIFO;Encours total carnet+atelier (OF);12.633;1.187;30
+tampon_75h_charge90;B · Fenêtre/FIFO;Carnet moyen (OF);7.26;0.247;30
+tampon_75h_charge90;B · Fenêtre/FIFO;Débit (OF/h);0.157;0.004;30
+tampon_75h_charge90;B · Fenêtre/FIFO;Traversée P50 (h);32.528;6.383;30
+tampon_75h_charge90;B · Fenêtre/FIFO;Traversée P90 (h);55.369;8.057;30
+tampon_75h_charge90;B · Fenêtre/FIFO;Délai client P50 (h);78.276;6.07;30
+tampon_75h_charge90;B · Fenêtre/FIFO;Délai client P90 (h);121.968;7.48;30
+tampon_75h_charge90;B · Fenêtre/FIFO;Part du touch dans le délai client P50 (%);12.577;0.834;30
+tampon_75h_charge90;B · Fenêtre/FIFO;% expédiés dans le 1er 1/3 du tampon;43.472;8.449;30
+tampon_75h_charge90;B · Fenêtre/FIFO;% expédiés dans les 2/3 du tampon;79.889;8.822;30
+tampon_75h_charge90;B · Fenêtre/FIFO;Charge offerte Préparation (%);36.734;1.159;30
+tampon_75h_charge90;B · Fenêtre/FIFO;Charge offerte Usinage (%);94.265;2.912;30
+tampon_75h_charge90;B · Fenêtre/FIFO;Charge offerte Finition (%);40.77;1.278;30
+tampon_75h_charge90;B · Fenêtre/FIFO;Occupation Préparation (%);36.484;1.306;30
+tampon_75h_charge90;B · Fenêtre/FIFO;Occupation Usinage (%);90.929;2.435;30
+tampon_75h_charge90;B · Fenêtre/FIFO;Occupation Finition (%);39.445;1.15;30
+tampon_75h_charge90;B · Fenêtre/FIFO;File moyenne Préparation (OF);0.103;0.014;30
+tampon_75h_charge90;B · Fenêtre/FIFO;File moyenne Usinage (OF);3.601;0.982;30
+tampon_75h_charge90;B · Fenêtre/FIFO;File moyenne Finition (OF);0;0;30
+tampon_90h_charge90;C · Fenêtre/tampon;OTD promis (%);96.806;2.779;60
+tampon_90h_charge90;C · Fenêtre/tampon;Service demandé (%);96.445;2.923;60
+tampon_90h_charge90;C · Fenêtre/tampon;% rouges parmi expédiés;12.556;5.497;60
+tampon_90h_charge90;C · Fenêtre/tampon;Encours moyen atelier (OF);5.443;0.721;60
+tampon_90h_charge90;C · Fenêtre/tampon;Encours total carnet+atelier (OF);10.533;0.793;60
+tampon_90h_charge90;C · Fenêtre/tampon;Carnet moyen (OF);5.091;0.131;60
+tampon_90h_charge90;C · Fenêtre/tampon;Débit (OF/h);0.158;0.003;60
+tampon_90h_charge90;C · Fenêtre/tampon;Traversée P50 (h);32.652;4.487;60
+tampon_90h_charge90;C · Fenêtre/tampon;Traversée P90 (h);55.361;5.476;60
+tampon_90h_charge90;C · Fenêtre/tampon;Délai client P50 (h);63.805;4.166;60
+tampon_90h_charge90;C · Fenêtre/tampon;Délai client P90 (h);106.531;5.112;60
+tampon_90h_charge90;C · Fenêtre/tampon;Part du touch dans le délai client P50 (%);15.69;0.862;60
+tampon_90h_charge90;C · Fenêtre/tampon;% expédiés dans le 1er 1/3 du tampon;53.194;6.379;60
+tampon_90h_charge90;C · Fenêtre/tampon;% expédiés dans les 2/3 du tampon;87.444;5.497;60
+tampon_90h_charge90;C · Fenêtre/tampon;Charge offerte Préparation (%);36.734;0.795;60
+tampon_90h_charge90;C · Fenêtre/tampon;Charge offerte Usinage (%);94.265;1.998;60
+tampon_90h_charge90;C · Fenêtre/tampon;Charge offerte Finition (%);40.77;0.876;60
+tampon_90h_charge90;C · Fenêtre/tampon;Occupation Préparation (%);36.593;0.919;60
+tampon_90h_charge90;C · Fenêtre/tampon;Occupation Usinage (%);91.224;1.657;60
+tampon_90h_charge90;C · Fenêtre/tampon;Occupation Finition (%);39.568;0.789;60
+tampon_90h_charge90;C · Fenêtre/tampon;File moyenne Préparation (OF);0.102;0.01;60
+tampon_90h_charge90;C · Fenêtre/tampon;File moyenne Usinage (OF);3.664;0.692;60
+tampon_90h_charge90;C · Fenêtre/tampon;File moyenne Finition (OF);0;0;60
+tampon_90h_charge90;Fenêtre/FIFO (référence);OTD promis (%);96.806;4.051;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);Service demandé (%);96.445;4.261;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);% rouges parmi expédiés;12.556;8.013;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);Encours moyen atelier (OF);5.449;1.05;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);Encours total carnet+atelier (OF);10.54;1.155;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);Carnet moyen (OF);5.09;0.191;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);Débit (OF/h);0.158;0.004;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);Traversée P50 (h);32.741;6.529;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);Traversée P90 (h);55.467;7.957;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);Délai client P50 (h);63.839;6.069;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);Délai client P90 (h);106.597;7.45;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);Part du touch dans le délai client P50 (%);15.68;1.256;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);% expédiés dans le 1er 1/3 du tampon;53.166;9.287;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);% expédiés dans les 2/3 du tampon;87.444;8.013;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);Charge offerte Préparation (%);36.734;1.159;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);Charge offerte Usinage (%);94.265;2.912;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);Charge offerte Finition (%);40.77;1.278;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);Occupation Préparation (%);36.593;1.335;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);Occupation Usinage (%);91.241;2.411;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);Occupation Finition (%);39.572;1.147;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);File moyenne Préparation (OF);0.102;0.014;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);File moyenne Usinage (OF);3.67;1.008;30
+tampon_90h_charge90;Fenêtre/FIFO (référence);File moyenne Finition (OF);0;0;30
+tampon_90h_charge90;A · Immédiat/FIFO;OTD promis (%);98.916;1.545;30
+tampon_90h_charge90;A · Immédiat/FIFO;Service demandé (%);98.694;1.688;30
+tampon_90h_charge90;A · Immédiat/FIFO;% rouges parmi expédiés;4.472;3.693;30
+tampon_90h_charge90;A · Immédiat/FIFO;Encours moyen atelier (OF);5.39;1.014;30
+tampon_90h_charge90;A · Immédiat/FIFO;Encours total carnet+atelier (OF);5.39;1.014;30
+tampon_90h_charge90;A · Immédiat/FIFO;Carnet moyen (OF);0;0;30
+tampon_90h_charge90;A · Immédiat/FIFO;Débit (OF/h);0.158;0.004;30
+tampon_90h_charge90;A · Immédiat/FIFO;Traversée P50 (h);31.428;6.239;30
+tampon_90h_charge90;A · Immédiat/FIFO;Traversée P90 (h);54.546;7.416;30
+tampon_90h_charge90;A · Immédiat/FIFO;Délai client P50 (h);31.428;6.239;30
+tampon_90h_charge90;A · Immédiat/FIFO;Délai client P90 (h);54.546;7.416;30
+tampon_90h_charge90;A · Immédiat/FIFO;Part du touch dans le délai client P50 (%);35.747;4.523;30
+tampon_90h_charge90;A · Immédiat/FIFO;% expédiés dans le 1er 1/3 du tampon;54.222;8.596;30
+tampon_90h_charge90;A · Immédiat/FIFO;% expédiés dans les 2/3 du tampon;88.556;7.412;30
+tampon_90h_charge90;A · Immédiat/FIFO;Charge offerte Préparation (%);36.734;1.159;30
+tampon_90h_charge90;A · Immédiat/FIFO;Charge offerte Usinage (%);94.265;2.912;30
+tampon_90h_charge90;A · Immédiat/FIFO;Charge offerte Finition (%);40.77;1.278;30
+tampon_90h_charge90;A · Immédiat/FIFO;Occupation Préparation (%);36.496;1.164;30
+tampon_90h_charge90;A · Immédiat/FIFO;Occupation Usinage (%);91.09;2.398;30
+tampon_90h_charge90;A · Immédiat/FIFO;Occupation Finition (%);39.393;1.066;30
+tampon_90h_charge90;A · Immédiat/FIFO;File moyenne Préparation (OF);0.119;0.014;30
+tampon_90h_charge90;A · Immédiat/FIFO;File moyenne Usinage (OF);3.601;0.973;30
+tampon_90h_charge90;A · Immédiat/FIFO;File moyenne Finition (OF);0;0;30
+tampon_90h_charge90;B · Fenêtre/FIFO;OTD promis (%);96.806;4.051;30
+tampon_90h_charge90;B · Fenêtre/FIFO;Service demandé (%);96.445;4.261;30
+tampon_90h_charge90;B · Fenêtre/FIFO;% rouges parmi expédiés;12.556;8.013;30
+tampon_90h_charge90;B · Fenêtre/FIFO;Encours moyen atelier (OF);5.449;1.05;30
+tampon_90h_charge90;B · Fenêtre/FIFO;Encours total carnet+atelier (OF);10.54;1.155;30
+tampon_90h_charge90;B · Fenêtre/FIFO;Carnet moyen (OF);5.09;0.191;30
+tampon_90h_charge90;B · Fenêtre/FIFO;Débit (OF/h);0.158;0.004;30
+tampon_90h_charge90;B · Fenêtre/FIFO;Traversée P50 (h);32.741;6.529;30
+tampon_90h_charge90;B · Fenêtre/FIFO;Traversée P90 (h);55.467;7.957;30
+tampon_90h_charge90;B · Fenêtre/FIFO;Délai client P50 (h);63.839;6.069;30
+tampon_90h_charge90;B · Fenêtre/FIFO;Délai client P90 (h);106.597;7.45;30
+tampon_90h_charge90;B · Fenêtre/FIFO;Part du touch dans le délai client P50 (%);15.68;1.256;30
+tampon_90h_charge90;B · Fenêtre/FIFO;% expédiés dans le 1er 1/3 du tampon;53.166;9.287;30
+tampon_90h_charge90;B · Fenêtre/FIFO;% expédiés dans les 2/3 du tampon;87.444;8.013;30
+tampon_90h_charge90;B · Fenêtre/FIFO;Charge offerte Préparation (%);36.734;1.159;30
+tampon_90h_charge90;B · Fenêtre/FIFO;Charge offerte Usinage (%);94.265;2.912;30
+tampon_90h_charge90;B · Fenêtre/FIFO;Charge offerte Finition (%);40.77;1.278;30
+tampon_90h_charge90;B · Fenêtre/FIFO;Occupation Préparation (%);36.593;1.335;30
+tampon_90h_charge90;B · Fenêtre/FIFO;Occupation Usinage (%);91.241;2.411;30
+tampon_90h_charge90;B · Fenêtre/FIFO;Occupation Finition (%);39.572;1.147;30
+tampon_90h_charge90;B · Fenêtre/FIFO;File moyenne Préparation (OF);0.102;0.014;30
+tampon_90h_charge90;B · Fenêtre/FIFO;File moyenne Usinage (OF);3.67;1.008;30
+tampon_90h_charge90;B · Fenêtre/FIFO;File moyenne Finition (OF);0;0;30
+tampon_120h_charge90;C · Fenêtre/tampon;OTD promis (%);99.889;0.156;60
+tampon_120h_charge90;C · Fenêtre/tampon;Service demandé (%);98.306;1.352;60
+tampon_120h_charge90;C · Fenêtre/tampon;% rouges parmi expédiés;4.722;3.645;60
+tampon_120h_charge90;C · Fenêtre/tampon;Encours moyen atelier (OF);5.426;0.722;60
+tampon_120h_charge90;C · Fenêtre/tampon;Encours total carnet+atelier (OF);7.337;0.744;60
+tampon_120h_charge90;C · Fenêtre/tampon;Carnet moyen (OF);1.911;0.065;60
+tampon_120h_charge90;C · Fenêtre/tampon;Débit (OF/h);0.157;0.003;60
+tampon_120h_charge90;C · Fenêtre/tampon;Traversée P50 (h);32.352;4.48;60
+tampon_120h_charge90;C · Fenêtre/tampon;Traversée P90 (h);54.478;5.213;60
+tampon_120h_charge90;C · Fenêtre/tampon;Délai client P50 (h);43.133;4.384;60
+tampon_120h_charge90;C · Fenêtre/tampon;Délai client P90 (h);75.975;4.722;60
+tampon_120h_charge90;C · Fenêtre/tampon;Part du touch dans le délai client P50 (%);24.61;1.878;60
+tampon_120h_charge90;C · Fenêtre/tampon;% expédiés dans le 1er 1/3 du tampon;68.332;6.737;60
+tampon_120h_charge90;C · Fenêtre/tampon;% expédiés dans les 2/3 du tampon;95.278;3.645;60
+tampon_120h_charge90;C · Fenêtre/tampon;Charge offerte Préparation (%);36.734;0.795;60
+tampon_120h_charge90;C · Fenêtre/tampon;Charge offerte Usinage (%);94.265;1.998;60
+tampon_120h_charge90;C · Fenêtre/tampon;Charge offerte Finition (%);40.77;0.876;60
+tampon_120h_charge90;C · Fenêtre/tampon;Occupation Préparation (%);36.463;0.8;60
+tampon_120h_charge90;C · Fenêtre/tampon;Occupation Usinage (%);91.027;1.561;60
+tampon_120h_charge90;C · Fenêtre/tampon;Occupation Finition (%);39.451;0.727;60
+tampon_120h_charge90;C · Fenêtre/tampon;File moyenne Préparation (OF);0.12;0.012;60
+tampon_120h_charge90;C · Fenêtre/tampon;File moyenne Usinage (OF);3.63;0.692;60
+tampon_120h_charge90;C · Fenêtre/tampon;File moyenne Finition (OF);0;0;60
+tampon_120h_charge90;Fenêtre/FIFO (référence);OTD promis (%);99.889;0.227;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);Service demandé (%);98.306;1.971;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);% rouges parmi expédiés;4.722;5.314;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);Encours moyen atelier (OF);5.435;1.056;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);Encours total carnet+atelier (OF);7.346;1.088;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);Carnet moyen (OF);1.911;0.095;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);Débit (OF/h);0.157;0.004;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);Traversée P50 (h);32.398;6.562;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);Traversée P90 (h);54.513;7.631;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);Délai client P50 (h);43.177;6.414;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);Délai client P90 (h);75.923;6.94;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);Part du touch dans le délai client P50 (%);24.62;2.761;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);% expédiés dans le 1er 1/3 du tampon;68.221;9.881;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);% expédiés dans les 2/3 du tampon;95.278;5.314;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);Charge offerte Préparation (%);36.734;1.159;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);Charge offerte Usinage (%);94.265;2.912;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);Charge offerte Finition (%);40.77;1.278;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);Occupation Préparation (%);36.465;1.174;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);Occupation Usinage (%);91.019;2.281;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);Occupation Finition (%);39.453;1.068;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);File moyenne Préparation (OF);0.12;0.018;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);File moyenne Usinage (OF);3.638;1.012;30
+tampon_120h_charge90;Fenêtre/FIFO (référence);File moyenne Finition (OF);0;0;30
+tampon_120h_charge90;A · Immédiat/FIFO;OTD promis (%);99.972;0.057;30
+tampon_120h_charge90;A · Immédiat/FIFO;Service demandé (%);98.694;1.688;30
+tampon_120h_charge90;A · Immédiat/FIFO;% rouges parmi expédiés;2.833;3.679;30
+tampon_120h_charge90;A · Immédiat/FIFO;Encours moyen atelier (OF);5.39;1.014;30
+tampon_120h_charge90;A · Immédiat/FIFO;Encours total carnet+atelier (OF);5.39;1.014;30
+tampon_120h_charge90;A · Immédiat/FIFO;Carnet moyen (OF);0;0;30
+tampon_120h_charge90;A · Immédiat/FIFO;Débit (OF/h);0.158;0.004;30
+tampon_120h_charge90;A · Immédiat/FIFO;Traversée P50 (h);31.428;6.239;30
+tampon_120h_charge90;A · Immédiat/FIFO;Traversée P90 (h);54.546;7.416;30
+tampon_120h_charge90;A · Immédiat/FIFO;Délai client P50 (h);31.428;6.239;30
+tampon_120h_charge90;A · Immédiat/FIFO;Délai client P90 (h);54.546;7.416;30
+tampon_120h_charge90;A · Immédiat/FIFO;Part du touch dans le délai client P50 (%);35.747;4.523;30
+tampon_120h_charge90;A · Immédiat/FIFO;% expédiés dans le 1er 1/3 du tampon;69.722;9.529;30
+tampon_120h_charge90;A · Immédiat/FIFO;% expédiés dans les 2/3 du tampon;95.778;4.707;30
+tampon_120h_charge90;A · Immédiat/FIFO;Charge offerte Préparation (%);36.734;1.159;30
+tampon_120h_charge90;A · Immédiat/FIFO;Charge offerte Usinage (%);94.265;2.912;30
+tampon_120h_charge90;A · Immédiat/FIFO;Charge offerte Finition (%);40.77;1.278;30
+tampon_120h_charge90;A · Immédiat/FIFO;Occupation Préparation (%);36.496;1.164;30
+tampon_120h_charge90;A · Immédiat/FIFO;Occupation Usinage (%);91.09;2.398;30
+tampon_120h_charge90;A · Immédiat/FIFO;Occupation Finition (%);39.393;1.066;30
+tampon_120h_charge90;A · Immédiat/FIFO;File moyenne Préparation (OF);0.119;0.014;30
+tampon_120h_charge90;A · Immédiat/FIFO;File moyenne Usinage (OF);3.601;0.973;30
+tampon_120h_charge90;A · Immédiat/FIFO;File moyenne Finition (OF);0;0;30
+tampon_120h_charge90;B · Fenêtre/FIFO;OTD promis (%);99.889;0.227;30
+tampon_120h_charge90;B · Fenêtre/FIFO;Service demandé (%);98.306;1.971;30
+tampon_120h_charge90;B · Fenêtre/FIFO;% rouges parmi expédiés;4.722;5.314;30
+tampon_120h_charge90;B · Fenêtre/FIFO;Encours moyen atelier (OF);5.435;1.056;30
+tampon_120h_charge90;B · Fenêtre/FIFO;Encours total carnet+atelier (OF);7.346;1.088;30
+tampon_120h_charge90;B · Fenêtre/FIFO;Carnet moyen (OF);1.911;0.095;30
+tampon_120h_charge90;B · Fenêtre/FIFO;Débit (OF/h);0.157;0.004;30
+tampon_120h_charge90;B · Fenêtre/FIFO;Traversée P50 (h);32.398;6.562;30
+tampon_120h_charge90;B · Fenêtre/FIFO;Traversée P90 (h);54.513;7.631;30
+tampon_120h_charge90;B · Fenêtre/FIFO;Délai client P50 (h);43.177;6.414;30
+tampon_120h_charge90;B · Fenêtre/FIFO;Délai client P90 (h);75.923;6.94;30
+tampon_120h_charge90;B · Fenêtre/FIFO;Part du touch dans le délai client P50 (%);24.62;2.761;30
+tampon_120h_charge90;B · Fenêtre/FIFO;% expédiés dans le 1er 1/3 du tampon;68.221;9.881;30
+tampon_120h_charge90;B · Fenêtre/FIFO;% expédiés dans les 2/3 du tampon;95.278;5.314;30
+tampon_120h_charge90;B · Fenêtre/FIFO;Charge offerte Préparation (%);36.734;1.159;30
+tampon_120h_charge90;B · Fenêtre/FIFO;Charge offerte Usinage (%);94.265;2.912;30
+tampon_120h_charge90;B · Fenêtre/FIFO;Charge offerte Finition (%);40.77;1.278;30
+tampon_120h_charge90;B · Fenêtre/FIFO;Occupation Préparation (%);36.465;1.174;30
+tampon_120h_charge90;B · Fenêtre/FIFO;Occupation Usinage (%);91.019;2.281;30
+tampon_120h_charge90;B · Fenêtre/FIFO;Occupation Finition (%);39.453;1.068;30
+tampon_120h_charge90;B · Fenêtre/FIFO;File moyenne Préparation (OF);0.12;0.018;30
+tampon_120h_charge90;B · Fenêtre/FIFO;File moyenne Usinage (OF);3.638;1.012;30
+tampon_120h_charge90;B · Fenêtre/FIFO;File moyenne Finition (OF);0;0;30
+tampon_150h_charge90;C · Fenêtre/tampon;OTD promis (%);100;0;60
+tampon_150h_charge90;C · Fenêtre/tampon;Service demandé (%);98.528;1.405;60
+tampon_150h_charge90;C · Fenêtre/tampon;% rouges parmi expédiés;1.806;2.043;60
+tampon_150h_charge90;C · Fenêtre/tampon;Encours moyen atelier (OF);5.446;0.721;60
+tampon_150h_charge90;C · Fenêtre/tampon;Encours total carnet+atelier (OF);5.715;0.729;60
+tampon_150h_charge90;C · Fenêtre/tampon;Carnet moyen (OF);0.269;0.018;60
+tampon_150h_charge90;C · Fenêtre/tampon;Débit (OF/h);0.158;0.003;60
+tampon_150h_charge90;C · Fenêtre/tampon;Traversée P50 (h);31.903;4.493;60
+tampon_150h_charge90;C · Fenêtre/tampon;Traversée P90 (h);54.583;5.242;60
+tampon_150h_charge90;C · Fenêtre/tampon;Délai client P50 (h);33.792;4.464;60
+tampon_150h_charge90;C · Fenêtre/tampon;Délai client P90 (h);56.819;5.243;60
+tampon_150h_charge90;C · Fenêtre/tampon;Part du touch dans le délai client P50 (%);33.107;2.921;60
+tampon_150h_charge90;C · Fenêtre/tampon;% expédiés dans le 1er 1/3 du tampon;81.445;6.007;60
+tampon_150h_charge90;C · Fenêtre/tampon;% expédiés dans les 2/3 du tampon;98.194;2.043;60
+tampon_150h_charge90;C · Fenêtre/tampon;Charge offerte Préparation (%);36.734;0.795;60
+tampon_150h_charge90;C · Fenêtre/tampon;Charge offerte Usinage (%);94.265;1.998;60
+tampon_150h_charge90;C · Fenêtre/tampon;Charge offerte Finition (%);40.77;0.876;60
+tampon_150h_charge90;C · Fenêtre/tampon;Occupation Préparation (%);36.671;0.829;60
+tampon_150h_charge90;C · Fenêtre/tampon;Occupation Usinage (%);91.315;1.614;60
+tampon_150h_charge90;C · Fenêtre/tampon;Occupation Finition (%);39.668;0.734;60
+tampon_150h_charge90;C · Fenêtre/tampon;File moyenne Préparation (OF);0.118;0.01;60
+tampon_150h_charge90;C · Fenêtre/tampon;File moyenne Usinage (OF);3.636;0.692;60
+tampon_150h_charge90;C · Fenêtre/tampon;File moyenne Finition (OF);0;0;60
+tampon_150h_charge90;Fenêtre/FIFO (référence);OTD promis (%);100;0;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);Service demandé (%);98.584;1.948;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);% rouges parmi expédiés;1.722;2.814;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);Encours moyen atelier (OF);5.431;1.036;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);Encours total carnet+atelier (OF);5.7;1.049;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);Carnet moyen (OF);0.269;0.026;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);Débit (OF/h);0.158;0.004;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);Traversée P50 (h);31.797;6.464;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);Traversée P90 (h);54.517;7.562;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);Délai client P50 (h);33.719;6.416;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);Délai client P90 (h);56.739;7.567;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);Part du touch dans le délai client P50 (%);33.133;4.26;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);% expédiés dans le 1er 1/3 du tampon;81.555;8.707;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);% expédiés dans les 2/3 du tampon;98.278;2.814;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);Charge offerte Préparation (%);36.734;1.159;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);Charge offerte Usinage (%);94.265;2.912;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);Charge offerte Finition (%);40.77;1.278;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);Occupation Préparation (%);36.665;1.21;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);Occupation Usinage (%);91.3;2.356;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);Occupation Finition (%);39.644;1.065;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);File moyenne Préparation (OF);0.118;0.014;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);File moyenne Usinage (OF);3.622;0.995;30
+tampon_150h_charge90;Fenêtre/FIFO (référence);File moyenne Finition (OF);0;0;30
+tampon_150h_charge90;A · Immédiat/FIFO;OTD promis (%);100;0;30
+tampon_150h_charge90;A · Immédiat/FIFO;Service demandé (%);98.694;1.688;30
+tampon_150h_charge90;A · Immédiat/FIFO;% rouges parmi expédiés;1.333;2.341;30
+tampon_150h_charge90;A · Immédiat/FIFO;Encours moyen atelier (OF);5.39;1.014;30
+tampon_150h_charge90;A · Immédiat/FIFO;Encours total carnet+atelier (OF);5.39;1.014;30
+tampon_150h_charge90;A · Immédiat/FIFO;Carnet moyen (OF);0;0;30
+tampon_150h_charge90;A · Immédiat/FIFO;Débit (OF/h);0.158;0.004;30
+tampon_150h_charge90;A · Immédiat/FIFO;Traversée P50 (h);31.428;6.239;30
+tampon_150h_charge90;A · Immédiat/FIFO;Traversée P90 (h);54.546;7.416;30
+tampon_150h_charge90;A · Immédiat/FIFO;Délai client P50 (h);31.428;6.239;30
+tampon_150h_charge90;A · Immédiat/FIFO;Délai client P90 (h);54.546;7.416;30
+tampon_150h_charge90;A · Immédiat/FIFO;Part du touch dans le délai client P50 (%);35.747;4.523;30
+tampon_150h_charge90;A · Immédiat/FIFO;% expédiés dans le 1er 1/3 du tampon;81.889;8.7;30
+tampon_150h_charge90;A · Immédiat/FIFO;% expédiés dans les 2/3 du tampon;98.556;2.468;30
+tampon_150h_charge90;A · Immédiat/FIFO;Charge offerte Préparation (%);36.734;1.159;30
+tampon_150h_charge90;A · Immédiat/FIFO;Charge offerte Usinage (%);94.265;2.912;30
+tampon_150h_charge90;A · Immédiat/FIFO;Charge offerte Finition (%);40.77;1.278;30
+tampon_150h_charge90;A · Immédiat/FIFO;Occupation Préparation (%);36.496;1.164;30
+tampon_150h_charge90;A · Immédiat/FIFO;Occupation Usinage (%);91.09;2.398;30
+tampon_150h_charge90;A · Immédiat/FIFO;Occupation Finition (%);39.393;1.066;30
+tampon_150h_charge90;A · Immédiat/FIFO;File moyenne Préparation (OF);0.119;0.014;30
+tampon_150h_charge90;A · Immédiat/FIFO;File moyenne Usinage (OF);3.601;0.973;30
+tampon_150h_charge90;A · Immédiat/FIFO;File moyenne Finition (OF);0;0;30
+tampon_150h_charge90;B · Fenêtre/FIFO;OTD promis (%);100;0;30
+tampon_150h_charge90;B · Fenêtre/FIFO;Service demandé (%);98.584;1.948;30
+tampon_150h_charge90;B · Fenêtre/FIFO;% rouges parmi expédiés;1.722;2.814;30
+tampon_150h_charge90;B · Fenêtre/FIFO;Encours moyen atelier (OF);5.431;1.036;30
+tampon_150h_charge90;B · Fenêtre/FIFO;Encours total carnet+atelier (OF);5.7;1.049;30
+tampon_150h_charge90;B · Fenêtre/FIFO;Carnet moyen (OF);0.269;0.026;30
+tampon_150h_charge90;B · Fenêtre/FIFO;Débit (OF/h);0.158;0.004;30
+tampon_150h_charge90;B · Fenêtre/FIFO;Traversée P50 (h);31.797;6.464;30
+tampon_150h_charge90;B · Fenêtre/FIFO;Traversée P90 (h);54.517;7.562;30
+tampon_150h_charge90;B · Fenêtre/FIFO;Délai client P50 (h);33.719;6.416;30
+tampon_150h_charge90;B · Fenêtre/FIFO;Délai client P90 (h);56.739;7.567;30
+tampon_150h_charge90;B · Fenêtre/FIFO;Part du touch dans le délai client P50 (%);33.133;4.26;30
+tampon_150h_charge90;B · Fenêtre/FIFO;% expédiés dans le 1er 1/3 du tampon;81.555;8.707;30
+tampon_150h_charge90;B · Fenêtre/FIFO;% expédiés dans les 2/3 du tampon;98.278;2.814;30
+tampon_150h_charge90;B · Fenêtre/FIFO;Charge offerte Préparation (%);36.734;1.159;30
+tampon_150h_charge90;B · Fenêtre/FIFO;Charge offerte Usinage (%);94.265;2.912;30
+tampon_150h_charge90;B · Fenêtre/FIFO;Charge offerte Finition (%);40.77;1.278;30
+tampon_150h_charge90;B · Fenêtre/FIFO;Occupation Préparation (%);36.665;1.21;30
+tampon_150h_charge90;B · Fenêtre/FIFO;Occupation Usinage (%);91.3;2.356;30
+tampon_150h_charge90;B · Fenêtre/FIFO;Occupation Finition (%);39.644;1.065;30
+tampon_150h_charge90;B · Fenêtre/FIFO;File moyenne Préparation (OF);0.118;0.014;30
+tampon_150h_charge90;B · Fenêtre/FIFO;File moyenne Usinage (OF);3.622;0.995;30
+tampon_150h_charge90;B · Fenêtre/FIFO;File moyenne Finition (OF);0;0;30
+tampon_180h_charge90;C · Fenêtre/tampon;OTD promis (%);100;0;60
+tampon_180h_charge90;C · Fenêtre/tampon;Service demandé (%);98.667;1.156;60
+tampon_180h_charge90;C · Fenêtre/tampon;% rouges parmi expédiés;0.139;0.195;60
+tampon_180h_charge90;C · Fenêtre/tampon;Encours moyen atelier (OF);5.47;0.7;60
+tampon_180h_charge90;C · Fenêtre/tampon;Encours total carnet+atelier (OF);5.47;0.7;60
+tampon_180h_charge90;C · Fenêtre/tampon;Carnet moyen (OF);0;0;60
+tampon_180h_charge90;C · Fenêtre/tampon;Débit (OF/h);0.158;0.003;60
+tampon_180h_charge90;C · Fenêtre/tampon;Traversée P50 (h);31.88;4.298;60
+tampon_180h_charge90;C · Fenêtre/tampon;Traversée P90 (h);54.901;5.101;60
+tampon_180h_charge90;C · Fenêtre/tampon;Délai client P50 (h);31.88;4.298;60
+tampon_180h_charge90;C · Fenêtre/tampon;Délai client P90 (h);54.901;5.101;60
+tampon_180h_charge90;C · Fenêtre/tampon;Part du touch dans le délai client P50 (%);35.177;3.044;60
+tampon_180h_charge90;C · Fenêtre/tampon;% expédiés dans le 1er 1/3 du tampon;88.111;5.151;60
+tampon_180h_charge90;C · Fenêtre/tampon;% expédiés dans les 2/3 du tampon;99.861;0.195;60
+tampon_180h_charge90;C · Fenêtre/tampon;Charge offerte Préparation (%);36.734;0.795;60
+tampon_180h_charge90;C · Fenêtre/tampon;Charge offerte Usinage (%);94.265;1.998;60
+tampon_180h_charge90;C · Fenêtre/tampon;Charge offerte Finition (%);40.77;0.876;60
+tampon_180h_charge90;C · Fenêtre/tampon;Occupation Préparation (%);36.495;0.803;60
+tampon_180h_charge90;C · Fenêtre/tampon;Occupation Usinage (%);91.187;1.641;60
+tampon_180h_charge90;C · Fenêtre/tampon;Occupation Finition (%);39.48;0.729;60
+tampon_180h_charge90;C · Fenêtre/tampon;File moyenne Préparation (OF);0.122;0.01;60
+tampon_180h_charge90;C · Fenêtre/tampon;File moyenne Usinage (OF);3.654;0.673;60
+tampon_180h_charge90;C · Fenêtre/tampon;File moyenne Finition (OF);0;0;60
+tampon_180h_charge90;Fenêtre/FIFO (référence);OTD promis (%);100;0;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);Service demandé (%);98.667;1.686;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);% rouges parmi expédiés;0.139;0.284;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);Encours moyen atelier (OF);5.47;1.021;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);Encours total carnet+atelier (OF);5.47;1.021;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);Carnet moyen (OF);0;0;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);Débit (OF/h);0.158;0.004;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);Traversée P50 (h);31.88;6.266;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);Traversée P90 (h);54.901;7.436;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);Délai client P50 (h);31.88;6.266;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);Délai client P90 (h);54.901;7.436;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);Part du touch dans le délai client P50 (%);35.177;4.438;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);% expédiés dans le 1er 1/3 du tampon;88.111;7.51;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);% expédiés dans les 2/3 du tampon;99.861;0.284;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);Charge offerte Préparation (%);36.734;1.159;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);Charge offerte Usinage (%);94.265;2.912;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);Charge offerte Finition (%);40.77;1.278;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);Occupation Préparation (%);36.495;1.17;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);Occupation Usinage (%);91.187;2.393;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);Occupation Finition (%);39.48;1.063;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);File moyenne Préparation (OF);0.122;0.014;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);File moyenne Usinage (OF);3.654;0.981;30
+tampon_180h_charge90;Fenêtre/FIFO (référence);File moyenne Finition (OF);0;0;30
+tampon_180h_charge90;A · Immédiat/FIFO;OTD promis (%);100;0;30
+tampon_180h_charge90;A · Immédiat/FIFO;Service demandé (%);98.694;1.688;30
+tampon_180h_charge90;A · Immédiat/FIFO;% rouges parmi expédiés;0.139;0.284;30
+tampon_180h_charge90;A · Immédiat/FIFO;Encours moyen atelier (OF);5.39;1.014;30
+tampon_180h_charge90;A · Immédiat/FIFO;Encours total carnet+atelier (OF);5.39;1.014;30
+tampon_180h_charge90;A · Immédiat/FIFO;Carnet moyen (OF);0;0;30
+tampon_180h_charge90;A · Immédiat/FIFO;Débit (OF/h);0.158;0.004;30
+tampon_180h_charge90;A · Immédiat/FIFO;Traversée P50 (h);31.428;6.239;30
+tampon_180h_charge90;A · Immédiat/FIFO;Traversée P90 (h);54.546;7.416;30
+tampon_180h_charge90;A · Immédiat/FIFO;Délai client P50 (h);31.428;6.239;30
+tampon_180h_charge90;A · Immédiat/FIFO;Délai client P90 (h);54.546;7.416;30
+tampon_180h_charge90;A · Immédiat/FIFO;Part du touch dans le délai client P50 (%);35.747;4.523;30
+tampon_180h_charge90;A · Immédiat/FIFO;% expédiés dans le 1er 1/3 du tampon;88.556;7.412;30
+tampon_180h_charge90;A · Immédiat/FIFO;% expédiés dans les 2/3 du tampon;99.861;0.284;30
+tampon_180h_charge90;A · Immédiat/FIFO;Charge offerte Préparation (%);36.734;1.159;30
+tampon_180h_charge90;A · Immédiat/FIFO;Charge offerte Usinage (%);94.265;2.912;30
+tampon_180h_charge90;A · Immédiat/FIFO;Charge offerte Finition (%);40.77;1.278;30
+tampon_180h_charge90;A · Immédiat/FIFO;Occupation Préparation (%);36.496;1.164;30
+tampon_180h_charge90;A · Immédiat/FIFO;Occupation Usinage (%);91.09;2.398;30
+tampon_180h_charge90;A · Immédiat/FIFO;Occupation Finition (%);39.393;1.066;30
+tampon_180h_charge90;A · Immédiat/FIFO;File moyenne Préparation (OF);0.119;0.014;30
+tampon_180h_charge90;A · Immédiat/FIFO;File moyenne Usinage (OF);3.601;0.973;30
+tampon_180h_charge90;A · Immédiat/FIFO;File moyenne Finition (OF);0;0;30
+tampon_180h_charge90;B · Fenêtre/FIFO;OTD promis (%);100;0;30
+tampon_180h_charge90;B · Fenêtre/FIFO;Service demandé (%);98.667;1.686;30
+tampon_180h_charge90;B · Fenêtre/FIFO;% rouges parmi expédiés;0.139;0.284;30
+tampon_180h_charge90;B · Fenêtre/FIFO;Encours moyen atelier (OF);5.47;1.021;30
+tampon_180h_charge90;B · Fenêtre/FIFO;Encours total carnet+atelier (OF);5.47;1.021;30
+tampon_180h_charge90;B · Fenêtre/FIFO;Carnet moyen (OF);0;0;30
+tampon_180h_charge90;B · Fenêtre/FIFO;Débit (OF/h);0.158;0.004;30
+tampon_180h_charge90;B · Fenêtre/FIFO;Traversée P50 (h);31.88;6.266;30
+tampon_180h_charge90;B · Fenêtre/FIFO;Traversée P90 (h);54.901;7.436;30
+tampon_180h_charge90;B · Fenêtre/FIFO;Délai client P50 (h);31.88;6.266;30
+tampon_180h_charge90;B · Fenêtre/FIFO;Délai client P90 (h);54.901;7.436;30
+tampon_180h_charge90;B · Fenêtre/FIFO;Part du touch dans le délai client P50 (%);35.177;4.438;30
+tampon_180h_charge90;B · Fenêtre/FIFO;% expédiés dans le 1er 1/3 du tampon;88.111;7.51;30
+tampon_180h_charge90;B · Fenêtre/FIFO;% expédiés dans les 2/3 du tampon;99.861;0.284;30
+tampon_180h_charge90;B · Fenêtre/FIFO;Charge offerte Préparation (%);36.734;1.159;30
+tampon_180h_charge90;B · Fenêtre/FIFO;Charge offerte Usinage (%);94.265;2.912;30
+tampon_180h_charge90;B · Fenêtre/FIFO;Charge offerte Finition (%);40.77;1.278;30
+tampon_180h_charge90;B · Fenêtre/FIFO;Occupation Préparation (%);36.495;1.17;30
+tampon_180h_charge90;B · Fenêtre/FIFO;Occupation Usinage (%);91.187;2.393;30
+tampon_180h_charge90;B · Fenêtre/FIFO;Occupation Finition (%);39.48;1.063;30
+tampon_180h_charge90;B · Fenêtre/FIFO;File moyenne Préparation (OF);0.122;0.014;30
+tampon_180h_charge90;B · Fenêtre/FIFO;File moyenne Usinage (OF);3.654;0.981;30
+tampon_180h_charge90;B · Fenêtre/FIFO;File moyenne Finition (OF);0;0;30
+poste_Préparation_90pct;C · Fenêtre/tampon;OTD promis (%);0.056;0.078;60
+poste_Préparation_90pct;C · Fenêtre/tampon;Service demandé (%);0.028;0.039;60
+poste_Préparation_90pct;C · Fenêtre/tampon;% rouges parmi expédiés;100;0;60
+poste_Préparation_90pct;C · Fenêtre/tampon;Encours moyen atelier (OF);61.223;2.037;60
+poste_Préparation_90pct;C · Fenêtre/tampon;Encours total carnet+atelier (OF);74.318;2.062;60
+poste_Préparation_90pct;C · Fenêtre/tampon;Carnet moyen (OF);13.095;0.309;60
+poste_Préparation_90pct;C · Fenêtre/tampon;Débit (OF/h);0.172;0.001;60
+poste_Préparation_90pct;C · Fenêtre/tampon;Traversée P50 (h);399.806;10.471;60
+poste_Préparation_90pct;C · Fenêtre/tampon;Traversée P90 (h);555.565;10.79;60
+poste_Préparation_90pct;C · Fenêtre/tampon;Délai client P50 (h);431.113;10.824;60
+poste_Préparation_90pct;C · Fenêtre/tampon;Délai client P90 (h);601.235;11.027;60
+poste_Préparation_90pct;C · Fenêtre/tampon;Part du touch dans le délai client P50 (%);2.22;0.057;60
+poste_Préparation_90pct;C · Fenêtre/tampon;% expédiés dans le 1er 1/3 du tampon;0;0;60
+poste_Préparation_90pct;C · Fenêtre/tampon;% expédiés dans les 2/3 du tampon;0;0;60
+poste_Préparation_90pct;C · Fenêtre/tampon;Charge offerte Préparation (%);93.655;2.203;60
+poste_Préparation_90pct;C · Fenêtre/tampon;Charge offerte Usinage (%);239.143;5.479;60
+poste_Préparation_90pct;C · Fenêtre/tampon;Charge offerte Finition (%);103.675;2.464;60
+poste_Préparation_90pct;C · Fenêtre/tampon;Occupation Préparation (%);91.308;1.728;60
+poste_Préparation_90pct;C · Fenêtre/tampon;Occupation Usinage (%);100;0;60
+poste_Préparation_90pct;C · Fenêtre/tampon;Occupation Finition (%);43.103;0.399;60
+poste_Préparation_90pct;C · Fenêtre/tampon;File moyenne Préparation (OF);4.427;0.792;60
+poste_Préparation_90pct;C · Fenêtre/tampon;File moyenne Usinage (OF);54.45;1.729;60
+poste_Préparation_90pct;C · Fenêtre/tampon;File moyenne Finition (OF);0;0;60
+poste_Préparation_90pct;Fenêtre/FIFO (référence);OTD promis (%);0.056;0.114;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);Service demandé (%);0.028;0.057;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);% rouges parmi expédiés;100;0;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);Encours moyen atelier (OF);61.208;2.969;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);Encours total carnet+atelier (OF);74.303;3.006;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);Carnet moyen (OF);13.095;0.451;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);Débit (OF/h);0.172;0.001;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);Traversée P50 (h);399.732;15.293;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);Traversée P90 (h);555.492;15.775;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);Délai client P50 (h);431.039;15.816;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);Délai client P90 (h);601.161;16.13;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);Part du touch dans le délai client P50 (%);2.22;0.083;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);% expédiés dans le 1er 1/3 du tampon;0;0;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);% expédiés dans les 2/3 du tampon;0;0;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);Charge offerte Préparation (%);93.655;3.212;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);Charge offerte Usinage (%);239.143;7.988;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);Charge offerte Finition (%);103.675;3.591;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);Occupation Préparation (%);91.287;2.531;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);Occupation Usinage (%);100;0;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);Occupation Finition (%);43.08;0.569;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);File moyenne Préparation (OF);4.444;1.159;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);File moyenne Usinage (OF);54.418;2.514;30
+poste_Préparation_90pct;Fenêtre/FIFO (référence);File moyenne Finition (OF);0;0;30
+poste_Préparation_90pct;A · Immédiat/FIFO;OTD promis (%);0;0;30
+poste_Préparation_90pct;A · Immédiat/FIFO;Service demandé (%);0;0;30
+poste_Préparation_90pct;A · Immédiat/FIFO;% rouges parmi expédiés;100;0;30
+poste_Préparation_90pct;A · Immédiat/FIFO;Encours moyen atelier (OF);71.903;2.883;30
+poste_Préparation_90pct;A · Immédiat/FIFO;Encours total carnet+atelier (OF);71.903;2.883;30
+poste_Préparation_90pct;A · Immédiat/FIFO;Carnet moyen (OF);0;0;30
+poste_Préparation_90pct;A · Immédiat/FIFO;Débit (OF/h);0.173;0.002;30
+poste_Préparation_90pct;A · Immédiat/FIFO;Traversée P50 (h);416.584;14.553;30
+poste_Préparation_90pct;A · Immédiat/FIFO;Traversée P90 (h);576.111;16.093;30
+poste_Préparation_90pct;A · Immédiat/FIFO;Délai client P50 (h);416.584;14.553;30
+poste_Préparation_90pct;A · Immédiat/FIFO;Délai client P90 (h);576.111;16.093;30
+poste_Préparation_90pct;A · Immédiat/FIFO;Part du touch dans le délai client P50 (%);2.297;0.078;30
+poste_Préparation_90pct;A · Immédiat/FIFO;% expédiés dans le 1er 1/3 du tampon;0;0;30
+poste_Préparation_90pct;A · Immédiat/FIFO;% expédiés dans les 2/3 du tampon;0;0;30
+poste_Préparation_90pct;A · Immédiat/FIFO;Charge offerte Préparation (%);93.655;3.212;30
+poste_Préparation_90pct;A · Immédiat/FIFO;Charge offerte Usinage (%);239.143;7.988;30
+poste_Préparation_90pct;A · Immédiat/FIFO;Charge offerte Finition (%);103.675;3.591;30
+poste_Préparation_90pct;A · Immédiat/FIFO;Occupation Préparation (%);91.428;2.338;30
+poste_Préparation_90pct;A · Immédiat/FIFO;Occupation Usinage (%);100;0;30
+poste_Préparation_90pct;A · Immédiat/FIFO;Occupation Finition (%);42.95;0.623;30
+poste_Préparation_90pct;A · Immédiat/FIFO;File moyenne Préparation (OF);4.282;0.995;30
+poste_Préparation_90pct;A · Immédiat/FIFO;File moyenne Usinage (OF);65.278;2.437;30
+poste_Préparation_90pct;A · Immédiat/FIFO;File moyenne Finition (OF);0;0;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;OTD promis (%);0.056;0.114;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;Service demandé (%);0.028;0.057;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;% rouges parmi expédiés;100;0;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;Encours moyen atelier (OF);61.208;2.969;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;Encours total carnet+atelier (OF);74.303;3.006;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;Carnet moyen (OF);13.095;0.451;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;Débit (OF/h);0.172;0.001;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;Traversée P50 (h);399.732;15.293;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;Traversée P90 (h);555.492;15.775;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;Délai client P50 (h);431.039;15.816;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;Délai client P90 (h);601.161;16.13;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;Part du touch dans le délai client P50 (%);2.22;0.083;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;% expédiés dans le 1er 1/3 du tampon;0;0;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;% expédiés dans les 2/3 du tampon;0;0;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;Charge offerte Préparation (%);93.655;3.212;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;Charge offerte Usinage (%);239.143;7.988;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;Charge offerte Finition (%);103.675;3.591;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;Occupation Préparation (%);91.287;2.531;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;Occupation Usinage (%);100;0;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;Occupation Finition (%);43.08;0.569;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;File moyenne Préparation (OF);4.444;1.159;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;File moyenne Usinage (OF);54.418;2.514;30
+poste_Préparation_90pct;B · Fenêtre/FIFO;File moyenne Finition (OF);0;0;30
+poste_Usinage_90pct;C · Fenêtre/tampon;OTD promis (%);96.806;2.779;60
+poste_Usinage_90pct;C · Fenêtre/tampon;Service demandé (%);96.445;2.923;60
+poste_Usinage_90pct;C · Fenêtre/tampon;% rouges parmi expédiés;12.556;5.497;60
+poste_Usinage_90pct;C · Fenêtre/tampon;Encours moyen atelier (OF);5.443;0.721;60
+poste_Usinage_90pct;C · Fenêtre/tampon;Encours total carnet+atelier (OF);10.533;0.793;60
+poste_Usinage_90pct;C · Fenêtre/tampon;Carnet moyen (OF);5.091;0.131;60
+poste_Usinage_90pct;C · Fenêtre/tampon;Débit (OF/h);0.158;0.003;60
+poste_Usinage_90pct;C · Fenêtre/tampon;Traversée P50 (h);32.652;4.487;60
+poste_Usinage_90pct;C · Fenêtre/tampon;Traversée P90 (h);55.361;5.476;60
+poste_Usinage_90pct;C · Fenêtre/tampon;Délai client P50 (h);63.805;4.166;60
+poste_Usinage_90pct;C · Fenêtre/tampon;Délai client P90 (h);106.531;5.112;60
+poste_Usinage_90pct;C · Fenêtre/tampon;Part du touch dans le délai client P50 (%);15.69;0.862;60
+poste_Usinage_90pct;C · Fenêtre/tampon;% expédiés dans le 1er 1/3 du tampon;53.194;6.379;60
+poste_Usinage_90pct;C · Fenêtre/tampon;% expédiés dans les 2/3 du tampon;87.444;5.497;60
+poste_Usinage_90pct;C · Fenêtre/tampon;Charge offerte Préparation (%);36.734;0.795;60
+poste_Usinage_90pct;C · Fenêtre/tampon;Charge offerte Usinage (%);94.265;1.998;60
+poste_Usinage_90pct;C · Fenêtre/tampon;Charge offerte Finition (%);40.77;0.876;60
+poste_Usinage_90pct;C · Fenêtre/tampon;Occupation Préparation (%);36.593;0.919;60
+poste_Usinage_90pct;C · Fenêtre/tampon;Occupation Usinage (%);91.224;1.657;60
+poste_Usinage_90pct;C · Fenêtre/tampon;Occupation Finition (%);39.568;0.789;60
+poste_Usinage_90pct;C · Fenêtre/tampon;File moyenne Préparation (OF);0.102;0.01;60
+poste_Usinage_90pct;C · Fenêtre/tampon;File moyenne Usinage (OF);3.664;0.692;60
+poste_Usinage_90pct;C · Fenêtre/tampon;File moyenne Finition (OF);0;0;60
+poste_Usinage_90pct;Fenêtre/FIFO (référence);OTD promis (%);96.806;4.051;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);Service demandé (%);96.445;4.261;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);% rouges parmi expédiés;12.556;8.013;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);Encours moyen atelier (OF);5.449;1.05;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);Encours total carnet+atelier (OF);10.54;1.155;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);Carnet moyen (OF);5.09;0.191;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);Débit (OF/h);0.158;0.004;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);Traversée P50 (h);32.741;6.529;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);Traversée P90 (h);55.467;7.957;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);Délai client P50 (h);63.839;6.069;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);Délai client P90 (h);106.597;7.45;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);Part du touch dans le délai client P50 (%);15.68;1.256;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);% expédiés dans le 1er 1/3 du tampon;53.166;9.287;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);% expédiés dans les 2/3 du tampon;87.444;8.013;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);Charge offerte Préparation (%);36.734;1.159;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);Charge offerte Usinage (%);94.265;2.912;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);Charge offerte Finition (%);40.77;1.278;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);Occupation Préparation (%);36.593;1.335;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);Occupation Usinage (%);91.241;2.411;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);Occupation Finition (%);39.572;1.147;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);File moyenne Préparation (OF);0.102;0.014;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);File moyenne Usinage (OF);3.67;1.008;30
+poste_Usinage_90pct;Fenêtre/FIFO (référence);File moyenne Finition (OF);0;0;30
+poste_Usinage_90pct;A · Immédiat/FIFO;OTD promis (%);98.916;1.545;30
+poste_Usinage_90pct;A · Immédiat/FIFO;Service demandé (%);98.694;1.688;30
+poste_Usinage_90pct;A · Immédiat/FIFO;% rouges parmi expédiés;4.472;3.693;30
+poste_Usinage_90pct;A · Immédiat/FIFO;Encours moyen atelier (OF);5.39;1.014;30
+poste_Usinage_90pct;A · Immédiat/FIFO;Encours total carnet+atelier (OF);5.39;1.014;30
+poste_Usinage_90pct;A · Immédiat/FIFO;Carnet moyen (OF);0;0;30
+poste_Usinage_90pct;A · Immédiat/FIFO;Débit (OF/h);0.158;0.004;30
+poste_Usinage_90pct;A · Immédiat/FIFO;Traversée P50 (h);31.428;6.239;30
+poste_Usinage_90pct;A · Immédiat/FIFO;Traversée P90 (h);54.546;7.416;30
+poste_Usinage_90pct;A · Immédiat/FIFO;Délai client P50 (h);31.428;6.239;30
+poste_Usinage_90pct;A · Immédiat/FIFO;Délai client P90 (h);54.546;7.416;30
+poste_Usinage_90pct;A · Immédiat/FIFO;Part du touch dans le délai client P50 (%);35.747;4.523;30
+poste_Usinage_90pct;A · Immédiat/FIFO;% expédiés dans le 1er 1/3 du tampon;54.222;8.596;30
+poste_Usinage_90pct;A · Immédiat/FIFO;% expédiés dans les 2/3 du tampon;88.556;7.412;30
+poste_Usinage_90pct;A · Immédiat/FIFO;Charge offerte Préparation (%);36.734;1.159;30
+poste_Usinage_90pct;A · Immédiat/FIFO;Charge offerte Usinage (%);94.265;2.912;30
+poste_Usinage_90pct;A · Immédiat/FIFO;Charge offerte Finition (%);40.77;1.278;30
+poste_Usinage_90pct;A · Immédiat/FIFO;Occupation Préparation (%);36.496;1.164;30
+poste_Usinage_90pct;A · Immédiat/FIFO;Occupation Usinage (%);91.09;2.398;30
+poste_Usinage_90pct;A · Immédiat/FIFO;Occupation Finition (%);39.393;1.066;30
+poste_Usinage_90pct;A · Immédiat/FIFO;File moyenne Préparation (OF);0.119;0.014;30
+poste_Usinage_90pct;A · Immédiat/FIFO;File moyenne Usinage (OF);3.601;0.973;30
+poste_Usinage_90pct;A · Immédiat/FIFO;File moyenne Finition (OF);0;0;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;OTD promis (%);96.806;4.051;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;Service demandé (%);96.445;4.261;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;% rouges parmi expédiés;12.556;8.013;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;Encours moyen atelier (OF);5.449;1.05;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;Encours total carnet+atelier (OF);10.54;1.155;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;Carnet moyen (OF);5.09;0.191;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;Débit (OF/h);0.158;0.004;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;Traversée P50 (h);32.741;6.529;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;Traversée P90 (h);55.467;7.957;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;Délai client P50 (h);63.839;6.069;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;Délai client P90 (h);106.597;7.45;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;Part du touch dans le délai client P50 (%);15.68;1.256;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;% expédiés dans le 1er 1/3 du tampon;53.166;9.287;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;% expédiés dans les 2/3 du tampon;87.444;8.013;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;Charge offerte Préparation (%);36.734;1.159;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;Charge offerte Usinage (%);94.265;2.912;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;Charge offerte Finition (%);40.77;1.278;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;Occupation Préparation (%);36.593;1.335;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;Occupation Usinage (%);91.241;2.411;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;Occupation Finition (%);39.572;1.147;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;File moyenne Préparation (OF);0.102;0.014;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;File moyenne Usinage (OF);3.67;1.008;30
+poste_Usinage_90pct;B · Fenêtre/FIFO;File moyenne Finition (OF);0;0;30
+poste_Finition_90pct;C · Fenêtre/tampon;OTD promis (%);0.222;0.216;60
+poste_Finition_90pct;C · Fenêtre/tampon;Service demandé (%);0.194;0.191;60
+poste_Finition_90pct;C · Fenêtre/tampon;% rouges parmi expédiés;100;0;60
+poste_Finition_90pct;C · Fenêtre/tampon;Encours moyen atelier (OF);53.626;1.835;60
+poste_Finition_90pct;C · Fenêtre/tampon;Encours total carnet+atelier (OF);65.428;1.881;60
+poste_Finition_90pct;C · Fenêtre/tampon;Carnet moyen (OF);11.803;0.278;60
+poste_Finition_90pct;C · Fenêtre/tampon;Débit (OF/h);0.173;0.001;60
+poste_Finition_90pct;C · Fenêtre/tampon;Traversée P50 (h);345.882;10.209;60
+poste_Finition_90pct;C · Fenêtre/tampon;Traversée P90 (h);489.243;9.992;60
+poste_Finition_90pct;C · Fenêtre/tampon;Délai client P50 (h);377.227;9.759;60
+poste_Finition_90pct;C · Fenêtre/tampon;Délai client P90 (h);532.703;10.574;60
+poste_Finition_90pct;C · Fenêtre/tampon;Part du touch dans le délai client P50 (%);2.563;0.067;60
+poste_Finition_90pct;C · Fenêtre/tampon;% expédiés dans le 1er 1/3 du tampon;0;0;60
+poste_Finition_90pct;C · Fenêtre/tampon;% expédiés dans les 2/3 du tampon;0;0;60
+poste_Finition_90pct;C · Fenêtre/tampon;Charge offerte Préparation (%);84.471;1.872;60
+poste_Finition_90pct;C · Fenêtre/tampon;Charge offerte Usinage (%);216.588;4.747;60
+poste_Finition_90pct;C · Fenêtre/tampon;Charge offerte Finition (%);93.751;2.103;60
+poste_Finition_90pct;C · Fenêtre/tampon;Occupation Préparation (%);83.528;1.714;60
+poste_Finition_90pct;C · Fenêtre/tampon;Occupation Usinage (%);100;0;60
+poste_Finition_90pct;C · Fenêtre/tampon;Occupation Finition (%);43.075;0.321;60
+poste_Finition_90pct;C · Fenêtre/tampon;File moyenne Préparation (OF);2.193;0.297;60
+poste_Finition_90pct;C · Fenêtre/tampon;File moyenne Usinage (OF);49.164;1.766;60
+poste_Finition_90pct;C · Fenêtre/tampon;File moyenne Finition (OF);0;0;60
+poste_Finition_90pct;Fenêtre/FIFO (référence);OTD promis (%);0.167;0.25;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);Service demandé (%);0.139;0.202;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);% rouges parmi expédiés;100;0;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);Encours moyen atelier (OF);53.627;2.665;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);Encours total carnet+atelier (OF);65.43;2.732;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);Carnet moyen (OF);11.803;0.405;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);Débit (OF/h);0.173;0.002;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);Traversée P50 (h);345.799;14.832;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);Traversée P90 (h);489.163;14.516;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);Délai client P50 (h);377.144;14.172;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);Délai client P90 (h);532.576;15.391;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);Part du touch dans le délai client P50 (%);2.557;0.094;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);% expédiés dans le 1er 1/3 du tampon;0;0;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);% expédiés dans les 2/3 du tampon;0;0;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);Charge offerte Préparation (%);84.471;2.728;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);Charge offerte Usinage (%);216.588;6.92;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);Charge offerte Finition (%);93.751;3.066;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);Occupation Préparation (%);83.485;2.486;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);Occupation Usinage (%);100;0;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);Occupation Finition (%);43.077;0.469;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);File moyenne Préparation (OF);2.173;0.423;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);File moyenne Usinage (OF);49.186;2.567;30
+poste_Finition_90pct;Fenêtre/FIFO (référence);File moyenne Finition (OF);0;0;30
+poste_Finition_90pct;A · Immédiat/FIFO;OTD promis (%);0.417;0.381;30
+poste_Finition_90pct;A · Immédiat/FIFO;Service demandé (%);0.417;0.381;30
+poste_Finition_90pct;A · Immédiat/FIFO;% rouges parmi expédiés;99.972;0.057;30
+poste_Finition_90pct;A · Immédiat/FIFO;Encours moyen atelier (OF);62.877;2.617;30
+poste_Finition_90pct;A · Immédiat/FIFO;Encours total carnet+atelier (OF);62.877;2.617;30
+poste_Finition_90pct;A · Immédiat/FIFO;Carnet moyen (OF);0;0;30
+poste_Finition_90pct;A · Immédiat/FIFO;Débit (OF/h);0.174;0.002;30
+poste_Finition_90pct;A · Immédiat/FIFO;Traversée P50 (h);362.791;14.111;30
+poste_Finition_90pct;A · Immédiat/FIFO;Traversée P90 (h);508.794;14.821;30
+poste_Finition_90pct;A · Immédiat/FIFO;Délai client P50 (h);362.791;14.111;30
+poste_Finition_90pct;A · Immédiat/FIFO;Délai client P90 (h);508.794;14.821;30
+poste_Finition_90pct;A · Immédiat/FIFO;Part du touch dans le délai client P50 (%);2.647;0.099;30
+poste_Finition_90pct;A · Immédiat/FIFO;% expédiés dans le 1er 1/3 du tampon;0;0;30
+poste_Finition_90pct;A · Immédiat/FIFO;% expédiés dans les 2/3 du tampon;0;0;30
+poste_Finition_90pct;A · Immédiat/FIFO;Charge offerte Préparation (%);84.471;2.728;30
+poste_Finition_90pct;A · Immédiat/FIFO;Charge offerte Usinage (%);216.588;6.92;30
+poste_Finition_90pct;A · Immédiat/FIFO;Charge offerte Finition (%);93.751;3.066;30
+poste_Finition_90pct;A · Immédiat/FIFO;Occupation Préparation (%);83.569;2.469;30
+poste_Finition_90pct;A · Immédiat/FIFO;Occupation Usinage (%);100;0;30
+poste_Finition_90pct;A · Immédiat/FIFO;Occupation Finition (%);42.948;0.524;30
+poste_Finition_90pct;A · Immédiat/FIFO;File moyenne Préparation (OF);2.172;0.468;30
+poste_Finition_90pct;A · Immédiat/FIFO;File moyenne Usinage (OF);58.44;2.508;30
+poste_Finition_90pct;A · Immédiat/FIFO;File moyenne Finition (OF);0;0;30
+poste_Finition_90pct;B · Fenêtre/FIFO;OTD promis (%);0.167;0.25;30
+poste_Finition_90pct;B · Fenêtre/FIFO;Service demandé (%);0.139;0.202;30
+poste_Finition_90pct;B · Fenêtre/FIFO;% rouges parmi expédiés;100;0;30
+poste_Finition_90pct;B · Fenêtre/FIFO;Encours moyen atelier (OF);53.627;2.665;30
+poste_Finition_90pct;B · Fenêtre/FIFO;Encours total carnet+atelier (OF);65.43;2.732;30
+poste_Finition_90pct;B · Fenêtre/FIFO;Carnet moyen (OF);11.803;0.405;30
+poste_Finition_90pct;B · Fenêtre/FIFO;Débit (OF/h);0.173;0.002;30
+poste_Finition_90pct;B · Fenêtre/FIFO;Traversée P50 (h);345.799;14.832;30
+poste_Finition_90pct;B · Fenêtre/FIFO;Traversée P90 (h);489.163;14.516;30
+poste_Finition_90pct;B · Fenêtre/FIFO;Délai client P50 (h);377.144;14.172;30
+poste_Finition_90pct;B · Fenêtre/FIFO;Délai client P90 (h);532.576;15.391;30
+poste_Finition_90pct;B · Fenêtre/FIFO;Part du touch dans le délai client P50 (%);2.557;0.094;30
+poste_Finition_90pct;B · Fenêtre/FIFO;% expédiés dans le 1er 1/3 du tampon;0;0;30
+poste_Finition_90pct;B · Fenêtre/FIFO;% expédiés dans les 2/3 du tampon;0;0;30
+poste_Finition_90pct;B · Fenêtre/FIFO;Charge offerte Préparation (%);84.471;2.728;30
+poste_Finition_90pct;B · Fenêtre/FIFO;Charge offerte Usinage (%);216.588;6.92;30
+poste_Finition_90pct;B · Fenêtre/FIFO;Charge offerte Finition (%);93.751;3.066;30
+poste_Finition_90pct;B · Fenêtre/FIFO;Occupation Préparation (%);83.485;2.486;30
+poste_Finition_90pct;B · Fenêtre/FIFO;Occupation Usinage (%);100;0;30
+poste_Finition_90pct;B · Fenêtre/FIFO;Occupation Finition (%);43.077;0.469;30
+poste_Finition_90pct;B · Fenêtre/FIFO;File moyenne Préparation (OF);2.173;0.423;30
+poste_Finition_90pct;B · Fenêtre/FIFO;File moyenne Usinage (OF);49.186;2.567;30
+poste_Finition_90pct;B · Fenêtre/FIFO;File moyenne Finition (OF);0;0;30
