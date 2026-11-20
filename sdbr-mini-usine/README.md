@@ -44,6 +44,7 @@ sdbr-mini-usine/
 ├── demande-a-20xw.md                                  ← résultats A : plateau 100 % dès 3×W, carnet → 0 à 30×W, pas de branche droite
 ├── scenario-lot-min-40xw.json                         ← protocole validé (NON lancé) : lot min 2/4/8/16, lead ≤ 40×W, fenêtres ≤ 45×W
 ├── protocole-lot-min-40xw.md                          ← demande améliorée + nouveautés moteur (minLotSize, familyCount, overCapacity, sizeFromWindow)
+├── lot-min-40xw.md                                    ← résultats lancés (10 graines) : branche gauche accentuée par minLot, encours ×5 à 45×W
 ├── scripts/
 │   ├── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
 │   ├── dashboard_u.py                                 ← tableau de bord du U (attention, OTD vs fenêtre)
@@ -62,6 +63,7 @@ sdbr-mini-usine/
     ├── u-20xw/                                        ← fenêtres 1–20×W × 4 variantes, pic 1,30 (CSV, u_otd.png)
     ├── u-fenetre-immediate/                           ← fenêtres 1–15×W × size 1/4/8/16, tampons finis (CSV, u_otd.png 4 panneaux)
     ├── demande-a-20xw/                                ← config A : lead [10,30]×W, fenêtres 2–35×W (CSV, u_otd.png)
+    ├── lot-min-40xw/                                  ← lot min 2/4/8/16, lead [10,40]×W, fenêtres 2–45×W, 10 graines (CSV, u_otd.png)
     ├── montecarlo_replications.csv                    ← 2700 lignes (30 réplications × 18 scénarios × 5 politiques)
     ├── montecarlo_summary.csv                         ← moyenne ± demi-IC95 par scénario × indicateur
     └── montecarlo_summary.md                          ← tableaux prêts à lire
@@ -393,3 +395,9 @@ familles (même gamme) ; `line.overCapacity: 1.25` (réguliers 5,4 h vs goulot 6
 CV 0,6 lognormal ; lead [10, 40]×W, fenêtres 2–45×W (45×W > lead max = lancement immédiat) ;
 pic ρ = 1,30 ; tampons 16. Variante `sizeFromWindow` : taille de lot = min(16, fenêtre/W) —
 plus la fenêtre est longue, plus on regroupe. Nouveautés moteur testées (51 tests OK).
+
+Résultats lancés (10 graines, ~4 min, [`lot-min-40xw.md`](lot-min-40xw.md)) : branche
+gauche accentuée par les lots minimum (OTD 0 % à 2–4 × W pour min ≥ 4, vs 57 % témoin),
+plateau 100 % dès 8–12 × W jusqu'à 45 × W (traversée max ≈ 6,3 × W < lead min 10 × W) —
+l'encours, lui, explose avec la fenêtre quand on attend les lots (23 → 49 OF à 45 × W,
+contre 28 pour le témoin) : la branche droite est là, en encours, pas en OTD.

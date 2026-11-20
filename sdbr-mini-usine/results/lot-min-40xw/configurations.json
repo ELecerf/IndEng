@@ -1,0 +1,942 @@
+{
+  "temoin_size1": {
+    "line": {
+      "stationCount": 10,
+      "bottleneckIndex": 4,
+      "familyCount": 4,
+      "bottleneckHours": [
+        5,
+        7
+      ],
+      "overCapacity": 1.25,
+      "regularSetupHours": 1,
+      "bottleneckSetupHours": 2,
+      "bufferCapacity": 16
+    },
+    "processingDistribution": "lognormal",
+    "processingCV": 0.6,
+    "dispatchRule": "due",
+    "size": 1,
+    "minLotSize": 1,
+    "transfer": 1,
+    "maxBatchWaitHours": 24,
+    "warmup": 400,
+    "seed": 42,
+    "replications": 10,
+    "phases": [
+      [
+        "creux",
+        480,
+        0.7
+      ],
+      [
+        "normal",
+        720,
+        0.95
+      ],
+      [
+        "pic",
+        480,
+        1.3
+      ],
+      [
+        "reprise",
+        720,
+        0.85
+      ]
+    ],
+    "stations": [
+      "poste_1",
+      "poste_2",
+      "poste_3",
+      "poste_4",
+      "poste_5",
+      "poste_6",
+      "poste_7",
+      "poste_8",
+      "poste_9",
+      "poste_10"
+    ],
+    "bottleneck": 4,
+    "processingHours": {
+      "F1": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.886866131200183,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ],
+      "F2": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        6.03827249089756,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ],
+      "F3": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.587319027167817,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ],
+      "F4": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.425851564279224,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ]
+    },
+    "setupHours": [
+      1,
+      1,
+      1,
+      1,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "capacity": [
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16
+    ],
+    "familyWeights": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "requestedLead": [
+      543.345773033862,
+      2173.383092135448
+    ],
+    "windows": [
+      108.669155,
+      217.338309,
+      434.676618,
+      652.014928,
+      869.353237,
+      1304.029855,
+      1630.037319,
+      2173.383092,
+      2445.055979
+    ],
+    "workContentHours": 54.334577,
+    "arrivalEnd": 4973.383092135447
+  },
+  "min2": {
+    "line": {
+      "stationCount": 10,
+      "bottleneckIndex": 4,
+      "familyCount": 4,
+      "bottleneckHours": [
+        5,
+        7
+      ],
+      "overCapacity": 1.25,
+      "regularSetupHours": 1,
+      "bottleneckSetupHours": 2,
+      "bufferCapacity": 16
+    },
+    "processingDistribution": "lognormal",
+    "processingCV": 0.6,
+    "dispatchRule": "family_fifo",
+    "size": 16,
+    "minLotSize": 2,
+    "transfer": 1,
+    "maxBatchWaitHours": 24,
+    "warmup": 400,
+    "seed": 42,
+    "replications": 10,
+    "phases": [
+      [
+        "creux",
+        480,
+        0.7
+      ],
+      [
+        "normal",
+        720,
+        0.95
+      ],
+      [
+        "pic",
+        480,
+        1.3
+      ],
+      [
+        "reprise",
+        720,
+        0.85
+      ]
+    ],
+    "stations": [
+      "poste_1",
+      "poste_2",
+      "poste_3",
+      "poste_4",
+      "poste_5",
+      "poste_6",
+      "poste_7",
+      "poste_8",
+      "poste_9",
+      "poste_10"
+    ],
+    "bottleneck": 4,
+    "processingHours": {
+      "F1": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.886866131200183,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ],
+      "F2": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        6.03827249089756,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ],
+      "F3": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.587319027167817,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ],
+      "F4": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.425851564279224,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ]
+    },
+    "setupHours": [
+      1,
+      1,
+      1,
+      1,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "capacity": [
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16
+    ],
+    "familyWeights": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "requestedLead": [
+      543.345773033862,
+      2173.383092135448
+    ],
+    "windows": [
+      108.669155,
+      217.338309,
+      434.676618,
+      652.014928,
+      869.353237,
+      1304.029855,
+      1630.037319,
+      2173.383092,
+      2445.055979
+    ],
+    "workContentHours": 54.334577,
+    "arrivalEnd": 4973.383092135447
+  },
+  "min4": {
+    "line": {
+      "stationCount": 10,
+      "bottleneckIndex": 4,
+      "familyCount": 4,
+      "bottleneckHours": [
+        5,
+        7
+      ],
+      "overCapacity": 1.25,
+      "regularSetupHours": 1,
+      "bottleneckSetupHours": 2,
+      "bufferCapacity": 16
+    },
+    "processingDistribution": "lognormal",
+    "processingCV": 0.6,
+    "dispatchRule": "family_fifo",
+    "size": 16,
+    "minLotSize": 4,
+    "transfer": 1,
+    "maxBatchWaitHours": 24,
+    "warmup": 400,
+    "seed": 42,
+    "replications": 10,
+    "phases": [
+      [
+        "creux",
+        480,
+        0.7
+      ],
+      [
+        "normal",
+        720,
+        0.95
+      ],
+      [
+        "pic",
+        480,
+        1.3
+      ],
+      [
+        "reprise",
+        720,
+        0.85
+      ]
+    ],
+    "stations": [
+      "poste_1",
+      "poste_2",
+      "poste_3",
+      "poste_4",
+      "poste_5",
+      "poste_6",
+      "poste_7",
+      "poste_8",
+      "poste_9",
+      "poste_10"
+    ],
+    "bottleneck": 4,
+    "processingHours": {
+      "F1": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.886866131200183,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ],
+      "F2": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        6.03827249089756,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ],
+      "F3": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.587319027167817,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ],
+      "F4": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.425851564279224,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ]
+    },
+    "setupHours": [
+      1,
+      1,
+      1,
+      1,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "capacity": [
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16
+    ],
+    "familyWeights": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "requestedLead": [
+      543.345773033862,
+      2173.383092135448
+    ],
+    "windows": [
+      108.669155,
+      217.338309,
+      434.676618,
+      652.014928,
+      869.353237,
+      1304.029855,
+      1630.037319,
+      2173.383092,
+      2445.055979
+    ],
+    "workContentHours": 54.334577,
+    "arrivalEnd": 4973.383092135447
+  },
+  "min8": {
+    "line": {
+      "stationCount": 10,
+      "bottleneckIndex": 4,
+      "familyCount": 4,
+      "bottleneckHours": [
+        5,
+        7
+      ],
+      "overCapacity": 1.25,
+      "regularSetupHours": 1,
+      "bottleneckSetupHours": 2,
+      "bufferCapacity": 16
+    },
+    "processingDistribution": "lognormal",
+    "processingCV": 0.6,
+    "dispatchRule": "family_fifo",
+    "size": 16,
+    "minLotSize": 8,
+    "transfer": 1,
+    "maxBatchWaitHours": 24,
+    "warmup": 400,
+    "seed": 42,
+    "replications": 10,
+    "phases": [
+      [
+        "creux",
+        480,
+        0.7
+      ],
+      [
+        "normal",
+        720,
+        0.95
+      ],
+      [
+        "pic",
+        480,
+        1.3
+      ],
+      [
+        "reprise",
+        720,
+        0.85
+      ]
+    ],
+    "stations": [
+      "poste_1",
+      "poste_2",
+      "poste_3",
+      "poste_4",
+      "poste_5",
+      "poste_6",
+      "poste_7",
+      "poste_8",
+      "poste_9",
+      "poste_10"
+    ],
+    "bottleneck": 4,
+    "processingHours": {
+      "F1": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.886866131200183,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ],
+      "F2": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        6.03827249089756,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ],
+      "F3": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.587319027167817,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ],
+      "F4": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.425851564279224,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ]
+    },
+    "setupHours": [
+      1,
+      1,
+      1,
+      1,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "capacity": [
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16
+    ],
+    "familyWeights": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "requestedLead": [
+      543.345773033862,
+      2173.383092135448
+    ],
+    "windows": [
+      108.669155,
+      217.338309,
+      434.676618,
+      652.014928,
+      869.353237,
+      1304.029855,
+      1630.037319,
+      2173.383092,
+      2445.055979
+    ],
+    "workContentHours": 54.334577,
+    "arrivalEnd": 4973.383092135447
+  },
+  "min16": {
+    "line": {
+      "stationCount": 10,
+      "bottleneckIndex": 4,
+      "familyCount": 4,
+      "bottleneckHours": [
+        5,
+        7
+      ],
+      "overCapacity": 1.25,
+      "regularSetupHours": 1,
+      "bottleneckSetupHours": 2,
+      "bufferCapacity": 16
+    },
+    "processingDistribution": "lognormal",
+    "processingCV": 0.6,
+    "dispatchRule": "family_fifo",
+    "size": 16,
+    "minLotSize": 16,
+    "transfer": 1,
+    "maxBatchWaitHours": 24,
+    "warmup": 400,
+    "seed": 42,
+    "replications": 10,
+    "phases": [
+      [
+        "creux",
+        480,
+        0.7
+      ],
+      [
+        "normal",
+        720,
+        0.95
+      ],
+      [
+        "pic",
+        480,
+        1.3
+      ],
+      [
+        "reprise",
+        720,
+        0.85
+      ]
+    ],
+    "stations": [
+      "poste_1",
+      "poste_2",
+      "poste_3",
+      "poste_4",
+      "poste_5",
+      "poste_6",
+      "poste_7",
+      "poste_8",
+      "poste_9",
+      "poste_10"
+    ],
+    "bottleneck": 4,
+    "processingHours": {
+      "F1": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.886866131200183,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ],
+      "F2": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        6.03827249089756,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ],
+      "F3": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.587319027167817,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ],
+      "F4": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.425851564279224,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ]
+    },
+    "setupHours": [
+      1,
+      1,
+      1,
+      1,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "capacity": [
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16
+    ],
+    "familyWeights": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "requestedLead": [
+      543.345773033862,
+      2173.383092135448
+    ],
+    "windows": [
+      108.669155,
+      217.338309,
+      434.676618,
+      652.014928,
+      869.353237,
+      1304.029855,
+      1630.037319,
+      2173.383092,
+      2445.055979
+    ],
+    "workContentHours": 54.334577,
+    "arrivalEnd": 4973.383092135447
+  },
+  "taille_liee_fenetre": {
+    "line": {
+      "stationCount": 10,
+      "bottleneckIndex": 4,
+      "familyCount": 4,
+      "bottleneckHours": [
+        5,
+        7
+      ],
+      "overCapacity": 1.25,
+      "regularSetupHours": 1,
+      "bottleneckSetupHours": 2,
+      "bufferCapacity": 16
+    },
+    "processingDistribution": "lognormal",
+    "processingCV": 0.6,
+    "dispatchRule": "family_fifo",
+    "size": 16,
+    "minLotSize": 1,
+    "transfer": 1,
+    "maxBatchWaitHours": 24,
+    "warmup": 400,
+    "seed": 42,
+    "replications": 10,
+    "phases": [
+      [
+        "creux",
+        480,
+        0.7
+      ],
+      [
+        "normal",
+        720,
+        0.95
+      ],
+      [
+        "pic",
+        480,
+        1.3
+      ],
+      [
+        "reprise",
+        720,
+        0.85
+      ]
+    ],
+    "sizeFromWindow": {
+      "coef": 1,
+      "max": 16
+    },
+    "stations": [
+      "poste_1",
+      "poste_2",
+      "poste_3",
+      "poste_4",
+      "poste_5",
+      "poste_6",
+      "poste_7",
+      "poste_8",
+      "poste_9",
+      "poste_10"
+    ],
+    "bottleneck": 4,
+    "processingHours": {
+      "F1": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.886866131200183,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ],
+      "F2": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        6.03827249089756,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ],
+      "F3": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.587319027167817,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ],
+      "F4": [
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.425851564279224,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        5.4
+      ]
+    },
+    "setupHours": [
+      1,
+      1,
+      1,
+      1,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "capacity": [
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16,
+      16
+    ],
+    "familyWeights": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "requestedLead": [
+      543.345773033862,
+      2173.383092135448
+    ],
+    "windows": [
+      108.669155,
+      217.338309,
+      434.676618,
+      652.014928,
+      869.353237,
+      1304.029855,
+      1630.037319,
+      2173.383092,
+      2445.055979
+    ],
+    "workContentHours": 54.334577,
+    "arrivalEnd": 4973.383092135447
+  }
+}

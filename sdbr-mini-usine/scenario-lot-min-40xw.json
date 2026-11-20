@@ -36,7 +36,7 @@
   "maxBatchWaitHours": 24,
   "warmup": 400,
   "seed": 42,
-  "replications": 20,
+  "replications": 10,
   "phases": [
     [
       "creux",
