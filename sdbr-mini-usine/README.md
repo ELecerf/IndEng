@@ -30,8 +30,12 @@ sdbr-mini-usine/
 ├── branche-droite-u.md                                ← branche droite du U (VA ≈ 1 % du lead)
 ├── scenario-regroupements-transfer-otd.json           ← croisement fenêtres × (unitaire / lots / bloc / train)
 ├── regroupements-transfer-otd.md                      ← OTD à fort encours avec regroupements et transferts par batch
+├── scenario-courbe-u-otd.json                         ← sweep 12 fenêtres (0,5–12×W) × 4 variantes pour voir le U
+├── courbe-u-otd.md                                    ← le U vu par l'OTD (courte / intermédiaire / longue fenêtre)
 ├── scripts/
-│   └── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
+│   ├── run_montecarlo.mjs                             ← rejoue le Monte-Carlo du HTML sous Node
+│   ├── dashboard_u.py                                 ← tableau de bord du U (attention, OTD vs fenêtre)
+│   └── courbe_u.py                                    ← figure du U : OTD ± IC95 vs fenêtre/W
 └── results/
     ├── surcharge-10-postes/                           ← campagne 10 postes (CSV, IC95, otd.png)
     ├── lots-series/                                   ← campagne lots/séries (CSV, conflits.csv, otd.png)
@@ -41,6 +45,7 @@ sdbr-mini-usine/
     ├── dashboard-u/                                   ← sweep fenêtres + tableau de bord (PNG, CSV, MD)
     ├── branche-droite-u/                              ← sweep 0,5–100×W + dashboard (PNG, CSV, MD)
     ├── regroupements-transfer-otd/                    ← fenêtres 48/120/240 h × 5 modes (CSV, otd.png)
+    ├── courbe-u-otd/                                  ← sweep 0,5–12×W × 4 variantes (CSV, u_otd.png)
     ├── montecarlo_replications.csv                    ← 2700 lignes (30 réplications × 18 scénarios × 5 politiques)
     ├── montecarlo_summary.csv                         ← moyenne ± demi-IC95 par scénario × indicateur
     └── montecarlo_summary.md                          ← tableaux prêts à lire
@@ -287,3 +292,18 @@ fenêtres {48, 120, 240 h} (240 h > délai client max ⇒ lancement immédiat = 
 9 à 36 OF (loi de Little). Les attentes structurelles des séries et des trains mangent
 toute la marge de la fenêtre (Goldratt p. 5–6, 12, 13). Règle pratique : à fort encours,
 éviter lots et transferts par batch — jamais les combiner.
+
+## 16. Le U vu par l'OTD : sweep de fenêtres × variantes avec/sans regroupements
+
+Voir [`courbe-u-otd.md`](courbe-u-otd.md) : 12 fenêtres de 0,5 à 12 × W (W = 24 h) ×
+4 variantes (unitaire, lots 8, transfert bloc 8, train 8), délai client 2–10 × W, 20 graines ;
+figure `results/courbe-u-otd/u_otd.png` (axe en × W, bande grise = zone W ≈ 10–15 % de la
+fenêtre) produite par `scripts/courbe_u.py`. **Branche gauche** : OTD = 0 % tant que la
+fenêtre ≤ 3 × W. **Zone intermédiaire** : pic à ~8 × W (W ≈ 12 % de la fenêtre) pour les
+variantes regroupées (lots8 68,2 %, bloc8 51,8 % ; en pic 65,6 % puis repli). **Branche
+droite** : à fenêtre ≥ 10 × W (lancement immédiat, fort encours) le témoin unitaire atteint
+93,5 % mais lots8 67,9 %, bloc8 51,7 %, train8 0,9 % — les attentes de lots/trains mangent la
+marge (retard P95 ×6 à ×22). Note : avec des promesses client, l'OTD est monotone en la
+fenêtre jusqu'à saturation ; la branche droite apparaît comme écart de niveau à fort encours
+(cf. aussi `regroupements-transfer-otd.md` : 81,6 → 50,4 → 32,1 → 0,0 % à 240 h) et comme
+dégradation vs la charge (`charge-otd-encours.md`).
