@@ -217,3 +217,13 @@ inactif). Campagne [`train-logistique.md`](train-logistique.md) : sur la ligne
 gros ; N=1 (unitaire) domine, conforme à Goldratt p. 5–6. La **vidange** d'un train
 incomplet est optionnelle (`trainVidange`, défaut `false`) sauf en fin de simulation
 (dernière pièce, sinon blocage) : avec vidange, N=8 → OTD 8,6 % au lieu de 0 %.
+
+## 11. Échelles relatives : délai client et fenêtres en multiples du temps opératoire
+
+`requestedLeadWorkMultiple: [a,b]` règle le délai client à [a, b] × W, où W est la
+somme des temps opératoires (pondérée par `familyWeights`, tracée dans
+`workContentHours`) ; `windowsWorkMultiple` / `windowsLeadFraction` font de même pour
+les fenêtres de lancement (multiples de W, ou fractions du délai client moyen —
+ex. 0,5 = tampon = moitié du délai, règle de Goldratt p. 14). Exemple : W = 24 h,
+`[2,7]` → délai [48, 168] h ; `[3,5,7]` → fenêtres [72, 120, 168] h. Test :
+`test_echelles_relatilles_somme_temps_operatoires`.

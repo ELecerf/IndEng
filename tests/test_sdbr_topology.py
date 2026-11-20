@@ -56,3 +56,21 @@ def test_train_vidange_optionnelle_sauf_fin():
     vidange=defaultdict(list)
     simulate(resolve_line(base|{"trainVidange":True}),jobs,100,[float("inf")],2,2,[(0,100)],vidange)
     assert list(vidange["shipped"].values())==[6,36,66]
+
+
+def test_echelles_relatilles_somme_temps_operatoires():
+    base=dict(line=dict(stationCount=3,bottleneckIndex=1,
+        families={"A":dict(regularHours=2,bottleneckHours=6),"B":dict(regularHours=2,bottleneckHours=6)}),
+        familyWeights=[1,1],requestedLeadWorkMultiple=[2,4],windowsWorkMultiple=[1,2],
+        warmup=0,arrivalEnd=100,maxBatchWaitHours=0)
+    c=resolve_line(base)
+    assert c["workContentHours"]==10.0
+    assert c["requestedLead"]==[20.0,40.0]
+    assert c["windows"]==[10.0,20.0]
+    assert "requestedLeadWorkMultiple" not in c and "windowsWorkMultiple" not in c
+    assert resolve_line(c)==c
+    base2=dict(base)
+    base2.pop("windowsWorkMultiple")
+    base2["windowsLeadFraction"]=[0.5,1.0]
+    c2=resolve_line(base2)
+    assert c2["windows"]==[15.0,30.0]
